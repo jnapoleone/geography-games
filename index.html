@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Grade 9 Geography review: quizzes and flashcards for landform regions, climate, maps, time zones, seasons and plate tectonics.">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Geo Review Base Camp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one narrow trail-map column; each screen is a single "station" card on a contour-line ground */
+:root{
+  --bg:#E8EFEC; --surface:#F8FBFA; --ink:#10312C; --muted:#4F6C65; --line:#C5D4CF;
+  --accent:#D9581A; --accent-ink:#FFFFFF; --accent-soft:#F6DDCF;
+  --good:#1B7F53; --good-soft:#D6EEE2; --bad:#B8342F; --bad-soft:#F5DAD8;
+  --contour:rgba(16,49,44,.07);
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0C1A18; --surface:#132623; --ink:#E2EEEA; --muted:#93AEA6; --line:#274340;
+  --accent:#FF8748; --accent-ink:#1A0B03; --accent-soft:#3A2418;
+  --good:#53C893; --good-soft:#163A2B; --bad:#FF7B73; --bad-soft:#3D1D1C;
+  --contour:rgba(226,238,234,.05); color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0C1A18; --surface:#132623; --ink:#E2EEEA; --muted:#93AEA6; --line:#274340;
+  --accent:#FF8748; --accent-ink:#1A0B03; --accent-soft:#3A2418;
+  --good:#53C893; --good-soft:#163A2B; --bad:#FF7B73; --bad-soft:#3D1D1C;
+  --contour:rgba(226,238,234,.05); color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5;
+  background-image:repeating-radial-gradient(ellipse 120% 80% at 85% -10%,transparent 0 38px,var(--contour) 38px 40px);
+  background-attachment:fixed;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:28px 56px;display:flex;flex-direction:column;gap:22px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1;margin:0;text-wrap:balance;letter-spacing:.01em}
+h1{font-size:clamp(44px,9vw,68px);text-transform:uppercase}
+h1 span{color:var(--accent)}
+h2{font-size:32px;text-transform:uppercase}
+.lede{margin:8px 0 0;color:var(--muted);max-width:60ch}
+header{display:flex;flex-direction:column;gap:6px}
+.decks{display:grid;gap:14px}
+.deck{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;grid-template-columns:1fr auto;gap:12px 16px;align-items:center}
+.deck h3{font-size:28px;text-transform:uppercase}
+.deck p{margin:4px 0 0;color:var(--muted);font-size:15px}
+.deck .meta{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:8px;font-variant-numeric:tabular-nums}
+.deck .meta b{color:var(--accent);font-weight:500}
+.deck .actions{display:flex;flex-direction:column;gap:8px}
+@media (max-width:520px){.deck{grid-template-columns:1fr}.deck .actions{flex-direction:row}.deck .actions .btn{flex:1}}
+.btn{font:inherit;font-weight:700;font-size:16px;border-radius:10px;padding:11px 18px;cursor:pointer;border:2px solid var(--ink);background:transparent;color:var(--ink);transition:transform .08s ease, background .15s ease}
+.btn:hover{background:var(--accent-soft)}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.06);background:var(--accent)}
+.btn.ghost{border-color:transparent;color:var(--muted);padding-inline:8px}
+.btn.ghost:hover{background:transparent;color:var(--ink);text-decoration:underline}
+.btn:focus-visible,.opt:focus-visible,.card:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.station{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:18px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.counter{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.streak{font-family:var(--mono);font-size:13px;color:var(--accent);font-variant-numeric:tabular-nums}
+.track{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.track i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s ease}
+.q{font-size:clamp(21px,4.4vw,26px);font-weight:700;line-height:1.3;margin:0;text-wrap:balance}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;font:inherit;font-size:17px;padding:13px 14px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;transition:border-color .15s ease, background .15s ease}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt .k{font-family:var(--mono);font-size:13px;min-width:24px;height:24px;border-radius:6px;display:inline-grid;place-items:center;background:var(--surface);border:1px solid var(--line);flex:none;margin-top:1px}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default}
+.feedback{border-radius:12px;padding:14px 16px;border-left:5px solid var(--good);background:var(--good-soft)}
+.feedback.miss{border-left-color:var(--bad);background:var(--bad-soft)}
+.feedback strong{display:block;margin-bottom:2px}
+.hint{color:var(--muted);font-style:italic;margin:0}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.row .right-side{display:flex;gap:10px;margin-left:auto}
+.score{font-family:var(--display);font-weight:800;font-size:clamp(72px,18vw,120px);line-height:.9;font-variant-numeric:tabular-nums}
+.score small{font-size:.4em;color:var(--muted)}
+.missed{margin:0;padding-left:20px;color:var(--muted)}
+.missed li{margin:4px 0}
+.card{perspective:1200px;cursor:pointer;min-height:260px;border:0;background:none;padding:0;font:inherit;color:inherit;text-align:left;width:100%}
+.card .inner{position:relative;min-height:260px;transition:transform .45s ease;transform-style:preserve-3d}
+.card.flipped .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;border:2px solid var(--line);background:var(--bg);padding:22px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.face.back{transform:rotateY(180deg);border-color:var(--accent);background:var(--accent-soft)}
+.face .term{font-family:var(--display);font-weight:800;font-size:clamp(28px,6vw,40px);line-height:1.05;text-transform:uppercase;text-wrap:balance}
+.face .def{font-size:19px;line-height:1.45}
+.face .tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.keys{font-family:var(--mono);font-size:12px;color:var(--muted)}
+footer{font-size:13px;color:var(--muted);text-align:center}
+@media (prefers-reduced-motion:reduce){.card .inner,.track i,.btn,.opt{transition:none}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">CGC1D · Grade 9 Geography</div>
+    <h1>Geo Review <span>Base Camp</span></h1>
+    <p class="lede">Pick a unit. Quizzes are 10 questions, and any you miss come back at the end so you finish on a win.</p>
+  </header>
+  <main id="app"></main>
+  <footer>Study practice only. Not for handing in.</footer>
+</div>
+
+<script>
+const DATA = {"questions": [{"deck": "u2", "prompt": "Which landform region is the oldest in Canada?", "correct": "Canadian Shield", "wrong": ["Cordillera", "Interior Plains", "Appalachian Uplands"], "hint": "It's the rocky, lake-covered region around Hudson Bay.", "explain": "The Canadian Shield is 2.5 to 4.28 billion years old, one of the oldest regions on Earth."}, {"deck": "u2", "prompt": "Where do most Canadians live?", "correct": "Great Lakes–St. Lawrence Lowlands", "wrong": ["Interior Plains", "Canadian Shield", "Cordillera"], "hint": "Think about where Toronto and Montreal are.", "explain": "The Great Lakes–St. Lawrence Lowlands hold most of Canada's people and most of its farmland."}, {"deck": "u2", "prompt": "Which region has the youngest mountains in Canada?", "correct": "Cordillera", "wrong": ["Appalachian Uplands", "Arctic Lands", "Canadian Shield"], "hint": "It includes the Rocky Mountains.", "explain": "The Cordillera is youngest. The Innuitian Mountains in the Arctic are second-youngest."}, {"deck": "u2", "prompt": "Canada's second-youngest mountains are the:", "correct": "Innuitian Mountains (Arctic Lands)", "wrong": ["Appalachian Uplands", "Rocky Mountains", "Canadian Shield hills"], "hint": "They're in the far north, with peaks poking through ice.", "explain": "The Innuitian Mountains in the Arctic Lands are second-youngest, after the Cordillera."}, {"deck": "u2", "prompt": "Potash, coal, oil and lots of farming describe which region?", "correct": "Interior Plains", "wrong": ["Hudson Bay Lowland", "Appalachian Uplands", "Arctic Lands"], "hint": "Also called the Prairies.", "explain": "Sediment on the Interior Plains holds potash, coal and oil, and the flat land is great for farming."}, {"deck": "u2", "prompt": "Nickel, uranium, gold, copper and zinc are mined mostly in the:", "correct": "Canadian Shield", "wrong": ["Interior Plains", "Great Lakes–St. Lawrence Lowlands", "Hudson Bay Lowland"], "hint": "The oldest region is also the most mineral-rich.", "explain": "The Canadian Shield is Canada's mineral storehouse."}, {"deck": "u2", "prompt": "A swampy plain sitting in a dip on the Canadian Shield is the:", "correct": "Hudson Bay Lowland", "wrong": ["Interior Plains", "Arctic Lowlands", "Great Lakes–St. Lawrence Lowlands"], "hint": "It wraps around a big bay.", "explain": "The Hudson Bay Lowland formed as glaciers retreated and left sediment behind."}, {"deck": "u2", "prompt": "Gros Morne National Park, with its fjord-like inlets, is in the:", "correct": "Appalachian Uplands", "wrong": ["Cordillera", "Arctic Lands", "Canadian Shield"], "hint": "It's on the island of Newfoundland.", "explain": "The Appalachian Uplands cover southern Quebec, the Maritimes and the island of Newfoundland."}, {"deck": "u2", "prompt": "The Niagara Escarpment and the Bruce Trail are in the:", "correct": "Great Lakes–St. Lawrence Lowlands", "wrong": ["Appalachian Uplands", "Canadian Shield", "Interior Plains"], "hint": "It runs across southern Ontario.", "explain": "The Niagara Escarpment is a long ridge across southern Ontario."}, {"deck": "u2", "prompt": "Fossil shells show the Niagara Escarpment was once under:", "correct": "A tropical ocean", "wrong": ["A glacier only", "A desert", "A volcano"], "hint": "Shells come from water.", "explain": "Shell fossils prove the escarpment was once under a warm tropical sea."}, {"deck": "u2", "prompt": "What is a nunatak?", "correct": "A mountain peak sticking up through an ice sheet", "wrong": ["A small hill with a core of ice", "A pond on the Prairies", "A hollow where ground ice melted"], "hint": "It's an Inuit word used in the Arctic mountains.", "explain": "Nunataks can be seen on Ellesmere Island in the Innuitian Mountains."}, {"deck": "u2", "prompt": "What is a pingo?", "correct": "A small hill with a core of ice", "wrong": ["A mountain peak sticking through ice", "A pond on the Prairies", "A river delta"], "hint": "Think ice inside, soil outside.", "explain": "Pingos are found in the Mackenzie Delta on the Arctic Coastal Plain."}, {"deck": "u2", "prompt": "A pond on the Prairies is called a:", "correct": "Slough", "wrong": ["Pingo", "Nunatak", "Fjord"], "hint": "It sounds like 'slew'.", "explain": "Sloughs and kettle lakes dot the Interior Plains."}, {"deck": "u2", "prompt": "The Continental Divide is:", "correct": "High Rocky Mountain peaks that decide if water flows west or east", "wrong": ["The border between Canada and the U.S.", "The edge of the Canadian Shield", "Where two ocean currents meet"], "hint": "It divides the direction rivers drain.", "explain": "Water on one side flows to the Pacific; on the other, east toward Hudson Bay and the Mississippi."}, {"deck": "u2", "prompt": "The Thule culture, whose houses are on Igloolik Island, were the ancestors of:", "correct": "Today's Inuit", "wrong": ["The Haudenosaunee", "Early French settlers", "The Métis"], "hint": "They lived in the Arctic Lowlands.", "explain": "The Thule are the direct ancestors of all modern Inuit and Yupik people."}, {"deck": "u2", "prompt": "Why does so much of the Canadian Shield look bare and rocky?", "correct": "Glaciers scraped the soil off the rock", "wrong": ["Volcanoes covered it in ash", "It used to be a desert", "Farming wore the soil away"], "hint": "Think about ice moving over the land.", "explain": "Heavy glaciation and erosion scoured the soil off, leaving bare rock and many lakes."}, {"deck": "u2", "prompt": "What is the difference between weather and climate?", "correct": "Weather is day-to-day; climate is the average over many years", "wrong": ["Weather is temperature; climate is rain", "Weather is for cities; climate is for countries", "They mean the same thing"], "hint": "One is today, one is long-term.", "explain": "A forecast is weather. 'Winters here are severe' is climate."}, {"deck": "u2", "prompt": "In LOWERN, what does the L stand for?", "correct": "Latitude", "wrong": ["Lakes", "Longitude", "Landforms"], "hint": "How far from the Equator.", "explain": "Places closer to the Equator are warmer because sunlight is more concentrated there."}, {"deck": "u2", "prompt": "In LOWERN, what does the O stand for?", "correct": "Ocean currents", "wrong": ["Orbit", "Ozone", "Oxygen"], "hint": "Warm ones and cold ones.", "explain": "Warm currents warm the air above them; cold currents cool it."}, {"deck": "u2", "prompt": "In LOWERN, what does the R stand for?", "correct": "Relief", "wrong": ["Rainfall", "Rivers", "Rotation"], "hint": "It's about mountains.", "explain": "Moist air rises up a mountain, cools and drops rain; the far side stays dry."}, {"deck": "u2", "prompt": "In LOWERN, what does the N stand for?", "correct": "Near water", "wrong": ["North", "Night", "Nitrogen"], "hint": "Coastal vs. inland.", "explain": "Places near large bodies of water have milder, maritime climates."}, {"deck": "u2", "prompt": "Why does Newfoundland get about 100 foggy days a year?", "correct": "The cold Labrador Current meets the warm Gulf Stream", "wrong": ["It is very high above sea level", "It is close to the Equator", "Dry winds blow in from the Prairies"], "hint": "Two ocean currents meet there.", "explain": "Warm and cold water meeting off the coast creates fog."}, {"deck": "u2", "prompt": "Canada's prevailing winds (the westerlies) blow:", "correct": "West to east", "wrong": ["East to west", "North to south", "South to north"], "hint": "The name gives it away.", "explain": "That's why weather systems reach Toronto from the west."}, {"deck": "u2", "prompt": "As elevation increases, temperature:", "correct": "Drops", "wrong": ["Rises", "Stays the same", "Doubles"], "hint": "Think about snow on mountain tops in summer.", "explain": "Rising air expands and cools, so higher places are colder."}, {"deck": "u2", "prompt": "The dry side of a mountain, away from the wind, is called the:", "correct": "Rain shadow (leeward side)", "wrong": ["Windward side", "Jet stream", "Dew point"], "hint": "It's in the 'shadow' of the mountain.", "explain": "Moist air drops its rain on the windward side, leaving the leeward side dry."}, {"deck": "u2", "prompt": "Vancouver gets lots of rain mainly because of:", "correct": "Relief: moist Pacific air rising up the mountains", "wrong": ["Its high latitude", "A continental climate", "The Labrador Current"], "hint": "Look at the mountains right behind the city.", "explain": "Air from the Pacific rises up the Coast Mountains, cools, and drops rain."}, {"deck": "u2", "prompt": "The warmest month is 22°C and the coldest is −4°C. What is the temperature range?", "correct": "26°C", "wrong": ["18°C", "22°C", "9°C"], "hint": "Subtracting a negative number means adding.", "explain": "22 − (−4) = 22 + 4 = 26°C."}, {"deck": "u2", "prompt": "A continental climate has:", "correct": "A range over 25°C and under 1000 mm of precipitation", "wrong": ["A range under 25°C and over 1000 mm", "Mild winters and cool summers", "Lots of fog"], "hint": "Far from the ocean = extreme temperatures, less rain.", "explain": "Continental: big range, low precipitation. Maritime is the opposite."}, {"deck": "u2", "prompt": "A place has a 14°C range and 1245 mm of precipitation. Its climate is:", "correct": "Maritime", "wrong": ["Continental", "Modified continental", "Arctic"], "hint": "Check both rules: range and precipitation.", "explain": "Range under 25°C and precipitation over 1000 mm = maritime."}, {"deck": "u2", "prompt": "Which months count toward the growing season?", "correct": "Months at 6°C or warmer", "wrong": ["Months at 0°C or warmer", "Months with over 50 mm of rain", "Only June, July and August"], "hint": "Plants need a little warmth.", "explain": "Plants grow at 6°C or warmer. Count the DAYS in those months."}, {"deck": "u2", "prompt": "How do you estimate the snowfall equivalent?", "correct": "Add precipitation for months at 0°C or colder, then multiply by 10", "wrong": ["Multiply the total precipitation by 10", "Divide winter precipitation by 10", "Count the snowy days"], "hint": "1 mm of rain = 10 mm of snow.", "explain": "Example: (29 + 30 + 38) × 10 = 970 mm of snow."}, {"deck": "u2", "prompt": "On a climate graph, temperature is shown as a:", "correct": "Red line", "wrong": ["Blue bars", "Green bars", "Black dotted line"], "hint": "Hot colour, smooth line.", "explain": "Temperature = red line graph. Precipitation = blue bars."}, {"deck": "u2", "prompt": "On a climate graph, precipitation is shown as:", "correct": "Blue bars", "wrong": ["A red line", "Green shading", "White dots"], "hint": "Water colour, bar graph.", "explain": "Each bar fills the whole month column. Snow months are coloured white."}, {"deck": "u2", "prompt": "A growing season from April to October is how long?", "correct": "214 days", "wrong": ["7 days", "180 days", "365 days"], "hint": "Add the days in each month.", "explain": "30 + 31 + 30 + 31 + 31 + 30 + 31 = 214 days."}, {"deck": "u2", "prompt": "How do you find the average annual temperature?", "correct": "Add all 12 monthly temperatures and divide by 12", "wrong": ["Highest minus lowest", "Average the hottest and coldest months", "Add all 12 and divide by 4"], "hint": "An average of 12 numbers.", "explain": "Highest minus lowest is the RANGE, a different calculation."}, {"deck": "u2", "prompt": "Which three months make up fall on a climate graph?", "correct": "September, October, November", "wrong": ["August, September, October", "October, November, December", "September, October only"], "hint": "Fall starts at the autumnal equinox.", "explain": "Winter = Dec–Feb, Spring = Mar–May, Summer = Jun–Aug, Fall = Sep–Nov."}, {"deck": "u1", "prompt": "The Prime Meridian passes through:", "correct": "Greenwich, England", "wrong": ["Paris, France", "Ottawa, Canada", "Rome, Italy"], "hint": "Home of the Royal Observatory.", "explain": "0° longitude runs through Greenwich, London, England."}, {"deck": "u1", "prompt": "The longest line of latitude is the:", "correct": "Equator", "wrong": ["Prime Meridian", "Tropic of Cancer", "Arctic Circle"], "hint": "It goes around Earth's widest part.", "explain": "The Equator is about 40 075 km around."}, {"deck": "u1", "prompt": "Lines of longitude are farthest apart:", "correct": "At the Equator", "wrong": ["At the North Pole", "At the International Date Line", "At the South Pole"], "hint": "They all meet at the poles.", "explain": "Meridians spread out toward the Equator and meet at the poles."}, {"deck": "u1", "prompt": "Which province is the largest by area?", "correct": "Quebec", "wrong": ["Ontario", "British Columbia", "Alberta"], "hint": "Nunavut is bigger, but it's a territory.", "explain": "Quebec is the largest province; Ontario is second."}, {"deck": "u1", "prompt": "Which province has the most people?", "correct": "Ontario", "wrong": ["Quebec", "British Columbia", "Alberta"], "hint": "You live there.", "explain": "Ontario has about 16 million people; Quebec is second."}, {"deck": "u1", "prompt": "Which river connects the Great Lakes to the Atlantic Ocean?", "correct": "St. Lawrence River", "wrong": ["Mackenzie River", "Fraser River", "Ottawa River"], "hint": "It's in the name of a landform region.", "explain": "The St. Lawrence flows from Lake Ontario to the Atlantic."}, {"deck": "u1", "prompt": "Earth is closest to the Sun in:", "correct": "January", "wrong": ["June", "March", "September"], "hint": "It's a trick: it's during our winter.", "explain": "Seasons come from the tilt, not distance."}, {"deck": "u1", "prompt": "Why does Canada have seasons?", "correct": "Earth's axis is tilted about 23.5°", "wrong": ["Earth gets closer to the Sun in summer", "The Sun gets hotter in summer", "Ocean currents change direction"], "hint": "Think about direct and indirect rays.", "explain": "The hemisphere tilted toward the Sun gets more direct rays and longer days."}, {"deck": "u1", "prompt": "In Canada, the shortest day of the year is around:", "correct": "December 21", "wrong": ["March 21", "June 21", "September 23"], "hint": "It's the winter solstice.", "explain": "Dec 21 = winter solstice (shortest day). June 21 = summer solstice (longest)."}, {"deck": "u1", "prompt": "The two days when day and night are equal are the:", "correct": "Equinoxes", "wrong": ["Solstices", "Perihelions", "Date lines"], "hint": "'Equi' means equal.", "explain": "The equinoxes are March 21 and September 23."}, {"deck": "u1", "prompt": "A Mercator map is good for navigation, but it:", "correct": "Makes places near the poles look too big", "wrong": ["Cuts the oceans into pieces", "Shows no latitude lines", "Only shows political boundaries"], "hint": "Look at Greenland on one.", "explain": "Greenland looks as big as Africa but is about 14 times smaller."}, {"deck": "u1", "prompt": "Which projection keeps continents their true size but cuts the oceans apart?", "correct": "Goode Homolosine", "wrong": ["Mercator", "Waterman Butterfly", "AuthaGraph"], "hint": "It looks like an orange peel.", "explain": "Goode is equal-area, but its interruptions break up the oceans."}, {"deck": "u1", "prompt": "In BOLTS, what does the L stand for?", "correct": "Legend", "wrong": ["Latitude", "Labels", "Location"], "hint": "It explains the symbols and colours.", "explain": "BOLTS = Border, Orientation, Legend, Title, Scale (plus Source)."}, {"deck": "u1", "prompt": "How many degrees of longitude make up one time zone?", "correct": "15°", "wrong": ["24°", "10°", "30°"], "hint": "360° ÷ 24 hours.", "explain": "Earth spins 360° in 24 hours, so 15° = 1 hour."}, {"deck": "u1", "prompt": "A game in Barcelona (GMT +1) starts at 7:00 pm. What time is it in Toronto (GMT −5)?", "correct": "1:00 pm", "wrong": ["1:00 am", "12:00 noon", "6:00 pm"], "hint": "Toronto is 6 hours behind. West = subtract.", "explain": "7:00 pm − 6 hours = 1:00 pm."}, {"deck": "u1", "prompt": "Going east across time zones, the clock:", "correct": "Goes ahead (add hours)", "wrong": ["Goes back (subtract hours)", "Stays the same", "Changes by a day each zone"], "hint": "East is more.", "explain": "The Eastern Hemisphere is ahead of GMT; the Western is behind."}, {"deck": "u1", "prompt": "Who invented standard time in 1884?", "correct": "Sir Sandford Fleming", "wrong": ["Alfred Wegener", "Gerardus Mercator", "John A. Macdonald"], "hint": "A Canadian who worked on railways.", "explain": "Trains couldn't keep schedules when every town set its own time."}, {"deck": "u1", "prompt": "Pangaea was:", "correct": "A supercontinent holding all of Earth's land", "wrong": ["A frozen 'snowball Earth'", "An asteroid that hit Mexico", "A type of fossil fern"], "hint": "'Pan' means all.", "explain": "Pangaea broke apart about 200 million years ago."}, {"deck": "u1", "prompt": "Matching fossils on continents separated by oceans told Wegener that:", "correct": "The continents were once joined", "wrong": ["The fossils had swum across", "Climate zones never change", "The oceans were once dry land"], "hint": "The animals couldn't cross an ocean.", "explain": "Mesosaurus and Glossopteris fossils are found on several continents."}, {"deck": "u1", "prompt": "At which plate boundary is new sea floor created?", "correct": "Divergent", "wrong": ["Transform", "Convergent", "Subduction zone"], "hint": "The plates move apart.", "explain": "Magma rises at mid-ocean ridges like the Mid-Atlantic Ridge."}, {"deck": "u1", "prompt": "The San Andreas Fault is a:", "correct": "Transform boundary", "wrong": ["Divergent boundary", "Subduction zone", "Volcanic island arc"], "hint": "Plates slide past each other.", "explain": "Transform boundaries cause earthquakes but no volcanoes."}, {"deck": "u1", "prompt": "The Himalayas formed at which kind of boundary?", "correct": "Continental–continental convergent", "wrong": ["Oceanic–oceanic convergent", "Divergent", "Transform"], "hint": "Neither plate sinks.", "explain": "India crashed into Asia, and the crust crumpled into mountains."}, {"deck": "u1", "prompt": "Why does an oceanic plate sink under a continental plate?", "correct": "Oceanic crust is denser", "wrong": ["Oceanic crust is lighter", "It is warmer", "It moves faster"], "hint": "Heavier things sink.", "explain": "The denser oceanic plate subducts, forming trenches and volcanoes."}, {"deck": "u1", "prompt": "Tectonic plates (the lithosphere) float on the:", "correct": "Asthenosphere", "wrong": ["Inner core", "Outer core", "Crust"], "hint": "The soft, partly melted layer of the upper mantle.", "explain": "Convection currents in the asthenosphere move the plates."}], "cards": [{"deck": "u2", "term": "Landform region", "def": "A large area where the land looks and formed in a similar way; Canada has 7"}, {"deck": "u2", "term": "Memory trick for the 7 landform regions", "def": "Can Cool Iguanas Have Arctic Green Apples? (Cordillera, Canadian Shield, Interior Plains, Hudson Bay Lowland, Arctic Lands, Great Lakes–St. Lawrence Lowlands, Appalachian Uplands)"}, {"deck": "u2", "term": "Canada's area", "def": "9.98 million km² (2nd largest; Russia is 17.10 million km²)"}, {"deck": "u2", "term": "Canadian Shield", "def": "Rocky, bare, lake-covered region around Hudson Bay; glaciers scraped off the soil; oldest region on Earth (2.5–4.28 billion years)"}, {"deck": "u2", "term": "Canadian Shield minerals", "def": "Nickel, uranium, gold, copper, zinc"}, {"deck": "u2", "term": "Oldest landform region in Canada", "def": "Canadian Shield"}, {"deck": "u2", "term": "Hudson Bay Lowland", "def": "Swampy plain in a dip on the Canadian Shield around Hudson Bay; glaciers left sediment that formed beaches"}, {"deck": "u2", "term": "Thermokarst depression", "def": "A hollow that fills with water when ice in the ground melts"}, {"deck": "u2", "term": "Arctic Lands (3 subregions)", "def": "Innuitian Region, Arctic Coastal Plain, Arctic Lowlands"}, {"deck": "u2", "term": "Innuitian Mountains", "def": "Arctic mountains with peaks poking through ice; Canada's second-youngest mountains"}, {"deck": "u2", "term": "Nunatak", "def": "Inuit word for a mountain peak sticking up through an ice sheet"}, {"deck": "u2", "term": "Pingo", "def": "A small hill with a core of ice, covered in soil and plants"}, {"deck": "u2", "term": "Thule", "def": "Indigenous culture whose sod and whalebone houses are on Igloolik Island; direct ancestors of today's Inuit"}, {"deck": "u2", "term": "Interior Plains", "def": "The Prairies, between the Canadian Shield and the Cordillera; flat land rising in two steps (Saskatchewan Plain, Alberta Plain)"}, {"deck": "u2", "term": "Interior Plains resources", "def": "Potash, coal, oil; lots of farming"}, {"deck": "u2", "term": "Slough", "def": "A pond on the Prairies, often in a kettle (a dip left by glacial ice)"}, {"deck": "u2", "term": "Cordillera", "def": "Western mountain region (BC, Yukon), including the Rocky Mountains; youngest mountains in Canada"}, {"deck": "u2", "term": "Youngest mountains in Canada", "def": "Cordillera"}, {"deck": "u2", "term": "Continental Divide", "def": "The high peaks of the Rockies that decide whether water flows west to the Pacific or east"}, {"deck": "u2", "term": "Great Lakes–St. Lawrence Lowlands", "def": "Flat, low land in southern Ontario and Quebec shaped by glaciers; most of Canada's people and farmland"}, {"deck": "u2", "term": "Where do most Canadians live?", "def": "Great Lakes–St. Lawrence Lowlands"}, {"deck": "u2", "term": "Niagara Escarpment", "def": "A long ridge across Ontario (home of the Bruce Trail) that was once under a tropical ocean"}, {"deck": "u2", "term": "Appalachian Uplands", "def": "Very old, worn-down mountains in southern Quebec, the Maritimes and the island of Newfoundland"}, {"deck": "u2", "term": "Gros Morne National Park", "def": "In the Appalachian Uplands (Newfoundland); known for fjord-like inlets"}, {"deck": "u2", "term": "Glaciation", "def": "Huge sheets of ice moving over the land, scraping it and dropping sediment when they melt"}, {"deck": "u2", "term": "Erosion", "def": "Wind, water or ice slowly wearing rock away"}, {"deck": "u2", "term": "Weather", "def": "Day-to-day conditions: temperature, precipitation, humidity, wind, clouds, air pressure"}, {"deck": "u2", "term": "Climate", "def": "The weather of a place averaged over a long period of time"}, {"deck": "u2", "term": "LOWERN", "def": "The 6 factors affecting climate: Latitude, Ocean currents, Wind and air pressure, Elevation, Relief, Near water"}, {"deck": "u2", "term": "Latitude (climate factor)", "def": "Places closer to the Equator are warmer because sunlight is more concentrated there"}, {"deck": "u2", "term": "Ocean currents (climate factor)", "def": "Warm currents warm the air above them; cold currents cool it"}, {"deck": "u2", "term": "Labrador Current and Gulf Stream", "def": "Cold Labrador Current meets warm Gulf Stream off Newfoundland, causing about 100 foggy days a year"}, {"deck": "u2", "term": "Wind and air pressure (climate factor)", "def": "Air over oceans is moist and brings rain; air over land is dry; air moves from high to low pressure"}, {"deck": "u2", "term": "Westerlies", "def": "Canada's prevailing winds, blowing west to east; weather systems move west to east"}, {"deck": "u2", "term": "Jet stream", "def": "A fast current of air high up that moves west to east"}, {"deck": "u2", "term": "Elevation (climate factor)", "def": "The higher you go, the colder it gets, because rising air expands and cools"}, {"deck": "u2", "term": "Dew point", "def": "The temperature at which water vapour in the air condenses into liquid"}, {"deck": "u2", "term": "Relief (climate factor)", "def": "Moist air rises up the windward side of mountains, cools and drops rain (relief precipitation); the leeward side is dry"}, {"deck": "u2", "term": "Rain shadow", "def": "The dry leeward side of a mountain"}, {"deck": "u2", "term": "Near water (climate factor)", "def": "Places near oceans have milder maritime climates; places far inland have extreme continental climates"}, {"deck": "u2", "term": "Continental climate", "def": "Temperature range more than 25°C and total precipitation less than 1000 mm"}, {"deck": "u2", "term": "Maritime climate", "def": "Temperature range less than 25°C and total precipitation more than 1000 mm"}, {"deck": "u2", "term": "Modified climate", "def": "Matches one continental/maritime rule but not the other"}, {"deck": "u2", "term": "Climate graph: temperature", "def": "Red line graph; dot in the middle of each month; one smooth line out to the edge"}, {"deck": "u2", "term": "Climate graph: precipitation", "def": "Blue bar graph; each bar fills the whole width of the month; use a ruler"}, {"deck": "u2", "term": "Climate graph: snow", "def": "Colour bars white where the temperature is 0°C or colder"}, {"deck": "u2", "term": "Climate graph: growing season", "def": "Colour green under the temperature line where it is 6°C or warmer"}, {"deck": "u2", "term": "Average annual temperature", "def": "Add all 12 monthly temperatures and divide by 12"}, {"deck": "u2", "term": "Temperature range", "def": "Highest monthly temperature minus lowest (subtracting a negative = adding)"}, {"deck": "u2", "term": "Total precipitation", "def": "Add all 12 monthly precipitation values"}, {"deck": "u2", "term": "Snowfall equivalent", "def": "Add precipitation for months at 0°C or colder, then multiply by 10"}, {"deck": "u2", "term": "Length of growing season", "def": "Add the days of every month at 6°C or warmer"}, {"deck": "u2", "term": "Season of most precipitation", "def": "Add each 3-month season (Winter = Dec, Jan, Feb; Spring = Mar, Apr, May; Summer = Jun, Jul, Aug; Fall = Sep, Oct, Nov)"}, {"deck": "u2", "term": "Temperature needed for plants to grow", "def": "6°C or warmer"}, {"deck": "u2", "term": "Range if highest is 22°C and lowest is −4°C", "def": "26°C"}, {"deck": "u1", "term": "Map", "def": "A picture of Earth's features drawn on a flat surface, using symbols and colours to simplify the real world"}, {"deck": "u1", "term": "Political map", "def": "Shows human-made boundaries (countries, provinces, states) and often cities"}, {"deck": "u1", "term": "Physical map", "def": "Shows natural features: landforms, relief, rivers and lakes, often by shading or colour"}, {"deck": "u1", "term": "Political vs. physical map", "def": "Political focuses on borders and places people created; physical focuses on natural features and shows borders only as a reference"}, {"deck": "u1", "term": "Topographic map", "def": "Shows elevation using contour lines, plus detailed features"}, {"deck": "u1", "term": "Climate map", "def": "Shows temperature or precipitation patterns"}, {"deck": "u1", "term": "Treaty 13", "def": "The treaty with the Mississaugas of the Credit that covers Toronto (along with the Williams Treaties)"}, {"deck": "u1", "term": "BOLTS", "def": "The parts of a map: Border, Orientation, Legend, Title, Scale (plus Source)"}, {"deck": "u1", "term": "Map border", "def": "Goes around the entire map; title, legend and labels sit inside it"}, {"deck": "u1", "term": "Map orientation", "def": "A compass rose or north arrow"}, {"deck": "u1", "term": "Map legend", "def": "Explains the symbols and colours; has its own border and an underlined title"}, {"deck": "u1", "term": "Map title", "def": "At the top, underlined; says what, where and when"}, {"deck": "u1", "term": "Map scale (3 types)", "def": "Linear, statement (1 cm = 100 km), or representative fraction (1:50 000)"}, {"deck": "u1", "term": "Map source", "def": "Who made the map and when"}, {"deck": "u1", "term": "Colour rule for water", "def": "Blue is used only for water; never use white or black as map colours"}, {"deck": "u1", "term": "Map projection", "def": "The method used to flatten round Earth onto a flat map; it always distorts shape, area, distance or direction"}, {"deck": "u1", "term": "Mercator projection", "def": "Rectangular map from a cylinder; keeps shapes and compass directions, so it was used for navigation"}, {"deck": "u1", "term": "Mercator weakness", "def": "Stretches areas near the poles: Greenland looks as big as Africa but is about 14 times smaller"}, {"deck": "u1", "term": "Goode Homolosine projection", "def": "\"Orange peel\" map cut through the oceans; equal-area, so continents keep their true size"}, {"deck": "u1", "term": "Waterman Butterfly projection", "def": "Butterfly-shaped map of flat sections with very little distortion of size or shape"}, {"deck": "u1", "term": "AuthaGraph projection", "def": "Rectangular map that keeps area proportions accurate but bends shapes and directions"}, {"deck": "u1", "term": "Latitude", "def": "Distance north or south of the Equator, 0° to 90° N or S"}, {"deck": "u1", "term": "Longitude", "def": "Distance east or west of the Prime Meridian, 0° to 180° E or W"}, {"deck": "u1", "term": "Parallels", "def": "Another name for lines of latitude (they never meet)"}, {"deck": "u1", "term": "Meridians", "def": "Another name for lines of longitude (they all meet at the poles)"}, {"deck": "u1", "term": "Equator", "def": "0° latitude; the longest line of latitude (about 40 075 km); splits Earth into Northern and Southern Hemispheres"}, {"deck": "u1", "term": "Prime Meridian", "def": "0° longitude; passes through the Royal Observatory in Greenwich, London, England (UK)"}, {"deck": "u1", "term": "International Date Line", "def": "About 180° longitude, on the opposite side of Earth from the Prime Meridian"}, {"deck": "u1", "term": "1 degree of latitude", "def": "About 111 km"}, {"deck": "u1", "term": "Where are lines of longitude farthest apart?", "def": "At the Equator"}, {"deck": "u1", "term": "Which comes first in a coordinate?", "def": "Latitude (north/south), then longitude (east/west)"}, {"deck": "u1", "term": "Latitude memory trick", "def": "Latitude = ladder: the rungs run side to side, but you climb up and down (north–south)"}, {"deck": "u1", "term": "43.6426° N, 79.3871° W", "def": "CN Tower, Toronto, Canada"}, {"deck": "u1", "term": "48.8584° N, 2.2945° E", "def": "Eiffel Tower, Paris, France"}, {"deck": "u1", "term": "29.9773° N, 31.1325° E", "def": "Great Pyramid of Giza, Egypt"}, {"deck": "u1", "term": "40.6892° N, 74.0445° W", "def": "Statue of Liberty, New York, USA"}, {"deck": "u1", "term": "Number of provinces and territories in Canada", "def": "10 provinces and 3 territories"}, {"deck": "u1", "term": "Continent Canada is on", "def": "North America"}, {"deck": "u1", "term": "Country larger than Canada by area", "def": "Russia (Canada is second)"}, {"deck": "u1", "term": "Two largest provinces by area", "def": "Quebec (1st), Ontario (2nd)"}, {"deck": "u1", "term": "Two largest provinces by population", "def": "Ontario (1st), Quebec (2nd)"}, {"deck": "u1", "term": "Oldest provinces", "def": "Ontario, Quebec, Nova Scotia, New Brunswick (Confederation, 1867)"}, {"deck": "u1", "term": "Newest province", "def": "Newfoundland and Labrador (1949)"}, {"deck": "u1", "term": "Newest territory", "def": "Nunavut (1999)"}, {"deck": "u1", "term": "Three oceans bordering Canada", "def": "Pacific (west), Atlantic (east), Arctic (north)"}, {"deck": "u1", "term": "The five Great Lakes (HOMES)", "def": "Huron, Ontario, Michigan, Erie, Superior"}, {"deck": "u1", "term": "River connecting the Great Lakes to the ocean", "def": "St. Lawrence River"}, {"deck": "u1", "term": "Spelling of the province with capital Regina", "def": "S-a-s-k-a-t-c-h-e-w-a-n"}, {"deck": "u1", "term": "Capital of Nunavut", "def": "Iqaluit"}, {"deck": "u1", "term": "Capital of Prince Edward Island", "def": "Charlottetown"}, {"deck": "u1", "term": "Capital of New Brunswick", "def": "Fredericton"}, {"deck": "u1", "term": "Capital of British Columbia", "def": "Victoria"}, {"deck": "u1", "term": "Why is every time zone 15°?", "def": "Earth spins 360° in 24 hours; 360 ÷ 24 = 15° per hour"}, {"deck": "u1", "term": "GMT / UT", "def": "Greenwich Mean Time (Universal Time): the time at the Prime Meridian"}, {"deck": "u1", "term": "East or west of Greenwich: which is ahead?", "def": "East is ahead (add hours); west is behind (subtract hours)"}, {"deck": "u1", "term": "Direction Earth rotates", "def": "West to east"}, {"deck": "u1", "term": "Sir Sandford Fleming", "def": "Canadian who invented standard time in 1884, because railways couldn't keep schedules"}, {"deck": "u1", "term": "Why time zone borders zigzag", "def": "Political reasons or convenience (e.g., China uses one time zone across about 60° of longitude)"}, {"deck": "u1", "term": "Canada's 6 time zones", "def": "Pacific, Mountain, Central, Eastern, Atlantic, Newfoundland"}, {"deck": "u1", "term": "Crossing the International Date Line going west", "def": "Add a day"}, {"deck": "u1", "term": "Crossing the International Date Line going east", "def": "Lose a day"}, {"deck": "u1", "term": "Daylight saving time", "def": "\"Spring forward, fall back\": clocks move ahead one hour in summer for more evening daylight"}, {"deck": "u1", "term": "Toronto's offset from GMT", "def": "GMT −5 (noon in Greenwich = 7 am in Toronto)"}, {"deck": "u1", "term": "4 steps to solve a time zone question", "def": "1) Find each city's GMT offset 2) Count the zones between them 3) West = subtract, east = add 4) Adjust the time and change the day if you pass midnight"}, {"deck": "u1", "term": "Barcelona game at 7 pm: time in Los Angeles?", "def": "10:00 am (LA is GMT −8, Barcelona GMT +1: 9 hours earlier)"}, {"deck": "u1", "term": "Barcelona game at 7 pm: time in Toronto?", "def": "1:00 pm (Toronto is GMT −5, Barcelona GMT +1: 6 hours earlier)"}, {"deck": "u1", "term": "San Francisco game at 8 pm: time in Toronto?", "def": "11:00 pm (Pacific to Eastern = 3 hours later)"}, {"deck": "u1", "term": "Why Earth has seasons", "def": "Earth's axis is tilted about 23.5°, so each hemisphere takes turns getting more direct rays and longer days"}, {"deck": "u1", "term": "Direct rays", "def": "Sunlight that hits straight on, concentrating heat on a small area (warmer)"}, {"deck": "u1", "term": "Indirect rays", "def": "Sunlight that hits at a slant, spreading heat over a larger area (cooler)"}, {"deck": "u1", "term": "When is Earth closest to the Sun?", "def": "Early January (perihelion); farthest in early July (aphelion)"}, {"deck": "u1", "term": "Winter solstice", "def": "December 21: shortest day in Canada; Southern Hemisphere tilts toward the Sun"}, {"deck": "u1", "term": "Summer solstice", "def": "June 21: longest day in Canada; Northern Hemisphere tilts toward the Sun"}, {"deck": "u1", "term": "Spring (vernal) equinox", "def": "March 21: day and night are equal"}, {"deck": "u1", "term": "Autumnal equinox", "def": "September 23: day and night are equal"}, {"deck": "u1", "term": "Christmas in Australia falls in…", "def": "Summer (seasons are opposite in the Southern Hemisphere)"}, {"deck": "u1", "term": "Pangaea", "def": "The supercontinent that held all of Earth's land about 300–200 million years ago"}, {"deck": "u1", "term": "Alfred Wegener", "def": "Proposed Continental Drift Theory (1912)"}, {"deck": "u1", "term": "Wegener's evidence", "def": "Puzzle fit of continents, matching fossils, matching rock sequences, glacial scratches, and climate clues like coal in Antarctica"}, {"deck": "u1", "term": "Wegener's big problem", "def": "He couldn't explain what force moved the continents"}, {"deck": "u1", "term": "Snowball Earth", "def": "When Earth froze almost completely, about 700–635 million years ago"}, {"deck": "u1", "term": "Dinosaur extinction", "def": "An asteroid hit near Mexico's Yucatán Peninsula about 66 million years ago, blocking sunlight"}, {"deck": "u1", "term": "Lithosphere", "def": "Rigid crust plus the top of the upper mantle; makes up the tectonic plates"}, {"deck": "u1", "term": "Asthenosphere", "def": "Soft, partly molten layer of the upper mantle that the plates float on"}, {"deck": "u1", "term": "Convection currents", "def": "Hot mantle rock rises, cools and sinks in a loop, dragging the plates"}, {"deck": "u1", "term": "Divergent boundary", "def": "Plates move apart; new sea floor forms (Mid-Atlantic Ridge)"}, {"deck": "u1", "term": "Convergent boundary", "def": "Plates collide; subduction zones, volcanoes, mountains, biggest earthquakes"}, {"deck": "u1", "term": "Transform boundary", "def": "Plates slide past each other; earthquakes, no volcanoes (San Andreas Fault)"}, {"deck": "u1", "term": "Subduction zone", "def": "Where a denser plate dives under another and melts back into the mantle"}, {"deck": "u1", "term": "Mid-ocean ridge", "def": "Underwater mountain chain where magma rises and new sea floor forms"}, {"deck": "u1", "term": "Volcanic island arc", "def": "Islands formed at oceanic–oceanic convergence (Japan, Aleutian Islands)"}, {"deck": "u1", "term": "Himalayas", "def": "Formed when India crashed into Asia (continental–continental); still growing"}, {"deck": "u1", "term": "Ring of Fire", "def": "Ring of earthquakes and volcanoes around the Pacific Ocean"}]};
+const DECKS = [
+  {id:"u2", name:"Unit 2", sub:"Landform regions of Canada · Weather & climate · Climate graphs"},
+  {id:"u1", name:"Unit 1", sub:"Maps & projections · Latitude & longitude · Time zones · Seasons · Plate tectonics"},
+  {id:"mix", name:"Mixed review", sub:"Mostly Unit 2, with Unit 1 mixed in so it stays fresh"}
+];
+const app = document.getElementById("app");
+const store = {
+  get(k){ try{ return JSON.parse(localStorage.getItem("geo-"+k)); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem("geo-"+k, JSON.stringify(v)); }catch(e){} }
+};
+const shuffle = a => { a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const qsFor = id => id==="mix" ? null : DATA.questions.filter(q => q.deck===id);
+const cardsFor = id => id==="mix" ? DATA.cards : DATA.cards.filter(c => c.deck===id);
+function pickQuiz(id){
+  if(id==="mix"){
+    const u2 = shuffle(DATA.questions.filter(q=>q.deck==="u2")).slice(0,7);
+    const u1 = shuffle(DATA.questions.filter(q=>q.deck==="u1")).slice(0,3);
+    return shuffle(u2.concat(u1));
+  }
+  return shuffle(qsFor(id)).slice(0,10);
+}
+let keyHandler = null;
+document.addEventListener("keydown", e => { if(keyHandler) keyHandler(e); });
+
+function home(){
+  keyHandler = null;
+  const best = store.get("best") || {};
+  app.innerHTML = '<div class="decks">' + DECKS.map(d => {
+    const nq = d.id==="mix" ? DATA.questions.length : qsFor(d.id).length;
+    const nc = cardsFor(d.id).length;
+    const b = best[d.id];
+    return `<section class="deck">
+      <div><h3>${esc(d.name)}</h3><p>${esc(d.sub)}</p>
+      <div class="meta">${nq} questions · ${nc} flashcards${b!=null ? ` · best <b>${b}/10</b>` : ""}</div></div>
+      <div class="actions"><button class="btn primary" id="quiz-${d.id}">Quiz</button><button class="btn" id="cards-${d.id}">Flashcards</button></div>
+    </section>`;
+  }).join("") + "</div>";
+  DECKS.forEach(d => {
+    document.getElementById("quiz-"+d.id).onclick = () => startQuiz(d);
+    document.getElementById("cards-"+d.id).onclick = () => startCards(d);
+  });
+  window.scrollTo(0,0);
+}
+
+function startQuiz(deck){
+  const list = pickQuiz(deck.id).map(q => ({...q, order: shuffle([q.correct].concat(q.wrong))}));
+  const st = { deck, queue:list.slice(), total:list.length, done:0, firstTry:0, streak:0, missed:[], retrying:false, seen:new Set() };
+  showQuestion(st);
+}
+
+function showQuestion(st){
+  const q = st.queue[0];
+  const isRetry = st.seen.has(q.prompt);
+  const pct = Math.round(st.done / st.total * 100);
+  app.innerHTML = `<section class="station" aria-live="polite">
+    <div class="topbar"><span class="eyebrow">${esc(st.deck.name)}${isRetry ? " · Second try" : ""}</span>
+      <span class="counter">${st.done} of ${st.total} solved</span></div>
+    <div class="track" aria-hidden="true"><i style="width:${pct}%"></i></div>
+    <p class="q">${esc(q.prompt)}</p>
+    <div class="opts">${q.order.map((o,i)=>`<button class="opt" id="opt-${i}" data-i="${i}"><span class="k">${i+1}</span><span>${esc(o)}</span></button>`).join("")}</div>
+    <div id="after"></div>
+    <div class="row"><button class="btn ghost" id="hintBtn">Show a hint</button>
+      <span class="streak">${st.streak>1 ? "Streak: "+st.streak+" in a row" : ""}</span>
+      <div class="right-side"><button class="btn ghost" id="quitBtn">Back to units</button></div></div>
+  </section>`;
+  const after = document.getElementById("after");
+  document.getElementById("quitBtn").onclick = home;
+  document.getElementById("hintBtn").onclick = e => { e.target.outerHTML = `<p class="hint">Hint: ${esc(q.hint)}</p>`; };
+  let answered = false;
+  const choose = i => {
+    if(answered) return; answered = true;
+    const picked = q.order[i], ok = picked === q.correct;
+    document.querySelectorAll(".opt").forEach(b => {
+      b.disabled = true;
+      const t = q.order[+b.dataset.i];
+      if(t === q.correct) b.classList.add("right");
+      else if(+b.dataset.i === i) b.classList.add("wrong");
+    });
+    if(ok){
+      if(!isRetry){ st.firstTry++; }
+      st.streak++; st.done++; st.queue.shift();
+    } else {
+      st.streak = 0;
+      if(!isRetry) st.missed.push(q);
+      st.seen.add(q.prompt);
+      st.queue.shift(); st.queue.push({...q, order: shuffle(q.order)});
+    }
+    const praise = ["Nice!","You got it.","Exactly.","Spot on.","Correct!"];
+    after.innerHTML = `<div class="feedback${ok ? "" : " miss"}"><strong>${ok ? praise[Math.floor(Math.random()*praise.length)] : "Not quite. It comes back at the end."}</strong>${ok ? "" : "Answer: "+esc(q.correct)+". "}${esc(q.explain)}</div>
+      <div class="row" style="margin-top:14px"><span class="keys">Press Enter to continue</span><div class="right-side"><button class="btn primary" id="nextBtn">${st.queue.length ? "Next" : "See results"}</button></div></div>`;
+    const next = () => st.queue.length ? showQuestion(st) : results(st);
+    document.getElementById("nextBtn").onclick = next;
+    document.getElementById("nextBtn").focus();
+    keyHandler = e => { if(e.key==="Enter"){ e.preventDefault(); next(); } };
+  };
+  document.querySelectorAll(".opt").forEach(b => b.onclick = () => choose(+b.dataset.i));
+  keyHandler = e => { const n = parseInt(e.key,10); if(n>=1 && n<=q.order.length) choose(n-1); };
+  window.scrollTo(0,0);
+}
+
+function results(st){
+  keyHandler = null;
+  const best = store.get("best") || {};
+  const score = st.firstTry, newBest = best[st.deck.id]==null || score > best[st.deck.id];
+  if(newBest){ best[st.deck.id] = score; store.set("best", best); }
+  const msg = score>=9 ? "Summit reached. You know this unit." : score>=7 ? "Strong run. A couple more passes and it's locked in." : score>=5 ? "Good base. The misses below are your next targets." : "Every miss is now a question you've seen. Run it again and watch this number climb.";
+  app.innerHTML = `<section class="station">
+    <span class="eyebrow">${esc(st.deck.name)} · Results</span>
+    <div class="score">${score}<small> / ${st.total}</small></div>
+    <p style="margin:0;font-size:19px">${msg}${newBest ? " New best score!" : ""}</p>
+    <p style="margin:0;color:var(--muted)">You also fixed every one you missed, so all ${st.total} are solved.</p>
+    ${st.missed.length ? `<div><h3 style="font-size:22px;text-transform:uppercase;margin-bottom:6px">Review these</h3><ul class="missed">${st.missed.map(q=>`<li><b style="color:var(--ink)">${esc(q.correct)}</b>: ${esc(q.prompt)}</li>`).join("")}</ul></div>` : ""}
+    <div class="row"><button class="btn ghost" id="homeBtn">Back to units</button>
+      <div class="right-side">${st.deck.id!=="mix" ? "" : ""}<button class="btn" id="cardsBtn">Flashcards</button><button class="btn primary" id="againBtn">New quiz</button></div></div>
+  </section>`;
+  document.getElementById("homeBtn").onclick = home;
+  document.getElementById("againBtn").onclick = () => startQuiz(st.deck);
+  document.getElementById("cardsBtn").onclick = () => startCards(st.deck);
+  window.scrollTo(0,0);
+}
+
+function startCards(deck){
+  const st = { deck, pile: shuffle(cardsFor(deck.id)), total: cardsFor(deck.id).length, known:0 };
+  showCard(st);
+}
+function showCard(st){
+  if(!st.pile.length){
+    keyHandler = null;
+    app.innerHTML = `<section class="station"><span class="eyebrow">${esc(st.deck.name)} · Flashcards</span>
+      <div class="score">${st.total}<small> cards</small></div><p style="margin:0;font-size:19px">All done. Every card ended on "Got it."</p>
+      <div class="row"><button class="btn ghost" id="homeBtn">Back to units</button><div class="right-side"><button class="btn" id="restartBtn">Go again</button><button class="btn primary" id="quizBtn">Take the quiz</button></div></div></section>`;
+    document.getElementById("homeBtn").onclick = home;
+    document.getElementById("restartBtn").onclick = () => startCards(st.deck);
+    document.getElementById("quizBtn").onclick = () => startQuiz(st.deck);
+    return;
+  }
+  const c = st.pile[0];
+  const pct = Math.round(st.known / st.total * 100);
+  app.innerHTML = `<section class="station">
+    <div class="topbar"><span class="eyebrow">${esc(st.deck.name)} · Flashcards</span><span class="counter">${st.known} of ${st.total} known · ${st.pile.length} left</span></div>
+    <div class="track" aria-hidden="true"><i style="width:${pct}%"></i></div>
+    <button class="card" id="card" aria-label="Flip card"><div class="inner">
+      <div class="face front"><span class="tag">Term · tap to flip</span><span class="term">${esc(c.term)}</span></div>
+      <div class="face back"><span class="tag">${esc(c.term)}</span><span class="def">${esc(c.def)}</span></div>
+    </div></button>
+    <div class="row"><span class="keys">Space flips · ← again · → got it</span>
+      <div class="right-side"><button class="btn" id="againBtn">Again</button><button class="btn primary" id="gotBtn">Got it</button></div></div>
+    <div class="row"><button class="btn ghost" id="homeBtn">Back to units</button></div>
+  </section>`;
+  const card = document.getElementById("card");
+  const flip = () => card.classList.toggle("flipped");
+  const again = () => { st.pile.push(st.pile.shift()); showCard(st); };
+  const got = () => { st.pile.shift(); st.known++; showCard(st); };
+  card.onclick = flip;
+  document.getElementById("againBtn").onclick = again;
+  document.getElementById("gotBtn").onclick = got;
+  document.getElementById("homeBtn").onclick = home;
+  keyHandler = e => {
+    if(e.key===" "){ e.preventDefault(); flip(); }
+    else if(e.key==="ArrowLeft") again();
+    else if(e.key==="ArrowRight") got();
+  };
+}
+home();
+</script>
+
+</body>
+</html>
