@@ -6,7 +6,7 @@
   2. In the Explorer, right-click ServerScriptService > Insert Object > Script.
   3. Delete the line in the new script and paste this whole file in.
   4. Press Play to test. The course builds itself in the sky.
-  5. File > Publish to Roblox to save it and share it with Sebastian.
+  5. File > Publish to Roblox to save it and share it.
 
   HOW IT PLAYS
   Each stage shows a question on a sign above three doors.
