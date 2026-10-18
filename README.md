@@ -10,6 +10,14 @@ Study games for Grade 9 Geography (CGC1D).
 - Flashcards: tap to flip, then mark each card "Got it" or "Again".
 - Best scores are saved in the browser on the device you use.
 
+## Geo Swipe
+
+`swipe/index.html` is a phone-first card feed (same format as English Swipe) for the Oct 16 lesson: earthquakes, volcanoes and the rock cycle, plus a review deck for Units 1 and 2.
+
+- Swipe up through explainer cards and quick checks. Missed checks come back a few cards later.
+- "Ones I've missed" replays only the questions answered wrong.
+- "Progress (for parents)" in the deck menu shows sessions, best scores and weakest topics. Saved on the device only.
+
 ## Roblox: Geo Review Obby
 
 `roblox/GeoReviewObby.lua` builds a 22-stage Unit 2 obstacle course. Each stage asks a question; walk through the door with the right answer.

@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Geo Swipe</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0e0f12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Geo Swipe">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230e0f12'/%3E%3Crect x='16' y='12' width='32' height='40' rx='6' fill='none' stroke='%23ff8a3d' stroke-width='5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#0e0f12; --card:#17191e; --card2:#1f2229; --line:#2b2f38; --text:#f2f3f5; --dim:#9aa1ad; --faint:#6b7280;
+  --accent:#ff8a3d; --good:#4ade80; --bad:#ff6b6b; --test:#5ad1ff;
+  --display:"Space Grotesk",system-ui,sans-serif; --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:var(--body);font-size:17px;line-height:1.5}
+button{font:inherit;color:inherit}
+
+/* Top bar */
+.top{position:fixed;inset:0 0 auto 0;z-index:20;padding:calc(env(safe-area-inset-top,0px) + 10px) 16px 10px;
+  background:linear-gradient(var(--bg) 60%,rgba(14,15,18,0));pointer-events:none}
+.top .in{max-width:520px;margin:0 auto;display:flex;align-items:center;gap:10px;pointer-events:auto}
+.home{width:34px;height:34px;flex:none;display:grid;place-items:center;border-radius:10px;color:var(--dim);text-decoration:none;border:1px solid var(--line)}
+.deckbtn{flex:1;min-width:0;display:flex;align-items:center;gap:6px;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.deckbtn b{font-family:var(--display);font-weight:700;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.deckbtn svg{flex:none;color:var(--dim)}
+.count{font-family:var(--display);font-size:14px;color:var(--dim);font-variant-numeric:tabular-nums}
+.bar{max-width:520px;margin:8px auto 0;height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+
+/* Feed */
+.feed{height:100%;height:100dvh;overflow-y:auto;scroll-snap-type:y mandatory;overscroll-behavior:contain;scrollbar-width:none}
+.feed::-webkit-scrollbar{display:none}
+.slide{height:100%;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;
+  padding:calc(env(safe-area-inset-top,0px) + 70px) 16px calc(env(safe-area-inset-bottom,0px) + 34px)}
+.c{width:100%;max-width:520px;max-height:100%;overflow-y:auto;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px 22px;scrollbar-width:none}
+.c::-webkit-scrollbar{display:none}
+.kick{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.kick .t{color:var(--test)}
+.kick .r{color:var(--accent)}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,8vw,38px);line-height:1.05;margin:0 0 14px;letter-spacing:-.01em;text-wrap:balance}
+.q{font-family:var(--display);font-weight:500;font-size:clamp(21px,5.6vw,25px);line-height:1.25;margin:0 0 18px;text-wrap:pretty}
+.c p{margin:0 0 12px}.c p:last-child{margin-bottom:0}
+.c ul,.c ol{margin:0 0 12px;padding-left:20px}.c li{margin-bottom:6px}
+.c em.k{font-style:normal;color:var(--accent)}
+.ex{background:var(--card2);border-radius:14px;padding:12px 14px;margin-top:14px;font-size:15px;color:#d6d9df}
+.ex b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:4px;font-weight:600}
+.opts{display:grid;gap:10px}
+.opt{text-align:left;background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:13px 15px;cursor:pointer;font-size:16px;line-height:1.35;transition:border-color .15s,background .15s}
+.opt:active{transform:scale(.99)}
+.opt:focus-visible,.deckbtn:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.opt[disabled]{cursor:default}
+.opt.right{border-color:var(--good);background:rgba(74,222,128,.12)}
+.opt.wrong{border-color:var(--bad);background:rgba(255,107,107,.1)}
+.opt.fade{opacity:.45}
+.why{display:none;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:15px;color:#d6d9df}
+.why.on{display:block}
+.why strong{font-family:var(--display);display:block;font-size:17px;margin-bottom:4px}
+.why .ok{color:var(--good)}.why .no{color:var(--bad)}
+.hint{position:fixed;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);text-align:center;font-size:12px;color:var(--faint);pointer-events:none;transition:opacity .3s}
+.btn{display:block;width:100%;text-align:center;border-radius:14px;padding:14px;margin-top:10px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:var(--card2);text-decoration:none}
+.btn.main{background:var(--accent);color:#111;border-color:var(--accent)}
+.big{font-family:var(--display);font-weight:700;font-size:56px;line-height:1;margin:6px 0 4px;font-variant-numeric:tabular-nums}
+.small{font-size:14px;color:var(--dim)}
+
+/* Deck sheet */
+.sheet{position:fixed;inset:0;z-index:40;display:none;background:rgba(0,0,0,.6);align-items:flex-end;justify-content:center}
+.sheet.on{display:flex}
+.sheet .p{width:100%;max-width:520px;max-height:88dvh;overflow-y:auto;background:var(--card);border:1px solid var(--line);border-bottom:0;border-radius:22px 22px 0 0;
+  padding:18px 16px calc(env(safe-area-inset-bottom,0px) + 18px)}
+.sheet h3{font-family:var(--display);font-size:20px;margin:4px 4px 12px}
+.deck{display:flex;gap:12px;align-items:center;width:100%;text-align:left;background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:13px 14px;margin-bottom:8px;cursor:pointer}
+.deck .tx{flex:1;min-width:0}
+.deck b{display:block;font-family:var(--display);font-size:17px}
+.deck span{display:block;font-size:13px;color:var(--dim)}
+.deck .sc{font-family:var(--display);font-size:13px;color:var(--dim);white-space:nowrap}
+.deck.cur{border-color:var(--accent)}
+.statrow{display:flex;justify-content:space-between;gap:12px;padding:9px 4px;border-bottom:1px solid var(--line);font-size:15px}
+.statrow:last-child{border-bottom:0}
+.statrow span:last-child{color:var(--dim);font-variant-numeric:tabular-nums;text-align:right}
+.linkish{background:none;border:0;color:var(--dim);text-decoration:underline;cursor:pointer;padding:10px 4px;font-size:14px}
+@media (max-height:720px){
+  html,body{font-size:15px;line-height:1.42}
+  .slide{padding-top:calc(env(safe-area-inset-top,0px) + 62px);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 22px)}
+  .c{padding:18px 18px}
+  h2{font-size:26px;margin-bottom:10px}
+  .kick{margin-bottom:10px}
+  .c li{margin-bottom:3px}
+  .ex{margin-top:10px;padding:10px 12px;font-size:14px}
+}
+@media (prefers-reduced-motion:reduce){.bar i,.opt{transition:none}}
+</style>
+</head>
+<body>
+<div class="top"><div class="in">
+  <a class="home" href="../" aria-label="Back to Geo Review Base Camp"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3 5 8l5 5"/></svg></a>
+  <button class="deckbtn" id="deckbtn" aria-haspopup="dialog"><b id="deckname">Deck</b><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></button>
+  <span class="count" id="count">1/1</span>
+</div><div class="bar"><i id="bar"></i></div></div>
+
+<main class="feed" id="feed" aria-live="polite"></main>
+<div class="hint" id="hint">Swipe up ↑</div>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheettitle"><div class="p">
+  <h3 id="sheettitle">Pick a deck</h3>
+  <div id="decks"></div>
+  <button class="linkish" id="statsbtn">Progress (for parents)</button>
+  <div id="stats" hidden></div>
+</div></div>
+
+<script>
+/* ---------- Content ----------
+   Follows Mr. Muckinhaupt's CGC1D slides (Oct 16: Earthquakes, Volcanoes & the Rock Cycle) plus earlier lessons for review.
+   Real-world examples come from outside the course. Discovery Task 3 questions (Earthquakes Canada site research,
+   early warning, building design, badlands) are homework, so they are left out. */
+const DECKS={
+  quakes:{name:"Earthquakes",sub:"Why they happen, the three stresses, magnitude, Canada's hotspots"},
+  volcanoes:{name:"Volcanoes",sub:"Magma vs lava, silica, the four types, Canada's volcanoes"},
+  rocks:{name:"Rock cycle",sub:"Igneous, sedimentary, metamorphic and how they turn into each other"},
+  review:{name:"Review: Units 1 & 2",sub:"Plate boundaries, landform regions, climate"}
+};
+const L=(deck,topic,h,b,ex,test)=>({t:"learn",deck,topic,h,b,ex,test});
+const Q=(deck,topic,q,opts,a,why,test)=>({t:"check",deck,topic,q,opts,a,why,test});
+const T=true;
+
+const CARDS=[
+/* ===== EARTHQUAKES ===== */
+L("quakes","Why they happen","Earthquakes",
+ `<p>Tectonic plates are <em class="k">always moving</em>. Where they meet, friction makes them catch and lock.</p><p>Pressure keeps building. When the rock suddenly <b>slips</b>, the stored energy is released all at once, and the ground shakes.</p>`,"Bend a ruler slowly and it holds… until it snaps. The snap is the earthquake.",T),
+Q("quakes","Why they happen","What actually releases the energy in an earthquake?",["Locked rock suddenly slipping along a plate boundary","Magma cooling underground","Waves pounding the coastline","The Sun heating the crust"],0,"Friction locks the plates, pressure builds, the rock slips: shaking.",T),
+L("quakes","Three stresses","Three stresses",`<p>Earthquakes are caused by stress in Earth's crust. Each stress matches a plate boundary:</p><ul><li><b>Tension</b>: pulls rock apart → <em class="k">divergent</em></li><li><b>Compression</b>: squeezes rock together → <em class="k">convergent</em></li><li><b>Shearing</b>: pushes rock past itself, side by side → <em class="k">transform</em></li></ul>`,"Memory trick: T-C-S lines up with D-C-T.",T),
+Q("quakes","Three stresses","Two plates crash head-on and the rock is squeezed. Which stress?",["Compression","Tension","Shearing","Erosion"],0,"Squeezing together = compression, at a convergent boundary.",T),
+Q("quakes","Three stresses","Iceland is slowly being pulled apart by two plates. Which stress?",["Tension","Compression","Shearing","Cementation"],0,"Pulling apart = tension, at a divergent boundary (the Mid-Atlantic Ridge runs right through Iceland).",T),
+Q("quakes","Three stresses","Along California's San Andreas Fault, plates grind past each other sideways. Which stress?",["Shearing","Tension","Compression","Subduction"],0,"Side by side = shearing, at a transform boundary.",T),
+Q("quakes","Three stresses","Earthquakes are most likely along which two kinds of boundary?",["Convergent and transform","Divergent and transform","Divergent only","Far from any boundary"],0,"Straight from the slides: convergent and transform.",T),
+
+L("quakes","Measuring","Measuring earthquakes",`<p>A <em class="k">seismograph</em> records the shaking. The size is a <b>magnitude</b>, on modified versions of the Richter scale.</p><p>The scale is <b>logarithmic</b>: each whole number up is <em class="k">10× stronger</em>.</p><p>Richter's original formula only worked well for California. Eastern North America uses different calculations because its crust is different.</p>`,"Magnitude 6 = 10× a 5 = 100× a 4.",T),
+Q("quakes","Measuring","A magnitude 7 is how much stronger than a magnitude 5?",["100 times","2 times","20 times","1000 times"],0,"Two steps: 10 × 10 = 100.",T),
+Q("quakes","Measuring","Japan's 2011 earthquake was about magnitude 9. How much stronger than a magnitude 6?",["1000 times","3 times","30 times","300 times"],0,"Three steps: 10 × 10 × 10 = 1000.",T),
+Q("quakes","Measuring","Why was the Richter scale modified?",["The original formula was only accurate for California","It couldn't go above 5","It only measured underwater quakes","Scientists switched to measuring in kilometres"],0,"Different crust, different calculations. Eastern North America isn't California.",T),
+L("quakes","Measuring","What each magnitude feels like",`<ul><li><b>Under 3.5</b>: recorded, generally not felt</li><li><b>3.5–5.4</b>: often felt, rarely damage</li><li><b>5.5–6.0</b>: slight damage to good buildings, major to poorly built ones</li><li><b>6.1–6.9</b>: damage up to ~100 km across</li><li><b>7.0–7.9</b>: <em class="k">"major"</em></li><li><b>8.0–8.9</b>: <em class="k">"great"</em>, loss of life over hundreds of km</li><li><b>9+</b>: rare, damage over 1000+ km</li></ul>`,"Heads up: the slide table prints \">3.5\" for \"not felt\" and \">6.0\" for the third row. They should read \"under 3.5\" and \"5.5–6.0\".",T),
+Q("quakes","Measuring","A magnitude 3.0 earthquake would most likely be…",["Recorded but generally not felt","A \"great\" earthquake","Felt across 1000 km","Major damage downtown"],0,"Under 3.5: only the seismographs notice.",T),
+Q("quakes","Measuring","Magnitude 8.0–8.9 is called a…",["\"Great\" earthquake","\"Major\" earthquake","Minor earthquake","Aftershock"],0,"7s are \"major\". 8s are \"great\".",T),
+
+L("quakes","Canada","Canada's hotspot",`<p>Off BC, the <em class="k">Juan de Fuca plate</em> converges with the <b>North American plate</b> and subducts under it. That makes BC's West Coast Canada's most active earthquake zone.</p><p>This is the <b>Cascadia Subduction Zone</b>. It runs into the U.S. and holds a lot of friction.</p>`,0,T),
+L("quakes","Canada","Two big ones",`<p><b>1700</b>: a <em class="k">megathrust</em> earthquake on the Cascadia Subduction Zone. Canada's largest ever. Tsunamis hit the West Coast and reached Japan.</p><p><b>August 21, 1949, ~8:01 pm</b>: magnitude <em class="k">8.1</em> on the Queen Charlotte Fault, Haida Gwaii. Largest since 1700, bigger than San Francisco 1906. No deaths, because so few people lived there.</p>`,"Megathrust = a huge earthquake at a subduction zone. Experts think the West Coast isn't prepared for the next one.",T),
+Q("quakes","Canada","Which plate subducts under North America off BC?",["Juan de Fuca","Pacific","Eurasian","Indian"],0,"The small, dense Juan de Fuca plate dives under the continent.",T),
+Q("quakes","Canada","Canada's largest earthquake ever was…",["The 1700 Cascadia megathrust","The 1949 Haida Gwaii quake","San Francisco, 1906","Not recorded yet"],0,"1949 is the largest SINCE 1700.",T),
+Q("quakes","Canada","Why did the 1949 magnitude 8.1 earthquake cause no deaths?",["Very few people lived on Haida Gwaii","It hit in the middle of the ocean","Everyone was warned the day before","It was too deep to feel"],0,"Low population. The slides joke that a few cows got tipped over.",T),
+Q("quakes","Canada","A megathrust earthquake happens at a…",["Subduction zone","Mid-ocean ridge","Transform fault only","Hotspot in the middle of a plate"],0,"Where one plate is forced under another, like Cascadia.",T),
+
+/* ===== VOLCANOES ===== */
+L("volcanoes","Basics","Volcanoes",`<p>An <em class="k">opening in Earth's crust</em> where lava, volcanic ash and gases escape (Natural Resources Canada).</p><p>Eruptions are partly driven by pressure from <b>dissolved gas</b>, the way a cork shoots off a shaken bottle of champagne.</p>`,0,T),
+L("volcanoes","Basics","Magma vs lava",`<p><b>Magma</b>: molten rock still <em class="k">under</em> the surface.</p><p><b>Lava</b>: the same rock once it <em class="k">reaches</em> the surface and open air.</p>`,"Magma = Mole (stays underground). Lava = Left the ground.",T),
+Q("volcanoes","Basics","Molten rock still underground is…",["Magma","Lava","Scoria","Pumice"],0,"It only becomes lava once it reaches the surface.",T),
+Q("volcanoes","Basics","What partly drives an eruption?",["Pressure from gas dissolved in the magma","Wind blowing into the crater","Rain soaking the mountain","The Moon's gravity"],0,"Like the cork popping out of a bottle.",T),
+L("volcanoes","Silica","Silica decides everything",`<p><b>Viscosity</b> = how thick or runny lava is.</p><ul><li><b>Low silica</b> → runny lava → flows far → <em class="k">gentle</em> volcano</li><li><b>High silica</b> → thick, slow lava → piles up → <em class="k">steep, explosive</em> volcano</li></ul>`,"Think syrup vs cold honey.",T),
+Q("volcanoes","Silica","High-silica lava is…",["Thick and slow (high viscosity)","Runny and fast","Always cold","Only found underwater"],0,"Silica = sticky.",T),
+
+L("volcanoes","Types","Shield volcano",`<p><em class="k">Broad and gently sloping</em>. Built by runny, low-silica lava that spreads far before it cools.</p>`,"Mauna Loa in Hawaii, one of the largest volcanoes on Earth.",T),
+L("volcanoes","Types","Stratovolcano",`<p><em class="k">Tall and steep</em>. Built from alternating layers of lava and ash. Thick, high-silica lava.</p>`,"Mount Fuji in Japan. Mount St. Helens, which blew its top in 1980.",T),
+L("volcanoes","Types","Cinder cone",`<p><em class="k">Small and cone-shaped</em>. Built from fragments of ash and <b>scoria</b> (dark volcanic rock) thrown out around a single vent.</p>`,"Parícutin in Mexico started in a farmer's cornfield in 1943.",T),
+L("volcanoes","Types","Caldera",`<p>Magma sits in a <b>magma chamber</b>. A huge explosive eruption <em class="k">empties</em> it, and the roof <em class="k">collapses</em>, leaving a steep-walled bowl.</p>`,"Crater Lake in Oregon fills a caldera. Yellowstone sits on one.",T),
+Q("volcanoes","Types","Mount Fuji is tall, steep and made of layers of lava and ash. It's a…",["Stratovolcano","Shield volcano","Cinder cone","Caldera"],0,"Strato = layers.",T),
+Q("volcanoes","Types","Hawaii's Mauna Loa is wide and gently sloped from runny lava. It's a…",["Shield volcano","Stratovolcano","Cinder cone","Caldera"],0,"Low silica, runny lava, broad shape.",T),
+Q("volcanoes","Types","A small cone of ash and scoria built around one vent is a…",["Cinder cone","Caldera","Stratovolcano","Shield volcano"],0,"Scoria is the dark volcanic rock it's made of.",T),
+Q("volcanoes","Types","How does a caldera form?",["A huge eruption empties the magma chamber and the roof collapses","Runny lava spreads over a wide area","Ash and lava stack in layers","Two plates slide past each other"],0,"No magma left to hold the roof up.",T),
+Q("volcanoes","Types","Which type of volcano has the runniest lava?",["Shield","Stratovolcano","Caldera","Cinder cone"],0,"Low silica = low viscosity.",T),
+
+L("volcanoes","Canada","Volcanoes in Canada",`<p>BC sits on the Pacific <em class="k">Ring of Fire</em>.</p><ul><li><b>Mount Garibaldi, Mount Cayley, Mount Meager</b>: not active now, but the forces under them are. They'll almost certainly erupt someday.</li><li><b>Mount Meager</b>: erupted about 2350 years ago.</li><li><b>Lava Fork</b>, northwestern BC: Canada's most recent eruption, about 150 years ago.</li></ul>`,"Same cause as BC's earthquakes: the Juan de Fuca plate sinks, melts into magma, and the magma rises.",T),
+Q("volcanoes","Canada","Canada's most recent eruption, about 150 years ago, was at…",["Lava Fork, BC","Mount Meager","Mount Garibaldi","Mount Cayley"],0,"Mount Meager's last eruption was about 2350 years ago.",T),
+Q("volcanoes","Canada","Why does BC have both volcanoes AND earthquakes?",["A subducting plate slips (quakes) and melts into rising magma (volcanoes)","Glaciers melting off the mountains","It sits on the Canadian Shield","Ocean currents heat the crust"],0,"One process, two results.",T),
+Q("volcanoes","Canada","BC sits on the Pacific…",["Ring of Fire","Mid-Atlantic Ridge","Continental Divide","Canadian Shield"],0,"The ring of plate boundaries around the Pacific Ocean.",T),
+
+/* ===== ROCK CYCLE ===== */
+L("rocks","The cycle","The rock cycle",`<p>An endless loop. Rock never stays one type forever:</p><ol><li>Magma <b>cools</b> → igneous rock</li><li>Weathering &amp; erosion → sediment</li><li>Compaction &amp; cementation → sedimentary rock</li><li>Heat &amp; pressure → metamorphic rock</li><li><b>Melting</b> → magma again</li></ol>`,"Shortcuts happen too: any rock can be weathered, squeezed or melted.",T),
+Q("rocks","The cycle","What turns metamorphic rock back into magma?",["Melting","Cooling","Compaction","Erosion"],0,"Then it cools into igneous rock and the loop starts over.",T),
+Q("rocks","The cycle","What turns sediment into sedimentary rock?",["Compaction and cementation","Heat and pressure","Melting and cooling","Weathering only"],0,"Squeeze it, then glue it.",T),
+
+L("rocks","Igneous","Igneous rock",`<p>"From fire." Forms when <em class="k">magma or lava cools</em>. Has crystals and metallic minerals, and it's the most reliable rock for radiometric dating.</p><ul><li><b>Intrusive</b> (plutonic): cools slowly <em class="k">inside</em> Earth. Granite.</li><li><b>Extrusive</b> (volcanic): cools fast <em class="k">on the surface</em>. Basalt, obsidian, pumice.</li></ul>`,"Plutonic: Pluto, Roman god of the underworld. Volcanic: Vulcan, god of fire. Granite countertops are intrusive; pumice cools so fast and gassy it can float.",T),
+Q("rocks","Igneous","Granite cools slowly deep underground. It's…",["Intrusive (plutonic) igneous","Extrusive (volcanic) igneous","Sedimentary","Metamorphic"],0,"IN-trusive = INside.",T),
+Q("rocks","Igneous","Obsidian is volcanic glass that cooled fast on the surface. It's…",["Extrusive igneous","Intrusive igneous","Foliated metamorphic","Sedimentary"],0,"EX-trusive = it EXited onto the surface.",T),
+Q("rocks","Igneous","Which rock type is the most reliable for radiometric dating?",["Igneous","Sedimentary","Metamorphic","All equally"],0,"Straight from the slides.",T),
+
+L("rocks","Sedimentary","Sedimentary rock",`<p>Made from <em class="k">sediment</em>: small pieces of rock, like sawdust when you sand wood. Four steps:</p><ol><li>Weathering</li><li>Erosion</li><li>Compaction</li><li>Cementation</li></ol><p>Holds <b>fossils</b> (especially sea life) and <b>fossil fuels</b>: the layers block oxygen, so buried remains don't fully break down and become coal and oil.</p>`,"We Eat Cold Cake. The Grand Canyon's walls are ancient sedimentary layers. The Pyramids of Giza are mostly limestone.",T),
+Q("rocks","Sedimentary","Correct order to make sedimentary rock?",["Weathering, erosion, compaction, cementation","Erosion, weathering, cementation, compaction","Compaction, weathering, erosion, cementation","Melting, cooling, compaction, erosion"],0,"Break it, move it, squeeze it, glue it.",T),
+Q("rocks","Sedimentary","You're hunting for fossils. Which rock do you look in?",["Sedimentary","Igneous","Metamorphic","Pumice"],0,"Fine layers bury and preserve remains.",T),
+Q("rocks","Sedimentary","Why do coal and oil form in sedimentary rock?",["Layers block oxygen, so buried remains don't fully rot","Lava cooks the plants","Heat and pressure melt them","Fossils are made of oil"],0,"No oxygen, no breakdown.",T),
+Q("rocks","Sedimentary","Which of these is sedimentary?",["Sandstone","Granite","Marble","Obsidian"],0,"Also shale, coal and limestone.",T),
+
+L("rocks","Metamorphic","Metamorphic rock",`<p>Any rock <em class="k">changed by heat and pressure</em>, without melting. Can start as igneous, sedimentary or even metamorphic rock.</p><ul><li><b>Foliated</b>: layers or bands from pressure in one direction. Slate, schist, gneiss.</li><li><b>Non-foliated</b>: no bands; even pressure. Marble, quartzite.</li></ul>`,"Meta = change. Foliated, like the pages (folio) of a book. The Taj Mahal is marble; old chalkboards were slate.",T),
+Q("rocks","Metamorphic","Metamorphic rock forms when rock is…",["Changed by heat and pressure without melting","Melted completely","Broken into sediment","Cooled quickly at the surface"],0,"If it melted, it'd be magma.",T),
+Q("rocks","Metamorphic","Gneiss has stripes from pressure squeezing one way. It's…",["Foliated","Non-foliated","Extrusive","Sedimentary"],0,"Bands = foliated.",T),
+Q("rocks","Metamorphic","Marble has no bands. It's…",["Non-foliated metamorphic","Foliated metamorphic","Intrusive igneous","Sedimentary"],0,"Even pressure, no layering.",T),
+Q("rocks","The cycle","Basalt weathers into sand, becomes sandstone, then gets squeezed deep underground. It ends up…",["Metamorphic","Igneous","Sedimentary","Magma"],0,"Igneous → sediment → sedimentary → heat & pressure → metamorphic (quartzite).",T),
+
+/* ===== REVIEW ===== */
+L("review","Plates","Plate boundaries",`<ul><li><b>Divergent</b>: plates move apart; new sea floor at mid-ocean ridges</li><li><b>Convergent</b>: plates collide; subduction, trenches, volcanoes, the biggest quakes</li><li><b>Transform</b>: plates slide past; quakes but <em class="k">no volcanoes</em></li></ul><p>Plates (lithosphere) ride on the soft <b>asthenosphere</b>, moved by convection currents.</p>`,"Oceanic crust is denser, so it sinks under continental crust."),
+Q("review","Plates","Which boundary has earthquakes but no volcanoes?",["Transform","Divergent","Oceanic–continental convergent","Oceanic–oceanic convergent"],0,"Rock grinds past rock; no magma rises."),
+Q("review","Plates","The Himalayas formed at which boundary?",["Continental–continental convergent","Oceanic–continental convergent","Divergent","Transform"],0,"Neither plate sinks, so the crust crumples upward."),
+Q("review","Plates","BC's Coast Mountains formed at which boundary?",["Oceanic–continental convergent","Divergent","Transform","Continental–continental convergent"],0,"The same subduction behind this week's earthquakes and volcanoes."),
+Q("review","Plates","New sea floor forms at…",["Divergent boundaries","Transform boundaries","Subduction zones","The Canadian Shield"],0,"Magma rises at mid-ocean ridges."),
+L("review","Landforms","Landform regions, quick",`<ul><li><b>Canadian Shield</b>: oldest; bare rock, lakes; nickel, gold, uranium, copper, zinc</li><li><b>Cordillera</b>: youngest mountains; the Rockies</li><li><b>Interior Plains</b>: Prairies; potash, coal, oil from sedimentation</li><li><b>Great Lakes–St. Lawrence</b>: most people and farmland</li><li><b>Appalachian Uplands</b>: very old, worn-down mountains</li><li><b>Hudson Bay Lowland</b>, <b>Arctic Lands</b></li></ul>`,"Rock cycle link: the Shield is largely granite and gneiss; the Plains' fuels sit in sedimentary layers."),
+Q("review","Landforms","Why does the Interior Plains have coal, oil and potash?",["It's built from sedimentary deposits","It's on the Ring of Fire","Glaciers dropped them there","It's made of granite"],0,"Sediment traps organic matter, which becomes fossil fuels."),
+Q("review","Landforms","Canada's youngest mountain region is the…",["Cordillera","Appalachian Uplands","Canadian Shield","Innuitian Mountains"],0,"The Innuitian Mountains are second youngest."),
+Q("review","Landforms","The oldest, most mineral-rich region is the…",["Canadian Shield","Interior Plains","Cordillera","Hudson Bay Lowland"],0,"2.5 to over 4 billion years old."),
+L("review","Climate","Climate, quick",`<p><b>LOWERN</b>: Latitude, Ocean currents, Winds &amp; air pressure, Elevation, Relief, Near water.</p><ul><li><b>Continental</b>: range over 25 °C and under 1000 mm precipitation</li><li><b>Maritime</b>: range under 25 °C and over 1000 mm</li><li>Growing season: months at 6 °C or warmer. Snowfall: precipitation in months at 0 °C or colder × 10.</li></ul>`,0),
+Q("review","Climate","Vancouver's heavy rain comes mostly from…",["Relief precipitation over the mountains","Its high latitude","The Labrador Current","A continental climate"],0,"Moist Pacific air rises, cools and drops rain on the windward side."),
+Q("review","Climate","Range 32 °C, precipitation 455 mm. Climate type?",["Continental","Maritime","Modified maritime","Tropical"],0,"Range over 25 and precipitation under 1000: continental."),
+Q("review","Climate","Warmest month 20 °C, coldest −12 °C. Temperature range?",["32 °C","8 °C","20 °C","12 °C"],0,"20 − (−12) = 20 + 12 = 32.")
+];
+CARDS.forEach((c,i)=>c.id=c.deck+"-"+i);
+
+/* ---------- Saved progress (this browser only) ---------- */
+const KEY="geoSwipe.v1";
+let S={sessions:0,first:null,last:null,topics:{},miss:{},decks:{}};
+try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&typeof s==="object")S=Object.assign(S,s)}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+
+/* ---------- Feed ---------- */
+const feed=document.getElementById("feed"),countEl=document.getElementById("count"),barEl=document.getElementById("bar"),hint=document.getElementById("hint");
+let cur="quakes",run=[],answered={},right=0,checks=0,missedNow=new Set(),started=false;
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+
+function buildRun(deck){
+  if(deck==="missed"){
+    const ids=Object.keys(S.miss).filter(id=>S.miss[id]>0);
+    return shuffle(CARDS.filter(c=>ids.includes(c.id)));
+  }
+  return CARDS.filter(c=>c.deck===deck);
+}
+function kick(c,extra){
+  return `<div class="kick">${c.test?'<span class="t">Oct 16 lesson</span><span>·</span>':''}<span>${esc(c.topic)}</span>${extra||""}</div>`;
+}
+function slideFor(c,n,retry){
+  const el=document.createElement("section");el.className="slide";el.dataset.n=n;
+  if(c.t==="learn"){
+    el.innerHTML=`<article class="c">${kick(c)}<h2>${esc(c.h)}</h2>${c.b}${c.ex?`<div class="ex"><b>Example</b>${esc(c.ex)}</div>`:""}</article>`;
+  }else{
+    const order=shuffle(c.opts.map((o,i)=>i));
+    el.innerHTML=`<article class="c">${kick(c,retry?'<span>·</span><span class="r">Second try</span>':'<span>·</span><span>Quick check</span>')}
+      <p class="q">${esc(c.q)}</p><div class="opts">${order.map(i=>`<button class="opt" data-i="${i}">${esc(c.opts[i])}</button>`).join("")}</div>
+      <div class="why"></div></article>`;
+    el.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>answer(el,c,+b.dataset.i,retry)));
+  }
+  return el;
+}
+function answer(el,c,i,retry){
+  const key=el.dataset.n;if(answered[key])return;answered[key]=1;
+  const ok=i===c.a;
+  el.querySelectorAll(".opt").forEach(b=>{b.disabled=true;const j=+b.dataset.i;
+    if(j===c.a)b.classList.add("right");else if(j===i)b.classList.add("wrong");else b.classList.add("fade")});
+  const w=el.querySelector(".why");
+  w.innerHTML=`<strong class="${ok?"ok":"no"}">${ok?"Right.":"Not quite."}</strong>${esc(c.why)}${ok?"":'<p class="small" style="margin-top:8px">This one comes back in a few cards.</p>'}`;
+  w.classList.add("on");
+  if(!retry){checks++;if(ok)right++}
+  const t=S.topics[c.topic]||(S.topics[c.topic]={r:0,w:0});ok?t.r++:t.w++;
+  if(ok){if(S.miss[c.id])S.miss[c.id]=Math.max(0,S.miss[c.id]-1);if(!S.miss[c.id])delete S.miss[c.id]}
+  else{S.miss[c.id]=(S.miss[c.id]||0)+1;missedNow.add(c.id);requeue(el,c)}
+  S.last=new Date().toISOString();save();
+}
+function requeue(el,c){
+  const slides=[...feed.querySelectorAll(".slide")];const idx=slides.indexOf(el);
+  const target=slides[Math.min(idx+5,slides.length-1)]; /* the last slide is the results card */
+  const s=slideFor(c,"r"+Date.now(),true);feed.insertBefore(s,target);observe(s);updateCount();
+}
+function endSlide(){
+  const el=document.createElement("section");el.className="slide";el.dataset.end="1";
+  el.innerHTML=`<article class="c" id="endc"></article>`;return el;
+}
+function renderEnd(){
+  const c=document.getElementById("endc");if(!c)return;
+  const pct=checks?Math.round(right/checks*100):0;
+  if(checks&&cur!=="missed"){const d=S.decks[cur]||(S.decks[cur]={best:0,runs:0});d.best=Math.max(d.best,pct);save()}
+  const left=Object.keys(S.miss).length;
+  c.innerHTML=`<div class="kick"><span>${esc(deckLabel(cur))}</span><span>·</span><span>Done</span></div>
+    <div class="big">${right}/${checks}</div><p class="small">${checks?`${pct}% on the first try.`:"No quick checks answered yet."}</p>
+    ${missedNow.size?`<p>Missed this round: ${[...new Set([...missedNow].map(id=>CARDS.find(c=>c.id===id).topic))].map(esc).join(", ")}.</p>`:checks?"<p>Clean run.</p>":""}
+    ${left?`<button class="btn main" id="domiss">Redo the ones I've missed (${left})</button>`:""}
+    <button class="btn ${left?"":"main"}" id="dopick">Pick another deck</button>`;
+  const dm=document.getElementById("domiss");if(dm)dm.onclick=()=>start("missed");
+  document.getElementById("dopick").onclick=openSheet;
+}
+let io;
+function observe(s){io&&io.observe(s)}
+function updateCount(){
+  const slides=[...feed.querySelectorAll(".slide")];
+  const top=feed.scrollTop,h=feed.clientHeight;const i=Math.min(slides.length-1,Math.round(top/h));
+  countEl.textContent=`${i+1}/${slides.length}`;barEl.style.width=((i+1)/slides.length*100)+"%";
+  if(i>0)hint.style.opacity=0;
+  if(slides[i]&&slides[i].dataset.end){
+    if(!slides[i].dataset.counted&&checks){slides[i].dataset.counted=1;if(cur!=="missed"){const d=S.decks[cur]||(S.decks[cur]={best:0,runs:0});d.runs++;save()}}
+    renderEnd();
+  }
+}
+function deckLabel(d){return d==="missed"?"Ones I've missed":DECKS[d].name}
+function start(deck){
+  cur=deck;answered={};right=0;checks=0;missedNow=new Set();
+  run=buildRun(deck);feed.innerHTML="";
+  if(io)io.disconnect();
+  io=new IntersectionObserver(()=>updateCount(),{root:feed,threshold:.6});
+  run.forEach((c,n)=>{const s=slideFor(c,n,false);feed.appendChild(s);observe(s)});
+  const e=endSlide();feed.appendChild(e);observe(e);
+  feed.scrollTop=0;document.getElementById("deckname").textContent=deckLabel(deck);
+  hint.style.opacity=1;updateCount();closeSheet();
+  if(!started){started=true;S.sessions++;S.first=S.first||new Date().toISOString();S.last=new Date().toISOString();save()}
+  try{localStorage.setItem(KEY+".deck",deck)}catch(e){}
+}
+feed.addEventListener("scroll",()=>{clearTimeout(feed._t);feed._t=setTimeout(updateCount,60)},{passive:true});
+document.addEventListener("keydown",e=>{
+  if(document.getElementById("sheet").classList.contains("on")){if(e.key==="Escape")closeSheet();return}
+  if(["ArrowDown","PageDown"," "].includes(e.key)){e.preventDefault();feed.scrollBy({top:feed.clientHeight,behavior:"smooth"})}
+  if(["ArrowUp","PageUp"].includes(e.key)){e.preventDefault();feed.scrollBy({top:-feed.clientHeight,behavior:"smooth"})}
+});
+
+/* ---------- Deck sheet + parent progress ---------- */
+const sheet=document.getElementById("sheet");
+function openSheet(){
+  const counts=d=>CARDS.filter(c=>c.deck===d&&c.t==="check").length;
+  const left=Object.keys(S.miss).length;
+  document.getElementById("decks").innerHTML=Object.entries(DECKS).map(([k,v])=>{
+    const b=S.decks[k];return `<button class="deck${k===cur?" cur":""}" data-k="${k}"><div class="tx"><b>${esc(v.name)}</b><span>${esc(v.sub)}</span></div><span class="sc">${b&&b.runs?`Best ${b.best}%`:`${counts(k)} checks`}</span></button>`}).join("")
+    +(left?`<button class="deck${cur==="missed"?" cur":""}" data-k="missed"><div class="tx"><b>Ones I've missed</b><span>Only the questions you got wrong</span></div><span class="sc">${left}</span></button>`:"");
+  document.querySelectorAll(".deck").forEach(b=>b.onclick=()=>start(b.dataset.k));
+  document.getElementById("stats").hidden=true;
+  sheet.classList.add("on");
+}
+function closeSheet(){sheet.classList.remove("on")}
+document.getElementById("deckbtn").onclick=openSheet;
+sheet.addEventListener("click",e=>{if(e.target===sheet)closeSheet()});
+document.getElementById("statsbtn").onclick=()=>{
+  const st=document.getElementById("stats");
+  if(!st.hidden){st.hidden=true;return}
+  const fmt=d=>d?new Date(d).toLocaleString(undefined,{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}):"never";
+  const topics=Object.entries(S.topics).map(([k,v])=>[k,v,v.r/(v.r+v.w)]).sort((a,b)=>a[2]-b[2]);
+  st.innerHTML=`<div class="statrow"><span>Sessions</span><span>${S.sessions}</span></div>
+    <div class="statrow"><span>Last active</span><span>${fmt(S.last)}</span></div>
+    ${Object.entries(DECKS).map(([k,v])=>{const d=S.decks[k];return `<div class="statrow"><span>${esc(v.name)}</span><span>${d&&d.runs?`${d.runs} finished · best ${d.best}%`:"not finished yet"}</span></div>`}).join("")}
+    ${topics.length?`<p class="small" style="margin:14px 4px 4px">By topic, weakest first (all answers, including second tries):</p>`+topics.map(([k,v,p])=>`<div class="statrow"><span>${esc(k)}</span><span>${Math.round(p*100)}% of ${v.r+v.w}</span></div>`).join(""):'<p class="small" style="margin:14px 4px">No answers yet.</p>'}
+    <p class="small" style="margin:12px 4px 0">Saved on this device only.</p>`;
+  st.hidden=false;
+};
+
+let first="quakes";try{const d=localStorage.getItem(KEY+".deck");if(d&&(DECKS[d]))first=d}catch(e){}
+start(first);
+</script>
+</body>
+</html>
