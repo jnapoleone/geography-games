@@ -12,7 +12,7 @@ Study games for Grade 9 Geography (CGC1D).
 
 ## Geo Swipe
 
-`swipe/index.html` is a phone-first card feed (same format as English Swipe) for the Oct 16 lesson: earthquakes, volcanoes and the rock cycle, plus a review deck for Units 1 and 2.
+`swipe/index.html` is a phone-first card feed (same format as English Swipe) with decks for the Oct 20–22 lessons (glaciers, population patterns, soil, vegetation and the tundra), the Oct 16 lesson (earthquakes, volcanoes, the rock cycle), and two review decks that mix in Units 1 and 2.
 
 - Swipe up through explainer cards and quick checks. Missed checks come back a few cards later.
 - "Ones I've missed" replays only the questions answered wrong.

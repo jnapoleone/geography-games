@@ -118,10 +118,18 @@ h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,8vw,38px);lin
 
 <script>
 /* ---------- Content ----------
-   Follows Mr. Muckinhaupt's CGC1D slides (Oct 16: Earthquakes, Volcanoes & the Rock Cycle) plus earlier lessons for review.
+   Follows Mr. Muckinhaupt's CGC1D slides (Oct 16: Earthquakes, Volcanoes & the Rock Cycle; Oct 20: Glaciers;
+   Oct 21: textbook pp. 24-27, population patterns; Oct 22: Soil and vegetation + Tundra and climate change handout)
+   plus earlier lessons for review. Textbook Apply It!/Viewpoints questions and the tundra handout questions are
+   homework, so they are left out. New cards are appended after the old ones so saved progress ids stay stable.
    Real-world examples come from outside the course. Discovery Task 3 questions (Earthquakes Canada site research,
    early warning, building design, badlands) are homework, so they are left out. */
 const DECKS={
+  glaciers:{name:"Glaciers",sub:"How ice moves, erosion vs deposition, till, moraines, meltwater"},
+  people:{name:"Population patterns",sub:"Ecumene, CMAs, the dot map, small towns losing people"},
+  soil:{name:"Soil",sub:"MOMA, the soil profile O-A-E-B-C-R, leaching, soil regions"},
+  veg:{name:"Vegetation & tundra",sub:"The seven regions, conifers vs deciduous, permafrost, climate change"},
+  mix:{name:"Review: everything so far",sub:"Oct 16 lesson and Units 1 & 2, tied to this week"},
   quakes:{name:"Earthquakes",sub:"Why they happen, the three stresses, magnitude, Canada's hotspots"},
   volcanoes:{name:"Volcanoes",sub:"Magma vs lava, silica, the four types, Canada's volcanoes"},
   rocks:{name:"Rock cycle",sub:"Igneous, sedimentary, metamorphic and how they turn into each other"},
@@ -129,7 +137,7 @@ const DECKS={
 };
 const L=(deck,topic,h,b,ex,test)=>({t:"learn",deck,topic,h,b,ex,test});
 const Q=(deck,topic,q,opts,a,why,test)=>({t:"check",deck,topic,q,opts,a,why,test});
-const T=true;
+const T=true,LG="Oct 20 lesson",LP="Oct 21 lesson",LS="Oct 22 lesson";
 
 const CARDS=[
 /* ===== EARTHQUAKES ===== */
@@ -215,7 +223,98 @@ Q("review","Landforms","The oldest, most mineral-rich region is the…",["Canadi
 L("review","Climate","Climate, quick",`<p><b>LOWERN</b>: Latitude, Ocean currents, Winds &amp; air pressure, Elevation, Relief, Near water.</p><ul><li><b>Continental</b>: range over 25 °C and under 1000 mm precipitation</li><li><b>Maritime</b>: range under 25 °C and over 1000 mm</li><li>Growing season: months at 6 °C or warmer. Snowfall: precipitation in months at 0 °C or colder × 10.</li></ul>`,0),
 Q("review","Climate","Vancouver's heavy rain comes mostly from…",["Relief precipitation over the mountains","Its high latitude","The Labrador Current","A continental climate"],0,"Moist Pacific air rises, cools and drops rain on the windward side."),
 Q("review","Climate","Range 32 °C, precipitation 455 mm. Climate type?",["Continental","Maritime","Modified maritime","Tropical"],0,"Range over 25 and precipitation under 1000: continental."),
-Q("review","Climate","Warmest month 20 °C, coldest −12 °C. Temperature range?",["32 °C","8 °C","20 °C","12 °C"],0,"20 − (−12) = 20 + 12 = 32.")
+Q("review","Climate","Warmest month 20 °C, coldest −12 °C. Temperature range?",["32 °C","8 °C","20 °C","12 °C"],0,"20 − (−12) = 20 + 12 = 32."),
+
+/* ===== GLACIERS (Oct 20) ===== */
+L("glaciers","What they are","Glaciers",`<p>A <em class="k">large mass of ice</em>, formed at least partly on land, that shows evidence of movement (The Canadian Encyclopedia).</p><p>Snow piles up for years. Its weight <b>compacts</b> the bottom layers into ice crystals. Glacier ice also holds air, water and rock debris.</p><ul><li>Glaciers and ice sheets store about <em class="k">70%</em> of the world's fresh water</li><li>Canada has about <b>200 000 km²</b> of glaciers, in the Arctic and Western Canada</li></ul>`,"Squeeze a snowball hard enough and it turns icy. A glacier does that with years of snow.",LG),
+Q("glaciers","What they are","About how much of the world's fresh water is locked in glaciers and ice sheets?",["About 70%","About 10%","About 35%","About 95%"],0,"Straight from the slides: about 70 per cent.",LG),
+Q("glaciers","What they are","What turns piled-up snow into glacier ice?",["Compaction and recrystallization under its own weight","Volcanic heat","Leaching","Wind erosion"],0,"The weight of new snow squeezes the old snow into ice crystals.",LG),
+L("glaciers","Movement","Moving at a glacial pace",`<p>Gravity pulls the ice <em class="k">downslope</em>, or outward in all directions. Two ways:</p><ul><li><b>Internal deformation</b>: the ice slowly changes shape inside, like very stiff putty</li><li><b>Basal sliding</b>: the glacier slides on a layer of <em class="k">meltwater</em> at its base</li></ul>`,"Basal = base. Sliding on water at the bottom, like a puck on wet ice.",LG),
+Q("glaciers","Movement","A glacier slides along on a thin layer of meltwater at its base. That's…",["Basal sliding","Internal deformation","Subduction","Recession"],0,"Basal = at the base.",LG),
+Q("glaciers","Movement","What force makes glaciers move?",["Gravity","Wind","Ocean currents","Magnetism"],0,"Ice flows downslope or outward under its own weight.",LG),
+L("glaciers","Glaciation","The Laurentide Ice Sheet",`<p><b>Glaciation</b> = the formation, movement and recession (shrinking back) of glaciers.</p><p>The <em class="k">Laurentide Ice Sheet</em> covered much of North America from about <b>100 000 to 11 000 years ago</b>. In places it was <em class="k">3000 m</em> thick.</p>`,"3000 m of ice is taller than seven CN Towers stacked up.",LG),
+Q("glaciers","Glaciation","The Laurentide Ice Sheet covered North America from about…",["100 000 to 11 000 years ago","1 million to 500 000 years ago","11 000 to 1000 years ago","250 million years ago"],0,"It left only about 11 000 years ago, recent in geologic time.",LG),
+Q("glaciers","Glaciation","How thick was the Laurentide Ice Sheet in some places?",["About 3000 m","About 30 m","About 300 m","About 30 000 m"],0,"About 3000 metres, or 10 000 feet.",LG),
+L("glaciers","Erosion","Erosion: carving a country",`<p>As glaciers moved, they <em class="k">stripped away</em> soil, rock and minerals, leaving little usable soil and a scarred, scored landscape.</p><p>They changed old river and lake patterns and dug hollows. When the ice melted, the hollows filled: that's how the <b>Great Lakes</b> formed.</p>`,"Unit 2 link: the bare rock and thousands of lakes of the Canadian Shield are glacier scrape marks.",LG),
+Q("glaciers","Erosion","How did the Great Lakes form?",["Glaciers dug depressions that filled with meltwater","A volcano collapsed","Two plates pulled apart","Rivers wore down the Shield"],0,"Erosion carved the hollows; melting ice filled them.",LG),
+Q("glaciers","Erosion","Why do many glaciated areas have little usable soil?",["The ice stripped the top layers of soil and rock away","Meltwater made the soil too rich","Glaciers added too much clay","Permafrost formed everywhere"],0,"That's erosion. Think of the Canadian Shield.",LG),
+L("glaciers","Deposition","Deposition: the snowplow effect",`<p>Glaciers also <em class="k">drop</em> what they carry. Ice moves material like a snowplow, so it's <b>not sorted</b> by size.</p><ul><li><b>Till</b>: the unsorted mix left as ice melts; fairly featureless land with some hills</li><li><b>Moraine</b>: a ridge of till piled at a glacier's edge as it retreats</li></ul>`,"The Oak Ridges Moraine north of Toronto is sandy, so it filters groundwater that feeds the Humber, Don and Rouge Rivers.",LG),
+Q("glaciers","Deposition","A ridge of mixed sediment left at the edge of a retreating glacier is a…",["Moraine","Caldera","Delta","Fault"],0,"Moraine = margin (the glacier's edge).",LG),
+Q("glaciers","Deposition","Material dropped directly by glacial ice is…",["Unsorted: big and small pieces mixed","Sorted with heavy rocks on top","Only fine clay","Melted into magma"],0,"Ice works like a snowplow, pushing everything together.",LG),
+Q("glaciers","Deposition","Why does the Oak Ridges Moraine matter so much to southern Ontario?",["Its sandy sediments filter groundwater that feeds rivers","It holds Canada's biggest gold mine","It blocks Arctic air","It's an active volcano"],0,"Clean water made the area good for settlement for thousands of years.",LG),
+L("glaciers","Meltwater","Liquid luggage service",`<p>Meltwater carries sediment too, but water <em class="k">sorts it by weight</em>.</p><ul><li><b>Running water</b>: as a meltwater river slows, heavy rocks drop first, lighter ones later</li><li><b>Still water</b>: in meltwater lakes, fine light material settles. Leaves <em class="k">flat land with deep, rich soil</em>, perfect farmland (Ontario, southern Prairies)</li></ul>`,"Ice = snowplow (unsorted). Water = sieve (sorted).",LG),
+Q("glaciers","Meltwater","Which deposits are sorted by size?",["Meltwater river deposits","Till","Moraines","Everything ice touches"],0,"Water drops heavy pieces first as it slows down.",LG),
+Q("glaciers","Meltwater","Old meltwater lakes left behind…",["Flat land with deep, rich soil","Steep rocky cliffs","Volcanic ash","Permafrost"],0,"Fine material settled on the lake bottom. Great for farms.",LG),
+
+/* ===== POPULATION (Oct 21, textbook pp. 24–27) ===== */
+L("people","The map","Canada's population is uneven",`<p>Some areas have thousands of people per km². One area covering almost a tenth of Canada has <em class="k">only five people</em>.</p><p>The <b>population distribution map</b> (Figure 1-5) shows it:</p><ul><li>Big cities (CMAs) = circles; bigger circle, more people</li><li>Elsewhere, one red dot = <em class="k">1000 people</em></li><li>North of 60°N, one black dot = <b>100 people</b></li></ul>`,"You'll use this map again and again to connect population with physical and economic geography.",LP),
+Q("people","The map","On Figure 1-5, what does one red dot stand for?",["1000 people","100 people","10 people","1 million people"],0,"Black dots, used north of 60°N, are 100 people.",LP),
+Q("people","The map","Why does the map switch to 100-person black dots north of 60°N?",["So few people live there that 1000-person dots would barely show","The north has more cities","Black ink is cheaper","Those areas are in another country"],0,"Smaller dots show the thin population up north.",LP),
+L("people","Ecumene","The ecumene",`<ul><li><b>Continuous ecumene</b>: the part of the country with <em class="k">continuous, permanent settlement</em></li><li><b>Discontinuous ecumene</b>: parts with <em class="k">significant patches</em> of settlement, with gaps between</li></ul><p><b>CMA</b> = census metropolitan area: a big city and the communities around it, counted together.</p>`,"On the map, the continuous ecumene is where red dots crowd together with the big circles. Scattered clumps farther out are the discontinuous ecumene.",LP),
+Q("people","Ecumene","The part of Canada with continuous, permanent settlement is the…",["Continuous ecumene","Discontinuous ecumene","Canadian Shield","Non-settled zone"],0,"Continuous = one unbroken zone of settlement.",LP),
+Q("people","Ecumene","Patches of settlement with gaps between them make up the…",["Discontinuous ecumene","Continuous ecumene","CMA","Transition zone"],0,"Dis-continuous = broken up.",LP),
+Q("people","Ecumene","A CMA is…",["A big city and its surrounding communities, counted together","A type of soil","Any town under 1000 people","A natural vegetation region"],0,"Census metropolitan area.",LP),
+L("people","Small towns","Small towns losing people",`<p>Between 2006 and 2011, Canada <em class="k">grew 5.9%</em>, but many small communities shrank (Table 1-2).</p><ul><li>They're far from the growth centres: CMAs and booming resource towns</li><li>Their <b>median age</b> is higher than Canada's 40.6 (North Frontenac, ON: 57.6)</li></ul><p>Main reason: <em class="k">poor job prospects</em>, especially for young people finishing school.</p>`,"Median age = the middle age: half the residents are older, half younger.",LP),
+Q("people","Small towns","The biggest reason rural areas lose population is…",["Poor job prospects","Cold winters","Earthquakes","High house prices"],0,"Young people leave to find work.",LP),
+Q("people","Small towns","\"Median age\" means…",["Half the residents are older and half are younger","The age of the oldest resident","The average age of children","The age of the town"],0,"It's the middle value.",LP),
+Q("people","Small towns","A town that has been completely abandoned is a…",["Ghost town","CMA","Moraine","Transition zone"],0,"Rare in Canada. Slowly shrinking towns are far more common.",LP),
+L("people","Viewpoints","Two viewpoints",`<p><b>Viewpoint 1: protect small towns.</b> They're part of our history and make Canada varied. Young people shouldn't have to leave. Companies could find workers and lower costs there.</p><p><b>Viewpoint 2: let it happen.</b> The economy has changed. <em class="k">Mechanization</em> means farming, forestry, mining and fishing need fewer workers. Services cost too much for so few people.</p>`,"On a test: pick a side, give two reasons, and answer one point from the other side.",LP),
+Q("people","Viewpoints","\"Machines mean farms and mines need far fewer workers.\" Which viewpoint does this support?",["Nothing can or should be done about rural decline","We must protect small towns","Neither; it's about cities","Both equally"],0,"That's Viewpoint 2's mechanization argument.",LP),
+Q("people","Viewpoints","Which argument supports protecting small towns?",["Young people shouldn't have to leave home to find a job","Roads and schools cost too much there","Companies already go where it makes sense","We can't go back in time"],0,"The other three are Viewpoint 2.",LP),
+
+/* ===== SOIL (Oct 22) ===== */
+L("soil","Why soil","Do we really need soil?",`<ul><li>It holds the <em class="k">minerals</em> all living things need</li><li>We use it to <b>grow food</b>: rich soil supports billions of people; poor soil, few or none</li><li>It's home to animals and microscopic creatures: <b>biodiversity</b></li><li>It <em class="k">soaks up rainwater</em>, which helps prevent flooding</li></ul>`,0,LS),
+Q("soil","Why soil","Which is NOT one of the reasons from class that soil matters?",["It produces magma","It soaks up rainwater","It grows our food","It supports biodiversity"],0,"Magma is the rock cycle. Soil gives minerals, food, habitat and flood control.",LS),
+L("soil","MOMA","What soil is made of: MOMA",`<ul><li><b>M</b>inerals: <em class="k">45%</em></li><li><b>O</b>rganic material &amp; bacteria: <em class="k">5%</em></li><li><b>M</b>oisture (water): <em class="k">25%</em></li><li><b>A</b>ir: <em class="k">25%</em></li></ul><p>The organic 5% is mostly <b>humus</b> (80%), plus roots and organisms (10% each).</p>`,"Humus = dark, broken-down plants and animals. It makes topsoil rich.",LS),
+Q("soil","MOMA","Which is NOT part of MOMA?",["Magma","Minerals","Moisture","Air"],0,"Minerals, Organic material, Moisture, Air.",LS),
+Q("soil","MOMA","What makes up the biggest share of soil?",["Mineral particles (45%)","Air (25%)","Water (25%)","Organic matter (5%)"],0,"Water and air are a quarter each.",LS),
+L("soil","Profile","The soil profile",`<p>A <b>profile</b> is a side view. Soil comes in layers called <em class="k">horizons</em>, top to bottom:</p><ul><li><b>O</b>: humus / organic layer (leaf litter)</li><li><b>A</b>: <em class="k">topsoil</em>, humus, creatures, minerals</li><li><b>E</b>: eluviated, the zone of leaching</li><li><b>B</b>: <em class="k">subsoil</em>, iron, aluminium and clay washed down from A and E</li><li><b>C</b>: parent material, weathered rock</li><li><b>R</b> (or D): bedrock</li></ul>`,"Old Apes Eat Bananas, Coconuts, Raisins: O-A-E-B-C-R.",LS),
+Q("soil","Profile","Topsoil is the…",["A horizon","O horizon","B horizon","C horizon"],0,"O is the leaf litter on top of it.",LS),
+Q("soil","Profile","Which horizon is the zone of leaching?",["E","A","C","R"],0,"E = Exit: materials wash out of it.",LS),
+Q("soil","Profile","Iron, aluminium and clay washed down from above collect in the…",["B horizon (subsoil)","O horizon","E horizon","R horizon"],0,"B = Below, where leached material lands.",LS),
+Q("soil","Profile","The C horizon is…",["Parent material: weathered, partly broken-down rock","Leaf litter","Bedrock","Pure humus"],0,"R is the solid bedrock under it.",LS),
+L("soil","Fertile soil","What makes soil fertile?",`<ol><li><b>Geology</b>: a thick layer of loose <em class="k">parent material</em></li><li><b>Climate</b>: the right amount of precipitation</li></ol><ul><li><b>Wet climate</b>: water moves <em class="k">down</em>. <b>Leaching</b> carries nutrients away; soil loses fertility</li><li><b>Dry climate</b>: water moves <em class="k">up</em>, bringing nutrients to the surface. Too dry, though, and little grows</li></ul>`,"Wet washes down, dry draws up.",LS),
+Q("soil","Fertile soil","Leaching happens when…",["Lots of rain moves water down, carrying nutrients away","Water moves up and brings nutrients to the surface","Glaciers scrape soil away","Soil freezes solid"],0,"It's a wet-climate problem.",LS),
+Q("soil","Fertile soil","In a dry climate, water moves through soil…",["Upward, bringing nutrients to the surface","Downward, washing nutrients away","Sideways into rivers","Not at all"],0,"But if it's too dry, few plants can grow.",LS),
+Q("soil","Fertile soil","Why does the Canadian Shield have thin, poor soil?",["Glaciers scraped away the loose parent material","Too much volcanic ash","It's a desert","Leaching only happens there"],0,"Geology: no thick layer of loose material to build soil from.",LS),
+L("soil","Soil regions","Soil regions of Canada",`<ul><li><b>Tundra soils</b>: the far north</li><li><b>Wet-climate soils</b>: most of the east and the boreal belt</li><li><b>Dry-climate soils</b>: the southern Prairies</li><li><b>Complex soils of mountain areas</b>: BC and the Yukon</li></ul><p>Tundra soils have <em class="k">no clear horizons</em>. They're full of old plant material that can't decompose because it's too cold.</p>`,0,LS),
+Q("soil","Soil regions","Tundra soils are unusual because…",["They have no clear horizons and lots of undecomposed plant material","They're the most fertile in Canada","They're mostly volcanic ash","They're always dry and sandy"],0,"Too cold for plants to rot.",LS),
+
+/* ===== VEGETATION & TUNDRA (Oct 22) ===== */
+L("veg","Regions","Natural vegetation",`<p><b>Natural vegetation</b> = plants that grow <em class="k">without human interference</em>.</p><p>Three main types: tundra (lichens and mosses), forest, grassland. They split into <em class="k">7 regions</em> that blend into each other through <b>transition zones</b>.</p><p>What grows in each region is usually explained by its <b>climate</b>.</p>`,"North to south in Ontario: Tiny Bears Munch Donuts (Tundra, Boreal, Mixed, Deciduous).",LS),
+Q("veg","Regions","How many natural vegetation regions does Canada have?",["7","3","5","12"],0,"3 main types, 7 regions.",LS),
+Q("veg","Regions","Where one vegetation region gradually blends into the next is a…",["Transition zone","Fault line","Moraine","CMA"],0,"Example: parkland, between grassland and boreal forest.",LS),
+L("veg","Trees","Coniferous vs deciduous",`<p><b>Coniferous</b> (needles):</p><ul><li>Survive in <em class="k">poor soil</em></li><li>Needles don't freeze</li><li><b>Waxy</b> needles stop moisture loss</li></ul><p><b>Deciduous</b> (broad leaves):</p><ul><li>Shed leaves in winter</li><li>Most need <em class="k">5+ months above 10 °C</em></li></ul>`,0,LS),
+Q("veg","Trees","Waxy needles that don't freeze belong to…",["Coniferous trees","Deciduous trees","Grasses","Lichens"],0,"That's how they survive the boreal winter.",LS),
+Q("veg","Trees","Most deciduous species need at least…",["5 months above 10 °C","2 months above 0 °C","12 months above 20 °C","1 month above 30 °C"],0,"That's why deciduous forest is only in Canada's far south.",LS),
+L("veg","Regions","The seven regions",`<ul><li><b>Tundra</b>: far north; mosses, lichens, small shrubs</li><li><b>Boreal &amp; taiga</b>: huge conifer forest; long cold winters, poor soil</li><li><b>Mixed</b>: both tree types; richer soil to the south</li><li><b>Deciduous</b>: far south; fertile soil; mostly cleared for farms and cities</li><li><b>Grassland</b>: <em class="k">too dry for trees</em></li><li><b>West coast</b>: temperate rainforest; trees over 50 m</li><li><b>Cordilleran</b>: mountains; wide range</li></ul>`,"Grass is taller in wetter areas (tall-grass prairie), shorter in drier ones (short-grass prairie).",LS),
+Q("veg","Regions","Which region is too dry for trees?",["Grassland","Boreal forest","Mixed forest","West coast forest"],0,"Only enough rain for grass.",LS),
+Q("veg","Regions","Trees over 50 m tall, lots of rain, mild temperatures. Which region?",["West coast forest","Boreal forest","Tundra","Grassland"],0,"Also called temperate rainforest.",LS),
+Q("veg","Regions","One of the largest forest regions in the world, with poor soil and long cold winters:",["Boreal forest","Deciduous forest","West coast forest","Parkland"],0,"Its growing season gets longer the farther south you go.",LS),
+Q("veg","Regions","Why has almost all of the deciduous forest been cleared?",["Fertile soil and a mild climate made it ideal for farms and cities","It burned in a volcano","Glaciers removed it","Trees can't grow there anymore"],0,"Good soil plus most of Canada's population.",LS),
+Q("veg","Regions","The mix of trees and grassland between grassland and boreal forest is called…",["Parkland","Tundra","Taiga","Moraine"],0,"A transition zone.",LS),
+L("veg","Tundra","Permafrost",`<p><b>Permafrost</b> = soil that stays <em class="k">permanently frozen</em>.</p><ul><li>Only the top metre or so thaws in summer: the <b>active layer</b></li><li>The frozen ground below stops water from draining, so the land is <em class="k">waterlogged and swampy</em></li><li>Building and travel are hard. Travel is actually easier in winter, at −40 °C</li></ul>`,"Perma = permanent.",LS),
+Q("veg","Tundra","The top layer of northern soil that thaws each summer is the…",["Active layer","Permafrost","Bedrock","E horizon"],0,"Below it, the ground stays frozen.",LS),
+Q("veg","Tundra","Why is tundra land so swampy in summer?",["Frozen ground below stops water from draining","It rains every day","Glaciers sit on top","Ocean tides flood it"],0,"Permafrost acts like a plug.",LS),
+L("veg","Climate change","Tundra and climate change",`<p>The Arctic will probably warm about <em class="k">twice as fast</em> as places farther south.</p><ul><li>Forests spread north and take in more <b>carbon dioxide</b> (the handout misprints it as carbon monoxide)</li><li>But permafrost melts, and old frozen plants decompose underground with little oxygen</li><li>That releases <em class="k">methane (CH₄)</em>, a much more powerful greenhouse gas than CO₂</li></ul><p><b>Feedback loop</b>: a change that causes even more change of the same type.</p>`,"The handout's questions ask you to apply the feedback-loop idea yourself. That's homework.",LS),
+Q("veg","Climate change","Melting permafrost releases which powerful greenhouse gas?",["Methane","Oxygen","Nitrogen","Helium"],0,"Much more powerful than carbon dioxide.",LS),
+Q("veg","Climate change","A feedback loop is…",["A change that causes even more change of the same type","A change that cancels itself out","A type of glacier","A wind pattern"],0,"Straight from the handout.",LS),
+Q("veg","Climate change","Plants slow warming because they absorb…",["Carbon dioxide","Carbon monoxide","Methane","Oxygen"],0,"The handout says carbon monoxide by mistake. It's carbon dioxide.",LS),
+Q("veg","Climate change","Why does climate change hit Inuit communities especially hard?",["Melting ice and permafrost and shifting animals threaten traditional hunting and culture","They live in big cities","The Arctic is cooling","They don't use sea ice"],0,"The Arctic feels the greatest impact.",LS),
+
+/* ===== MIXED REVIEW (earlier lessons, linked to this week) ===== */
+L("mix","Rock cycle","Soil starts in the rock cycle",`<p>Parent material is rock broken down by <em class="k">weathering</em>. Glaciers and meltwater add the <b>erosion</b>.</p><p>Bury and squeeze those sediments long enough and you get the next steps of the rock cycle: <b>compaction and cementation</b> into sedimentary rock.</p>`,"We Eat Cold Cake: Weathering, Erosion, Compaction, Cementation.",true),
+Q("mix","Rock cycle","Glacial till gets buried, compacted and cemented over millions of years. It becomes…",["Sedimentary rock","Igneous rock","Magma","Metamorphic rock right away"],0,"Compaction + cementation = sedimentary.",true),
+Q("mix","Rock cycle","Which rock type forms when magma cools?",["Igneous","Sedimentary","Metamorphic","Till"],0,"Intrusive inside Earth, extrusive on the surface."),
+Q("mix","Plates","BC has complex mountain soils and Cordilleran vegetation. Its mountains formed at which boundary?",["Oceanic–continental convergent","Divergent","Transform","Continental–continental convergent"],0,"The Juan de Fuca plate subducting under North America."),
+Q("mix","Plates","A magnitude 6 earthquake is how much stronger than a magnitude 4?",["100 times","2 times","20 times","1000 times"],0,"Two steps: 10 × 10."),
+Q("mix","Landforms","Which landform region has the richest farmland and the most people, thanks partly to glacial lake deposits?",["Great Lakes–St. Lawrence Lowlands","Canadian Shield","Arctic Lands","Cordillera"],0,"Deep soil, mild climate, deciduous and mixed forest."),
+Q("mix","Landforms","Which landform region lines up with the grassland vegetation region?",["Interior Plains","Appalachian Uplands","Hudson Bay Lowland","Canadian Shield"],0,"The Prairies: dry-climate soils, short and tall grass."),
+Q("mix","Climate","West coast forest gets heavy rain mostly from…",["Relief precipitation over the mountains","Its high latitude","The Labrador Current","Being far from water"],0,"Moist Pacific air rises, cools and drops rain."),
+Q("mix","Climate","A station has 2 months at 6 °C or warmer and a −30 °C January. Most likely vegetation region?",["Tundra","Deciduous forest","West coast forest","Grassland"],0,"Very short growing season: mosses, lichens, small shrubs."),
+Q("mix","Climate","Range 28 °C, precipitation 890 mm. Climate type?",["Continental","Maritime","Tropical","Modified maritime"],0,"Range over 25 and precipitation under 1000."),
+Q("mix","Maps","The population map uses black dots north of 60°N. 60°N is a line of…",["Latitude","Longitude","A time zone","The Prime Meridian"],0,"Latitude measures distance north or south of the equator."),
+Q("mix","Maps","Lines of latitude run…",["East–west, measuring north–south position","North–south, measuring east–west position","Only through Canada","Diagonally"],0,"Parallels of latitude are parallel to the equator.")
 ];
 CARDS.forEach((c,i)=>c.id=c.deck+"-"+i);
 
@@ -227,7 +326,7 @@ const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 
 /* ---------- Feed ---------- */
 const feed=document.getElementById("feed"),countEl=document.getElementById("count"),barEl=document.getElementById("bar"),hint=document.getElementById("hint");
-let cur="quakes",run=[],answered={},right=0,checks=0,missedNow=new Set(),started=false;
+let cur="glaciers",run=[],answered={},right=0,checks=0,missedNow=new Set(),started=false;
 const esc=s=>String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 
@@ -239,7 +338,8 @@ function buildRun(deck){
   return CARDS.filter(c=>c.deck===deck);
 }
 function kick(c,extra){
-  return `<div class="kick">${c.test?'<span class="t">Oct 16 lesson</span><span>·</span>':''}<span>${esc(c.topic)}</span>${extra||""}</div>`;
+  const lab=c.test===true?"Oct 16 lesson":c.test;
+  return `<div class="kick">${lab?`<span class="t">${esc(lab)}</span><span>·</span>`:''}<span>${esc(c.topic)}</span>${extra||""}</div>`;
 }
 function slideFor(c,n,retry){
   const el=document.createElement("section");el.className="slide";el.dataset.n=n;
@@ -313,7 +413,7 @@ function start(deck){
   feed.scrollTop=0;document.getElementById("deckname").textContent=deckLabel(deck);
   hint.style.opacity=1;updateCount();closeSheet();
   if(!started){started=true;S.sessions++;S.first=S.first||new Date().toISOString();S.last=new Date().toISOString();save()}
-  try{localStorage.setItem(KEY+".deck",deck)}catch(e){}
+  try{localStorage.setItem(KEY+".deck2",deck)}catch(e){}
 }
 feed.addEventListener("scroll",()=>{clearTimeout(feed._t);feed._t=setTimeout(updateCount,60)},{passive:true});
 document.addEventListener("keydown",e=>{
@@ -350,7 +450,7 @@ document.getElementById("statsbtn").onclick=()=>{
   st.hidden=false;
 };
 
-let first="quakes";try{const d=localStorage.getItem(KEY+".deck");if(d&&(DECKS[d]))first=d}catch(e){}
+let first="glaciers";try{const d=localStorage.getItem(KEY+".deck2");if(d&&(DECKS[d]))first=d}catch(e){}
 start(first);
 </script>
 </body>
