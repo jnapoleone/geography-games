@@ -119,17 +119,20 @@ h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,8vw,38px);lin
 <script>
 /* ---------- Content ----------
    Follows Mr. Muckinhaupt's CGC1D slides (Oct 16: Earthquakes, Volcanoes & the Rock Cycle; Oct 20: Glaciers;
-   Oct 21: textbook pp. 24-27, population patterns; Oct 22: Soil and vegetation + Tundra and climate change handout)
+   Oct 21: textbook pp. 24-27, population patterns; Oct 22: Soil and vegetation + Tundra and climate change handout;
+   Oct 26: climate region discussion, textbook Figure 3-11; Oct 29-30: Pump preview questions and documentary)
    plus earlier lessons for review. Textbook Apply It!/Viewpoints questions and the tundra handout questions are
    homework, so they are left out. New cards are appended after the old ones so saved progress ids stay stable.
    Real-world examples come from outside the course. Discovery Task 3 questions (Earthquakes Canada site research,
    early warning, building design, badlands) are homework, so they are left out. */
 const DECKS={
+  climate:{name:"Climate regions",sub:"The 8 regions, hardiness zones, soils, the Prairie case"},
+  pump:{name:"Pump: oil & fuels",sub:"Monopoly, ethanol, methanol, flex-fuel, Brazil, Canada's energy"},
   glaciers:{name:"Glaciers",sub:"How ice moves, erosion vs deposition, till, moraines, meltwater"},
   people:{name:"Population patterns",sub:"Ecumene, CMAs, the dot map, small towns losing people"},
   soil:{name:"Soil",sub:"MOMA, the soil profile O-A-E-B-C-R, leaching, soil regions"},
   veg:{name:"Vegetation & tundra",sub:"The seven regions, conifers vs deciduous, permafrost, climate change"},
-  mix:{name:"Review: everything so far",sub:"Oct 16 lesson and Units 1 & 2, tied to this week"},
+  mix:{name:"Review: everything so far",sub:"Every earlier lesson and Units 1 & 2, mixed"},
   quakes:{name:"Earthquakes",sub:"Why they happen, the three stresses, magnitude, Canada's hotspots"},
   volcanoes:{name:"Volcanoes",sub:"Magma vs lava, silica, the four types, Canada's volcanoes"},
   rocks:{name:"Rock cycle",sub:"Igneous, sedimentary, metamorphic and how they turn into each other"},
@@ -137,7 +140,7 @@ const DECKS={
 };
 const L=(deck,topic,h,b,ex,test)=>({t:"learn",deck,topic,h,b,ex,test});
 const Q=(deck,topic,q,opts,a,why,test)=>({t:"check",deck,topic,q,opts,a,why,test});
-const T=true,LG="Oct 20 lesson",LP="Oct 21 lesson",LS="Oct 22 lesson";
+const T=true,LG="Oct 20 lesson",LP="Oct 21 lesson",LS="Oct 22 lesson",LCR="Oct 26 lesson",LPM="Oct 30 lesson";
 
 const CARDS=[
 /* ===== EARTHQUAKES ===== */
@@ -314,7 +317,65 @@ Q("mix","Climate","West coast forest gets heavy rain mostly from…",["Relief pr
 Q("mix","Climate","A station has 2 months at 6 °C or warmer and a −30 °C January. Most likely vegetation region?",["Tundra","Deciduous forest","West coast forest","Grassland"],0,"Very short growing season: mosses, lichens, small shrubs."),
 Q("mix","Climate","Range 28 °C, precipitation 890 mm. Climate type?",["Continental","Maritime","Tropical","Modified maritime"],0,"Range over 25 and precipitation under 1000."),
 Q("mix","Maps","The population map uses black dots north of 60°N. 60°N is a line of…",["Latitude","Longitude","A time zone","The Prime Meridian"],0,"Latitude measures distance north or south of the equator."),
-Q("mix","Maps","Lines of latitude run…",["East–west, measuring north–south position","North–south, measuring east–west position","Only through Canada","Diagonally"],0,"Parallels of latitude are parallel to the equator.")
+Q("mix","Maps","Lines of latitude run…",["East–west, measuring north–south position","North–south, measuring east–west position","Only through Canada","Diagonally"],0,"Parallels of latitude are parallel to the equator."),
+
+/* ===== CLIMATE REGIONS (Oct 26 group work, textbook p. 66, Figure 3-11) ===== */
+L("climate","The 8 regions","Canada's 8 climate regions",`<p>A <em class="k">climate region</em> is a big area where temperature and precipitation follow the same pattern year after year.</p><p>The textbook map shows <b>8</b>: Pacific maritime, Cordilleran, Prairie, Boreal, Taiga, Arctic, Southeastern, Atlantic maritime.</p>`,"People Can Play Ball, Then All Sit Around.",LCR),
+L("climate","Coasts","The two maritime regions",`<p><b>Pacific maritime</b> (Vancouver): mild, wet winters, cool summers, the <em class="k">smallest temperature range</em> in Canada.</p><p><b>Atlantic maritime</b> (Moncton): cool summers, milder winters than inland, wet, foggy, stormy.</p><p>Maritime = near the sea. The ocean warms winters and cools summers.</p>`,0,LCR),
+Q("climate","Coasts","Which region has the mildest winters in Canada?",["Pacific maritime","Prairie","Boreal","Southeastern"],0,"The Pacific Ocean and westerly winds keep Vancouver mild.",LCR),
+Q("climate","Coasts","Why does Vancouver get so much rain?",["Westerly winds push moist Pacific air up the mountains (relief rain)","It is far from the ocean","It has a high latitude","Cold Arctic air masses"],0,"Rising air cools, condenses and rains on the windward slope.",LCR),
+L("climate","Inland","Prairie, Boreal and Cordilleran",`<ul><li><b>Prairie</b> (Regina): hot summers, very cold winters, <em class="k">huge range</em>, dry, very sunny</li><li><b>Boreal</b> (Timmins): long cold winters, short warm summers, moderate precipitation</li><li><b>Cordilleran</b> (Prince George): changes with <em class="k">elevation</em>: wet windward slopes, dry valleys, cold peaks</li></ul>`,0,LCR),
+Q("climate","Inland","Far from any ocean, hot summers, frigid winters. This is a…",["Continental climate","Maritime climate","Tropical climate","Polar ice climate"],0,"Continental = big temperature range, less precipitation.",LCR),
+Q("climate","Inland","Which region's weather changes most with elevation?",["Cordilleran","Prairie","Southeastern","Atlantic maritime"],0,"Mountains: wet slopes, dry rain-shadow valleys, cold peaks.",LCR),
+L("climate","North & south","The North and the Southeast",`<ul><li><b>Taiga</b> (Yellowknife): very long cold winters, short cool summers</li><li><b>Arctic</b> (Resolute): coldest and driest, a <em class="k">cold desert</em></li><li><b>Southeastern</b> (Toronto): warm humid summers, snowy winters, precipitation all year, <em class="k">most people</em></li></ul>`,0,LCR),
+Q("climate","North & south","Match the city: Resolute",["Arctic","Taiga","Boreal","Atlantic maritime"],0,"Way up in Nunavut: coldest and driest.",LCR),
+Q("climate","North & south","Match the city: Yellowknife",["Taiga","Arctic","Prairie","Cordilleran"],0,"The thin northern edge of the forest.",LCR),
+Q("climate","North & south","Match the city: Timmins",["Boreal","Southeastern","Taiga","Prairie"],0,"Northern Ontario forest country.",LCR),
+Q("climate","North & south","Which climate region holds the most Canadians?",["Southeastern","Pacific maritime","Prairie","Atlantic maritime"],0,"Toronto, Ottawa and Montréal: warm summers, long growing season, fertile soil.",LCR),
+L("climate","Hardiness","Plant hardiness zones",`<p>A number from <b>0</b> (toughest winter) to <b>9</b> (mildest) showing how hardy a plant must be to survive winter.</p><p>The assignment called <em class="k">zones 5–8 the best</em>. Only Pacific maritime, Southeastern and Atlantic maritime reach them. The Prairies sit at about 3–4.</p>`,"Low number, tough winter.",LCR),
+Q("climate","Hardiness","A higher plant hardiness zone means…",["Milder winters and a longer growing season","Colder winters","More permafrost","Higher mountains"],0,"Zone 9 is southern Vancouver Island; zone 0 is the Arctic.",LCR),
+Q("climate","Hardiness","About what hardiness zone are the Prairies?",["3–4","7–9","0","5–8"],0,"Below the \"best\" 5–8 range.",LCR),
+L("climate","Soils","Four soil regions",`<ul><li><b>Wet climate soils</b>: most of southern and central Canada</li><li><b>Dry climate soils</b>: the southern Prairies, little leaching, <em class="k">dark and fertile</em></li><li><b>Cold climate soils</b>: the North, on permafrost</li><li><b>Complex mountain soils</b>: B.C. and the Rockies</li></ul>`,0,LCR),
+Q("climate","Soils","Dry climate soils are found mainly in…",["The southern Prairies","The Arctic","Coastal B.C.","Southern Ontario"],0,"Low rain means little leaching, so nutrients stay near the top.",LCR),
+L("climate","Prairie case","Arguing for the Prairies",`<p><b>Strengths</b>: very sunny, dry air, warm summers ripen wheat and canola, fertile dry climate soils, chinook winds, less snow than the east.</p><p><b>Weaknesses</b>: very cold winters, huge temperature range, drought, hail and tornadoes, hardiness only 3–4.</p>`,"Claim → evidence → explain → compare.",LCR),
+Q("climate","Prairie case","Which is a climate STRENGTH of the Prairies?",["Lots of sunshine","Mild winters","High precipitation","Hardiness zone 8"],0,"Prairie cities are among the sunniest in Canada.",LCR),
+Q("climate","Prairie case","Which is a climate WEAKNESS of the Prairies?",["Drought risk","Too much fog","Constant rain","Permafrost everywhere"],0,"Low precipitation and far from oceans.",LCR),
+Q("climate","Terms","An area where one region blends gradually into the next is a…",["Transition zone","Climate region","Soil profile","CMA"],0,"Example: parkland between grassland and boreal forest.",LCR),
+Q("climate","Terms","The side of a mountain facing the wind is the…",["Windward slope","Leeward slope","Rain shadow","Active layer"],0,"Rising air cools and drops rain or snow there.",LCR),
+Q("climate","Terms","A big city plus nearby commuter towns, counted as one unit, is a…",["Census Metropolitan Area (CMA)","Ecumene","Transition zone","Climate region"],0,"At least 100,000 people, 50,000 in the core.",LCR),
+
+/* ===== PUMP: OIL AND ALTERNATIVE FUELS (Oct 29 preview, Oct 30 documentary) ===== */
+L("pump","The film","Pump (2014)",`<p>A documentary by Josh and Rebecca Tickell, narrated by Jason Bateman.</p><p>Big claim: cars run on gasoline <em class="k">not because it's best</em>, but because oil companies make sure drivers have <b>no choice at the pump</b>.</p>`,0,LPM),
+L("pump","Monopoly","Monopoly",`<p>When <b>one company</b> (or a group acting together) controls a whole market, so buyers have <em class="k">no real choice</em> and the seller sets the price.</p><p><b>Standard Oil</b>, John D. Rockefeller's company, controlled most of America's oil business. The U.S. Supreme Court broke it up in <b>1911</b>.</p>`,"Mono = one seller.",LPM),
+Q("pump","Monopoly","A monopoly is when…",["One company or group controls a whole market","Many companies compete on price","The government owns all businesses","A country runs out of oil"],0,"No competition means no choice for buyers.",LPM),
+Q("pump","Monopoly","Who ran Standard Oil?",["John D. Rockefeller","Henry Ford","Elon Musk","Lula da Silva"],0,"Broken up by the U.S. Supreme Court in 1911.",LPM),
+Q("pump","Monopoly","The film says oil has a monopoly on…",["Transportation fuel","Electricity","Farming","Shipping containers"],0,"At most pumps you can only buy petroleum.",LPM),
+L("pump","Fuels","The alternative fuels",`<ul><li><b>Ethanol</b>: alcohol fuel from plants (corn, sugarcane)</li><li><b>Methanol</b>: alcohol fuel, usually from <em class="k">natural gas</em></li><li><b>CNG</b>: compressed natural gas</li><li><b>Electric</b>: battery cars like Tesla</li></ul><p>A <b>flex-fuel</b> car can burn gasoline, ethanol, methanol or a mix. Many cars could switch with a cheap software change.</p>`,"Ethanol from Ears of corn. Methanol from Methane.",LPM),
+Q("pump","Fuels","A flex-fuel vehicle can…",["Burn gasoline, alcohol fuels or a mix","Run only on electricity","Run only on diesel","Fly short distances"],0,"Flex = flexible.",LPM),
+Q("pump","Fuels","Methanol is usually made from…",["Natural gas","Sugarcane","Corn","Seawater"],0,"So it is often still a fossil fuel.",LPM),
+Q("pump","Fuels","E85 means a fuel that is…",["Up to 85% ethanol","85% electric","85% methanol","Made in 1985"],0,"The rest is gasoline.",LPM),
+L("pump","Brazil","Brazil switched",`<p>After the 1970s oil shocks, Brazil moved much of its driving to <em class="k">ethanol from sugarcane</em>.</p><p>Its former president, <b>Lula da Silva</b>, explains in the film how fuel choice helped Brazil rely less on imported oil.</p>`,0,LPM),
+Q("pump","Brazil","Brazil makes most of its fuel ethanol from…",["Sugarcane","Corn","Wheat","Natural gas"],0,"Brazil grows huge amounts of sugarcane.",LPM),
+L("pump","Critical eye","Watch with a critical eye",`<ul><li>Partly funded by the <b>Fuel Freedom Foundation</b>, which campaigns for fuel choice, so it is persuasive, not neutral</li><li>Methanol from natural gas is <em class="k">still a fossil fuel</em></li><li>Corn ethanol uses farmland, and some studies say it may not cut emissions</li></ul>`,0,LPM),
+Q("pump","Critical eye","Which is a fair criticism of Pump?",["It promotes methanol made from natural gas, a fossil fuel","It is about Canadian hockey","It ignores ethanol completely","It says oil should never be used again"],0,"Fuel choice is not the same as clean fuel.",LPM),
+L("pump","Real numbers","Canada and the world",`<ul><li>About <em class="k">67%</em> of Canada's <b>electricity</b> is renewable, mostly <b>hydro</b>; about 80% has no emissions (adds nuclear)</li><li>But cars and furnaces burn oil and gas, so the renewable share of <b>all</b> energy is much lower</li><li>Electric cars worldwide: <b>18%</b> of new sales in 2023, about <b>25%</b> in 2025, about <b>28%</b> expected in 2026</li></ul>`,0,LPM),
+Q("pump","Real numbers","About what share of Canada's electricity is renewable?",["67%","15%","40%","99%"],0,"Mostly hydro dams.",LPM),
+Q("pump","Real numbers","Why is the renewable share of ALL Canada's energy much lower than for electricity?",["Most vehicles and furnaces still burn oil and natural gas","Hydro dams are closing","Canada imports all its electricity","Solar panels don't work in Canada"],0,"Electricity is only part of the energy we use.",LPM),
+Q("pump","Real numbers","Electric cars were what share of new car sales worldwide in 2023?",["18%","2%","50%","75%"],0,"About a quarter by 2025.",LPM),
+Q("pump","Why oil","Which is a real reason we still rely on fossil fuels?",["Cars, pipelines and gas stations are already built for them","They produce no CO₂","They are renewable","Alternatives don't exist"],0,"Also: cheap, lots of energy per litre, jobs and money.",LPM),
+Q("pump","Why oil","Building more roads usually leads to…",["More traffic (induced demand)","Fewer cars","Less fuel use","Cheaper gasoline"],0,"Easier driving means more people drive.",LPM),
+
+/* ===== MIXED REVIEW 2 (earlier lessons, tied to this week) ===== */
+Q("mix","Climate","In LOWERN, the E stands for…",["Elevation","Equator","Erosion","Evaporation"],0,"Latitude, Ocean currents, Wind and air masses, Elevation, Relief, Near water."),
+Q("mix","Climate","Why is the Pacific maritime temperature range so small?",["Near water: the ocean heats and cools slowly","High elevation","High latitude","Far from oceans"],0,"The N in LOWERN."),
+Q("mix","Soil","Leaching means…",["Water carries minerals down out of the topsoil","Wind blows topsoil away","Permafrost thaws","Plants add humus"],0,"Wet climate soils are leached; dry climate soils are not."),
+Q("mix","Population","The part of Canada where people live permanently is the…",["Ecumene","Taiga","Tundra","Shield"],0,"A thin strip near the U.S. border."),
+Q("mix","Vegetation","The thin northern edge of the boreal forest, where trees get sparse, is the…",["Taiga","Parkland","Tundra","Prairie"],0,"Also the name of a climate region."),
+Q("mix","Climate change","Permafrost thaw releases methane, which causes more warming. This is a…",["Feedback loop","Transition zone","Rain shadow","Soil profile"],0,"The change feeds itself."),
+Q("mix","Glaciers","A long, winding ridge of sand and gravel left by a stream under a glacier is an…",["Esker","Drumlin","Erratic","Moraine"],0,"Meltwater deposits it in a tunnel under the ice."),
+Q("mix","Rock cycle","Rock formed when magma or lava cools is…",["Igneous","Sedimentary","Metamorphic","Till"],0,"Fire-formed rock."),
+Q("mix","Plates","Plates moving apart form a…",["Divergent boundary","Convergent boundary","Transform boundary","Subduction zone"],0,"Tension pulls them apart.")
+
 ];
 CARDS.forEach((c,i)=>c.id=c.deck+"-"+i);
 
@@ -326,7 +387,7 @@ const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 
 /* ---------- Feed ---------- */
 const feed=document.getElementById("feed"),countEl=document.getElementById("count"),barEl=document.getElementById("bar"),hint=document.getElementById("hint");
-let cur="glaciers",run=[],answered={},right=0,checks=0,missedNow=new Set(),started=false;
+let cur="climate",run=[],answered={},right=0,checks=0,missedNow=new Set(),started=false;
 const esc=s=>String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 
@@ -413,7 +474,7 @@ function start(deck){
   feed.scrollTop=0;document.getElementById("deckname").textContent=deckLabel(deck);
   hint.style.opacity=1;updateCount();closeSheet();
   if(!started){started=true;S.sessions++;S.first=S.first||new Date().toISOString();S.last=new Date().toISOString();save()}
-  try{localStorage.setItem(KEY+".deck2",deck)}catch(e){}
+  try{localStorage.setItem(KEY+".deck3",deck)}catch(e){}
 }
 feed.addEventListener("scroll",()=>{clearTimeout(feed._t);feed._t=setTimeout(updateCount,60)},{passive:true});
 document.addEventListener("keydown",e=>{
@@ -450,7 +511,7 @@ document.getElementById("statsbtn").onclick=()=>{
   st.hidden=false;
 };
 
-let first="glaciers";try{const d=localStorage.getItem(KEY+".deck2");if(d&&(DECKS[d]))first=d}catch(e){}
+let first="climate";try{const d=localStorage.getItem(KEY+".deck3");if(d&&(DECKS[d]))first=d}catch(e){}
 start(first);
 </script>
 </body>
