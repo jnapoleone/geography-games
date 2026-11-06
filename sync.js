@@ -6,7 +6,7 @@
    Results wait on the device and are sent later if there's no connection. */
 (function(){
 "use strict";
-var ENDPOINT="";   /* the Apps Script web app URL. Empty = sync is off and this file does nothing. */
+var ENDPOINT="https://script.google.com/macros/s/AKfycbwA_rs4NWPW_bnP_wCU0H4Azy3Tm4V9kHgqbk6DRNdNg0UFjGNyba8spzSzPwx1BLA/exec";   /* the Apps Script web app URL. Empty = sync is off and this file does nothing. */
 var P="geoSync.",K_DEV=P+"device",K_Q=P+"queue",K_BF=P+"backfilled",K_NOTE=P+"noteSeen";
 var BATCH=200,MAX_QUEUE=3000,RETRY_MS=60000;
 var NOTE="Your Geography right and wrong answers now go to a private sheet your dad can see, with no name attached, so your reviews get built around what you miss.";
