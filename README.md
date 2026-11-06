@@ -18,6 +18,16 @@ Study games for Grade 9 Geography (CGC1D).
 - "Ones I've missed" replays only the questions answered wrong.
 - "Progress (for parents)" in the deck menu shows sessions, best scores and weakest topics. Saved on the device only.
 
+## Progress sync
+
+`sync.js` (loaded by Base Camp and Geo Swipe) sends right/wrong results to a private Google Sheet, "Sebastian Geography progress", so reviews can target what gets missed. Same setup as English Games.
+
+- Sends only a random device id, card/question ids, right/wrong, scores and timestamps. No name and nothing typed.
+- The first time it runs on a device, it copies the progress already saved there. Results wait on the device while it's offline.
+- `sync/Code.gs` is the add-only Apps Script receiver for the Sheet. It can't read anything back.
+- Sync is off while `ENDPOINT` in `sync.js` is empty.
+- Item ids: Swipe = `deck-index`, Base Camp = `deck-index` in `DATA.questions`. Always append new cards and questions at the end so the ids stay stable.
+
 ## Roblox: Geo Review Obby
 
 `roblox/GeoReviewObby.lua` builds a 22-stage Unit 2 obstacle course. Each stage asks a question; walk through the door with the right answer.

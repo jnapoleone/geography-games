@@ -114,8 +114,10 @@ h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,8vw,38px);lin
   <div id="decks"></div>
   <button class="linkish" id="statsbtn">Progress (for parents)</button>
   <div id="stats" hidden></div>
+  <p class="small" id="syncnote" hidden style="margin:10px 4px 0"></p>
 </div></div>
 
+<script src="../sync.js"></script>
 <script>
 /* ---------- Content ----------
    Follows Mr. Muckinhaupt's CGC1D slides (Oct 16: Earthquakes, Volcanoes & the Rock Cycle; Oct 20: Glaciers;
@@ -428,6 +430,7 @@ function answer(el,c,i,retry){
   if(ok){if(S.miss[c.id])S.miss[c.id]=Math.max(0,S.miss[c.id]-1);if(!S.miss[c.id])delete S.miss[c.id]}
   else{S.miss[c.id]=(S.miss[c.id]||0)+1;missedNow.add(c.id);requeue(el,c)}
   S.last=new Date().toISOString();save();
+  window.Sync&&Sync.log("answer",c.id,ok?"right":"wrong",retry?"second":"first");
 }
 function requeue(el,c){
   const slides=[...feed.querySelectorAll(".slide")];const idx=slides.indexOf(el);
@@ -459,7 +462,7 @@ function updateCount(){
   countEl.textContent=`${i+1}/${slides.length}`;barEl.style.width=((i+1)/slides.length*100)+"%";
   if(i>0)hint.style.opacity=0;
   if(slides[i]&&slides[i].dataset.end){
-    if(!slides[i].dataset.counted&&checks){slides[i].dataset.counted=1;if(cur!=="missed"){const d=S.decks[cur]||(S.decks[cur]={best:0,runs:0});d.runs++;save()}}
+    if(!slides[i].dataset.counted&&checks){slides[i].dataset.counted=1;window.Sync&&Sync.log("finish",cur,"",right+"of"+checks);if(cur!=="missed"){const d=S.decks[cur]||(S.decks[cur]={best:0,runs:0});d.runs++;save()}}
     renderEnd();
   }
 }
@@ -475,6 +478,7 @@ function start(deck){
   hint.style.opacity=1;updateCount();closeSheet();
   if(!started){started=true;S.sessions++;S.first=S.first||new Date().toISOString();S.last=new Date().toISOString();save()}
   try{localStorage.setItem(KEY+".deck3",deck)}catch(e){}
+  window.Sync&&Sync.log("start",deck);
 }
 feed.addEventListener("scroll",()=>{clearTimeout(feed._t);feed._t=setTimeout(updateCount,60)},{passive:true});
 document.addEventListener("keydown",e=>{
@@ -485,6 +489,7 @@ document.addEventListener("keydown",e=>{
 
 /* ---------- Deck sheet + parent progress ---------- */
 const sheet=document.getElementById("sheet");
+if(window.Sync&&Sync.on){const n=document.getElementById("syncnote");n.textContent=Sync.note;n.hidden=false}
 function openSheet(){
   const counts=d=>CARDS.filter(c=>c.deck===d&&c.t==="check").length;
   const left=Object.keys(S.miss).length;
@@ -507,7 +512,7 @@ document.getElementById("statsbtn").onclick=()=>{
     <div class="statrow"><span>Last active</span><span>${fmt(S.last)}</span></div>
     ${Object.entries(DECKS).map(([k,v])=>{const d=S.decks[k];return `<div class="statrow"><span>${esc(v.name)}</span><span>${d&&d.runs?`${d.runs} finished · best ${d.best}%`:"not finished yet"}</span></div>`}).join("")}
     ${topics.length?`<p class="small" style="margin:14px 4px 4px">By topic, weakest first (all answers, including second tries):</p>`+topics.map(([k,v,p])=>`<div class="statrow"><span>${esc(k)}</span><span>${Math.round(p*100)}% of ${v.r+v.w}</span></div>`).join(""):'<p class="small" style="margin:14px 4px">No answers yet.</p>'}
-    <p class="small" style="margin:12px 4px 0">Saved on this device only.</p>`;
+    <p class="small" style="margin:12px 4px 0">${window.Sync&&Sync.on?"Saved on this device and sent to the progress sheet.":"Saved on this device only."}</p>`;
   st.hidden=false;
 };
 
