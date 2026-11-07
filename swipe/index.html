@@ -122,12 +122,16 @@ h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,8vw,38px);lin
 /* ---------- Content ----------
    Follows Mr. Muckinhaupt's CGC1D slides (Oct 16: Earthquakes, Volcanoes & the Rock Cycle; Oct 20: Glaciers;
    Oct 21: textbook pp. 24-27, population patterns; Oct 22: Soil and vegetation + Tundra and climate change handout;
-   Oct 26: climate region discussion, textbook Figure 3-11; Oct 29-30: Pump preview questions and documentary)
+   Oct 26: climate region discussion, textbook Figure 3-11; Oct 29-30: Pump preview questions and documentary;
+   Nov 3: Unit 2 test review sheet; Nov 5: The Story of Stuff video. Its worksheet is homework, so its numbers are left out)
    plus earlier lessons for review. Textbook Apply It!/Viewpoints questions and the tundra handout questions are
    homework, so they are left out. New cards are appended after the old ones so saved progress ids stay stable.
    Real-world examples come from outside the course. Discovery Task 3 questions (Earthquakes Canada site research,
    early warning, building design, badlands) are homework, so they are left out. */
 const DECKS={
+  test:{name:"Unit 2 test prep",sub:"The Nov 3 review sheet: break-move-drop, soil damage, calculations, the Shield"},
+  weak:{name:"Weak spots",sub:"Soil profile, tundra, feedback loops, LOWERN, climate types, volcano types"},
+  stuff:{name:"The Story of Stuff",sub:"Five stages, hidden costs, obsolescence, eco-footprint"},
   climate:{name:"Climate regions",sub:"The 8 regions, hardiness zones, soils, the Prairie case"},
   pump:{name:"Pump: oil & fuels",sub:"Monopoly, ethanol, methanol, flex-fuel, Brazil, Canada's energy"},
   glaciers:{name:"Glaciers",sub:"How ice moves, erosion vs deposition, till, moraines, meltwater"},
@@ -142,7 +146,7 @@ const DECKS={
 };
 const L=(deck,topic,h,b,ex,test)=>({t:"learn",deck,topic,h,b,ex,test});
 const Q=(deck,topic,q,opts,a,why,test)=>({t:"check",deck,topic,q,opts,a,why,test});
-const T=true,LG="Oct 20 lesson",LP="Oct 21 lesson",LS="Oct 22 lesson",LCR="Oct 26 lesson",LPM="Oct 30 lesson";
+const T=true,LG="Oct 20 lesson",LP="Oct 21 lesson",LS="Oct 22 lesson",LCR="Oct 26 lesson",LPM="Oct 30 lesson",LT="Nov 3 review",LW="Weak spots",LSS="Nov 5 lesson";
 
 const CARDS=[
 /* ===== EARTHQUAKES ===== */
@@ -376,7 +380,76 @@ Q("mix","Vegetation","The thin northern edge of the boreal forest, where trees g
 Q("mix","Climate change","Permafrost thaw releases methane, which causes more warming. This is a…",["Feedback loop","Transition zone","Rain shadow","Soil profile"],0,"The change feeds itself."),
 Q("mix","Glaciers","A long, winding ridge of sand and gravel left by a stream under a glacier is an…",["Esker","Drumlin","Erratic","Moraine"],0,"Meltwater deposits it in a tunnel under the ice."),
 Q("mix","Rock cycle","Rock formed when magma or lava cools is…",["Igneous","Sedimentary","Metamorphic","Till"],0,"Fire-formed rock."),
-Q("mix","Plates","Plates moving apart form a…",["Divergent boundary","Convergent boundary","Transform boundary","Subduction zone"],0,"Tension pulls them apart.")
+Q("mix","Plates","Plates moving apart form a…",["Divergent boundary","Convergent boundary","Transform boundary","Subduction zone"],0,"Tension pulls them apart."),
+
+/* ===== UNIT 2 TEST PREP (Nov 3 review sheet) ===== */
+L("test","Break move drop","Weathering, erosion, deposition",`<ul><li><b>Weathering</b>: rock broken down <em class="k">where it sits</em> (ice in cracks, roots, acid rain)</li><li><b>Erosion</b>: the pieces get <em class="k">carried away</em> by water, ice or wind</li><li><b>Deposition</b>: the water, ice or wind <em class="k">drops</em> them somewhere new</li></ul>`,"Break, move, drop.",LT),
+Q("test","Break move drop","Water freezes in a crack, expands and splits a rock that stays put. That's…",["Weathering","Erosion","Deposition","Cementation"],0,"Nothing moved, so it's weathering.",LT),
+Q("test","Break move drop","A river carries sand downstream. That's…",["Erosion","Weathering","Deposition","Compaction"],0,"Moving material away = erosion.",LT),
+Q("test","Break move drop","A river slows at a lake and drops its sand. That's…",["Deposition","Erosion","Weathering","Leaching"],0,"Dropping = deposition.",LT),
+L("test","Water vs ice","Water sorts, ice dumps",`<p><b>Running water</b> slows and drops the <em class="k">heaviest rocks first</em>, so its deposits are <b>sorted</b> by size.</p><p><b>Still water</b> (meltwater lakes) drops fine material: flat, deep, rich soil.</p><p><b>Ice</b> pushes everything like a snowplow, so <b>till</b> and <b>moraines</b> are <em class="k">unsorted</em>.</p>`,0,LT),
+Q("test","Water vs ice","You dig into a hill and find boulders, sand and clay all jumbled together. It was most likely left by…",["A glacier","A slow river","A meltwater lake","The wind"],0,"Unsorted = ice.",LT),
+Q("test","Water vs ice","Flat land with deep, fine, rich soil in southern Ontario was most likely left by…",["Still meltwater lakes","A moraine","Glacial erosion","A volcano"],0,"Still water drops the fine stuff evenly.",LT),
+L("test","Soil damage","Soil damage",`<ul><li><b>Erosion</b>: wind and water strip topsoil (the 1930s Dust Bowl)</li><li><b>Compaction</b>: heavy machines squeeze out the air</li><li><b>Nutrient loss</b>: same crop every year</li><li><b>Salinization</b>: irrigation leaves salt behind</li><li><b>Pollution</b> and <b>paving over</b> farmland</li></ul>`,"Fixes: windbreaks, crop rotation, no-till farming, leaving stubble.",LT),
+Q("test","Soil damage","Heavy tractors squash the soil so roots and water can't get in. This is…",["Compaction","Leaching","Salinization","Weathering"],0,"It removes the Air from MOMA.",LT),
+Q("test","Soil damage","Which helps stop wind erosion on a Prairie field?",["Planting rows of trees as windbreaks","Ploughing more often","Removing all stubble","Irrigating with salty water"],0,"Trees slow the wind.",LT),
+L("test","Weather vs climate","Weather vs climate",`<p><b>Weather</b>: day-to-day temperature, precipitation, humidity, wind, clouds, air pressure.</p><p><b>Climate</b>: the weather of a place <em class="k">averaged over a long time</em>.</p>`,"Weather is your mood. Climate is your personality.",LT),
+Q("test","Weather vs climate","\"It's −5 °C and snowing in Ottawa today.\" This is…",["Weather","Climate","Relief","A climate region"],0,"Today only = weather.",LT),
+Q("test","Weather vs climate","\"Victoria has mild, wet winters.\" This is…",["Climate","Weather","A forecast","An air mass"],0,"A long-term pattern = climate.",LT),
+L("test","Calculations","Climate report traps",`<ul><li>Snowfall: months at <b>0 °C or colder</b>, add precipitation, ×10</li><li>Growing season: <b>days</b> in months at <b>6 °C or warmer</b></li><li>Winter = <b>Dec, Jan, Feb</b></li><li>Range: highest − lowest (minus a negative = plus)</li><li>Continental: range over 25, precipitation under 1000. Maritime: the opposite</li></ul>`,"Zero for snow, six for growing.",LT),
+Q("test","Calculations","Highest month 20 °C, lowest −16 °C. The range is…",["36 °C","4 °C","−36 °C","18 °C"],0,"20 − (−16) = 20 + 16.",LT),
+Q("test","Calculations","May to September are all 6 °C or warmer. The growing season is…",["153 days","5 months","150 days","214 days"],0,"31+30+31+31+30. Always days.",LT),
+Q("test","Calculations","No month in a city drops below 4 °C. Its snowfall equivalent is…",["0 mm","40 mm","Total precipitation × 10","Can't tell"],0,"Only months at 0 °C or colder count.",LT),
+Q("test","Calculations","Range 14 °C, precipitation 1215 mm. Climate type?",["Maritime","Continental","Modified","Arctic"],0,"Under 25 and over 1000.",LT),
+Q("test","Calculations","Range 30 °C, precipitation 1100 mm. Climate type?",["Modified","Maritime","Continental","Tropical"],0,"One continental value, one maritime value.",LT),
+L("test","Overlap","Why the regions overlap",`<p>Landforms shape climate (Elevation, Relief). Climate decides vegetation. Climate and plants make the soil.</p><ul><li>Interior Plains → Prairie climate → grassland → dark dry climate soil</li><li>Canadian Shield → Boreal climate → boreal forest → thin leached soil</li><li>Arctic Lands → Arctic climate → tundra → cold soil on permafrost</li></ul><p>Edges blend through <em class="k">transition zones</em>.</p>`,0,LT),
+Q("test","Overlap","The Great Lakes–St. Lawrence Lowlands line up with which vegetation?",["Deciduous and mixed forest","Tundra","Grassland","West Coast forest"],0,"Southeastern climate, long growing season.",LT),
+Q("test","Overlap","Why is the Interior Plains region mostly grassland?",["Too dry for most trees","Too cold for grass","Permafrost blocks roots","The soil was scraped away"],0,"Climate controls vegetation.",LT),
+L("test","Shield","Glaciation and the Shield",`<ul><li>The <b>Laurentide Ice Sheet</b> (100,000–11,000 years ago, up to 3,000 m thick) <em class="k">scraped the soil off</em>: bare, scratched rock, thin soil</li><li>It gouged hollows and blocked rivers: <em class="k">thousands of lakes and swamps</em></li><li>The soil was <b>deposited</b> further south</li><li>Exposed rock: great for <b>mining</b>, poor for farming</li></ul>`,0,LT),
+Q("test","Shield","Why does the Canadian Shield have so little farmland?",["Glaciers scraped its soil away","It's too hot","It's all mountains","It's under the ocean"],0,"Glacial erosion.",LT),
+Q("test","Shield","Why does the Shield have so many lakes?",["Glaciers gouged hollows that filled with meltwater","Volcanoes left craters","It rains more there than anywhere","People dammed every river"],0,"Erosion made the hollows; melting filled them.",LT),
+Q("test","Rock cycle","Sediment pressed and glued together becomes…",["Sedimentary rock","Igneous rock","Metamorphic rock","Magma"],0,"Compaction + cementation.",LT),
+Q("test","Rock cycle","Which arrow label turns igneous rock straight into metamorphic rock?",["Heat and pressure","Cooling","Weathering","Melting"],0,"Any rock can be changed by heat and pressure.",LT),
+Q("test","Landforms","A mountain peak poking up through a glacier is a…",["Nunatak","Pingo","Slough","Moraine"],0,"Inuit word, Innuitian Mountains.",LT),
+Q("test","Landforms","Which bolded term is the Rockies ridge that splits where water drains?",["Continental Divide","Niagara Escarpment","Thermokarst depression","Physiographic region"],0,"West to the Pacific or east.",LT),
+
+/* ===== WEAK SPOTS (progress sheet, Nov 7) ===== */
+L("weak","Soil profile","The soil profile, top to bottom",`<p><b>O</b> organic → <b>A</b> topsoil → <b>E</b> leached (minerals <em class="k">Exit</em>) → <b>B</b> subsoil (minerals <em class="k">Build up</em>) → <b>C</b> parent material → <b>R</b> bedrock.</p>`,"Old Apes Eat Bananas, Coconuts, Raisins.",LW),
+Q("weak","Soil profile","Minerals washed down from above collect in which layer?",["B","E","O","R"],0,"E is where they leave; B is where they build up.",LW),
+Q("weak","Soil profile","Which layer is mostly broken-down rock sitting just above bedrock?",["C","A","O","E"],0,"C = parent material.",LW),
+Q("weak","Soil profile","A dark layer full of humus and most of the roots is the…",["A horizon","C horizon","R horizon","E horizon"],0,"Topsoil.",LW),
+L("weak","Tundra","Why so little grows on the tundra",`<ul><li><b>Permafrost</b> underneath: roots can't go deep, water can't drain</li><li>Very <em class="k">short, cold</em> growing season</li><li>So: mosses, lichen and small shrubs, all low to the ground, out of the wind</li></ul>`,0,LW),
+Q("weak","Tundra","Why are tundra plants so short?",["Permafrost and cold limit roots and growing time","The soil is too rich","It rains too much","Animals eat all tall plants"],0,"Short season, frozen ground.",LW),
+Q("weak","Tundra","Which grows on the tundra?",["Lichen","Maple trees","Tall prairie grass","Douglas fir"],0,"Lichen and mosses.",LW),
+L("weak","Feedback loop","Spot the loop",`<p>A <b>positive feedback loop</b> ends back where it started, but <em class="k">bigger</em>.</p><p>Warming → permafrost thaws → rotting plants release CO₂ and methane → more warming.</p>`,"If the last step causes more of the first step, it's a loop.",LW),
+Q("weak","Feedback loop","Which is a positive feedback loop?",["Warming melts permafrost, which releases gas that causes more warming","Rain falls, then the sun comes out","A volcano erupts once","Planting trees cools a city"],0,"The change feeds itself.",LW),
+Q("weak","Feedback loop","In a positive feedback loop, \"positive\" means…",["The change keeps growing","The change is good","The change stops itself","Temperatures go up by exactly 1 °C"],0,"Not good, just growing.",LW),
+L("weak","LOWERN","LOWERN, one place each",`<ul><li><b>L</b> Iqaluit colder than Toronto</li><li><b>O</b> Labrador Current + Gulf Stream = Newfoundland fog</li><li><b>W</b> westerlies carry Pacific air inland</li><li><b>E</b> Banff colder than Calgary</li><li><b>R</b> Vancouver wet, Kamloops dry (rain shadow)</li><li><b>N</b> Victoria mild, Winnipeg frigid</li></ul>`,0,LW),
+Q("weak","LOWERN","Kamloops, behind the Coast Mountains, is dry. Which factor?",["Relief","Latitude","Ocean currents","Near water"],0,"The leeward side gets the rain shadow.",LW),
+Q("weak","LOWERN","Iqaluit is much colder than Toronto mostly because of…",["Latitude","Elevation","Relief","Ocean currents"],0,"Farther from the equator.",LW),
+Q("weak","LOWERN","Weather systems in Canada usually move…",["West to east","East to west","North to south","They don't move"],0,"The westerlies.",LW),
+L("weak","Climate types","Coast vs inland",`<p><b>Maritime</b> (near the ocean): mild winters, cool summers, <em class="k">small range</em>, lots of precipitation.</p><p><b>Continental</b> (far inland): hot summers, cold winters, <em class="k">big range</em>, less precipitation.</p>`,"Maritime = Mild and Moist.",LW),
+Q("weak","Climate types","Winnipeg is far from any ocean. Expect…",["A big temperature range","Mild winters","Over 1000 mm of precipitation","No seasons"],0,"Continental.",LW),
+Q("weak","Climate types","Match the city: Resolute, Nunavut",["Arctic","Taiga","Boreal","Prairie"],0,"Coldest and driest, a cold desert.",LW),
+Q("weak","Climate types","Match the city: Halifax",["Atlantic maritime","Prairie","Arctic","Cordilleran"],0,"Ocean on the east coast.",LW),
+L("weak","Volcano types","Volcano types, one more time",`<ul><li><b>Shield</b>: wide, gentle, runny low-silica lava (Mauna Loa)</li><li><b>Stratovolcano</b>: tall, steep, <em class="k">layers</em> of ash and lava (Fuji)</li><li><b>Cinder cone</b>: small, ash and scoria around one vent</li><li><b>Caldera</b>: chamber empties, roof <em class="k">collapses</em> (Crater Lake)</li></ul>`,"Not on the Unit 2 review sheet, but it's the most-missed topic so far.",LW),
+Q("weak","Volcano types","A volcano that looks like a warrior's shield lying on the ground has…",["Runny, low-silica lava","Thick, high-silica lava","No lava at all","Only ash"],0,"Runny lava spreads far.",LW),
+Q("weak","Volcano types","Crater Lake sits in a bowl left after a volcano's roof fell in. That bowl is a…",["Caldera","Cinder cone","Shield","Stratovolcano"],0,"Collapse = caldera.",LW),
+
+/* ===== THE STORY OF STUFF (Nov 5 video) ===== */
+L("stuff","The film","The Story of Stuff (2007)",`<p>A 21-minute animated film narrated by <b>Annie Leonard</b>.</p><p>Big claim: our system of making, buying and tossing things is a <em class="k">straight line on a planet with limits</em>, and most of its costs are hidden.</p>`,0,LSS),
+L("stuff","Five stages","The materials economy",`<p><b>Extraction</b> → <b>Production</b> → <b>Distribution</b> → <b>Consumption</b> → <b>Disposal</b></p><p>Leonard keeps adding what the simple diagram leaves out: people, communities and the environment.</p>`,"Every Product Does Come to Dumps.",LSS),
+Q("stuff","Five stages","Which stage is cutting trees and mining metals?",["Extraction","Production","Distribution","Disposal"],0,"Taking resources out of the Earth.",LSS),
+Q("stuff","Five stages","Which stage is stores selling stuff as cheaply as possible?",["Distribution","Extraction","Production","Disposal"],0,"Getting it to buyers.",LSS),
+Q("stuff","Five stages","Why is a straight line a problem?",["It runs on a planet with limited resources","It is too short","It only works in winter","It uses only recycled materials"],0,"You can't run a linear system forever on a finite planet.",LSS),
+L("stuff","Hidden costs","Externalized costs",`<p>The price tag doesn't include the <em class="k">real costs</em>: lost forests, polluted water, workers' health, low pay.</p><p>Someone else pays them, which is how a gadget can be so cheap.</p>`,0,LSS),
+Q("stuff","Hidden costs","\"Externalizing costs\" means…",["Someone other than the buyer pays part of the real cost","Exporting products overseas","Paying extra taxes","Raising prices"],0,"The cost is pushed outside the price.",LSS),
+L("stuff","Obsolescence","Two kinds of obsolescence",`<p><b>Planned</b>: made to <em class="k">break or wear out</em> fast.</p><p><b>Perceived</b>: still works, but <em class="k">style and ads</em> make it look out of date.</p>`,"Planned = Broken on purpose. Perceived = just looks old.",LSS),
+Q("stuff","Obsolescence","Your phone works fine, but the new colour makes it look old. That's…",["Perceived obsolescence","Planned obsolescence","Externalized cost","Extraction"],0,"Nothing's broken; it just looks dated.",LSS),
+Q("stuff","Obsolescence","A printer built so a part fails after two years is…",["Planned obsolescence","Perceived obsolescence","Recycling","Distribution"],0,"Designed to break.",LSS),
+L("stuff","Treadmill","The work–watch–spend treadmill",`<p>Work more → watch TV and ads → buy more stuff → work more to pay for it.</p><p>Leonard links it to less time for friends, family and community.</p>`,0,LSS),
+L("stuff","Eco-footprint","Why it's in Geography",`<p>The worksheet is labelled <b>Cycle 1: Eco-Footprint</b>. An <b>ecological footprint</b> is how much land and resources it takes to support one person's way of living.</p><p>Watch it with a critical eye: it's made by an advocacy group to persuade, and some numbers are from the 2000s.</p>`,"Ask of anything you own: where did it come from, who made it, where does it go?",LSS),
+Q("stuff","Eco-footprint","An ecological footprint measures…",["Land and resources needed to support how someone lives","Shoe size","Only a country's garbage","Distance travelled by car"],0,"The bigger the footprint, the more planet it takes.",LSS)
 
 ];
 CARDS.forEach((c,i)=>c.id=c.deck+"-"+i);
@@ -389,7 +462,7 @@ const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 
 /* ---------- Feed ---------- */
 const feed=document.getElementById("feed"),countEl=document.getElementById("count"),barEl=document.getElementById("bar"),hint=document.getElementById("hint");
-let cur="climate",run=[],answered={},right=0,checks=0,missedNow=new Set(),started=false;
+let cur="test",run=[],answered={},right=0,checks=0,missedNow=new Set(),started=false;
 const esc=s=>String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 
@@ -477,7 +550,7 @@ function start(deck){
   feed.scrollTop=0;document.getElementById("deckname").textContent=deckLabel(deck);
   hint.style.opacity=1;updateCount();closeSheet();
   if(!started){started=true;S.sessions++;S.first=S.first||new Date().toISOString();S.last=new Date().toISOString();save()}
-  try{localStorage.setItem(KEY+".deck3",deck)}catch(e){}
+  try{localStorage.setItem(KEY+".deck4",deck)}catch(e){}
   window.Sync&&Sync.log("start",deck);
 }
 feed.addEventListener("scroll",()=>{clearTimeout(feed._t);feed._t=setTimeout(updateCount,60)},{passive:true});
@@ -516,7 +589,7 @@ document.getElementById("statsbtn").onclick=()=>{
   st.hidden=false;
 };
 
-let first="climate";try{const d=localStorage.getItem(KEY+".deck3");if(d&&(DECKS[d]))first=d}catch(e){}
+let first="test";try{const d=localStorage.getItem(KEY+".deck4");if(d&&(DECKS[d]))first=d}catch(e){}
 start(first);
 </script>
 </body>
