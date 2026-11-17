@@ -123,14 +123,19 @@ h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,8vw,38px);lin
    Follows Mr. Muckinhaupt's CGC1D slides (Oct 16: Earthquakes, Volcanoes & the Rock Cycle; Oct 20: Glaciers;
    Oct 21: textbook pp. 24-27, population patterns; Oct 22: Soil and vegetation + Tundra and climate change handout;
    Oct 26: climate region discussion, textbook Figure 3-11; Oct 29-30: Pump preview questions and documentary;
-   Nov 3: Unit 2 test review sheet; Nov 5: The Story of Stuff video. Its worksheet is homework, so its numbers are left out)
+   Nov 3: Unit 2 test review sheet; Nov 5: The Story of Stuff video. Its worksheet is homework, so its numbers are left out;
+   Nov 9-13: natural resources, water, aquaculture video, forestry and fishing. Their worksheets, notebook
+   questions and research tasks are homework, so their answers are left out)
    plus earlier lessons for review. Textbook Apply It!/Viewpoints questions and the tundra handout questions are
    homework, so they are left out. New cards are appended after the old ones so saved progress ids stay stable.
    Real-world examples come from outside the course. Discovery Task 3 questions (Earthquakes Canada site research,
    early warning, building design, badlands) are homework, so they are left out. */
 const DECKS={
+  res:{name:"Canada's resources",sub:"Renewable vs non-renewable, where resources are, who decides"},
+  water:{name:"Water as a resource",sub:"97-3-0.3, groundwater, Walkerton, withdrawal vs consumption, aridity"},
+  ff:{name:"Forestry & fishing",sub:"Harvesting, sustained yield, the continental shelf, the cod collapse"},
   test:{name:"Unit 2 test prep",sub:"The Nov 3 review sheet: break-move-drop, soil damage, calculations, the Shield"},
-  weak:{name:"Rematch",sub:"Soil profile, tundra, feedback loops, LOWERN, climate types, volcano types"},
+  weak:{name:"Rematch",sub:"Maritime vs continental, water vs ice, LOWERN, feedback loops, volcano types"},
   stuff:{name:"The Story of Stuff",sub:"Five stages, hidden costs, obsolescence, eco-footprint"},
   climate:{name:"Climate regions",sub:"The 8 regions, hardiness zones, soils, the Prairie case"},
   pump:{name:"Pump: oil & fuels",sub:"Monopoly, ethanol, methanol, flex-fuel, Brazil, Canada's energy"},
@@ -146,7 +151,7 @@ const DECKS={
 };
 const L=(deck,topic,h,b,ex,test)=>({t:"learn",deck,topic,h,b,ex,test});
 const Q=(deck,topic,q,opts,a,why,test)=>({t:"check",deck,topic,q,opts,a,why,test});
-const T=true,LG="Oct 20 lesson",LP="Oct 21 lesson",LS="Oct 22 lesson",LCR="Oct 26 lesson",LPM="Oct 30 lesson",LT="Nov 3 review",LW="Rematch",LSS="Nov 5 lesson";
+const T=true,LG="Oct 20 lesson",LP="Oct 21 lesson",LS="Oct 22 lesson",LCR="Oct 26 lesson",LPM="Oct 30 lesson",LT="Nov 3 review",LW="Rematch",LSS="Nov 5 lesson",LR="Nov 9 lesson",LWA="Nov 11 lesson",LAQ="Nov 12 lesson",LFF="Nov 13 lesson";
 
 const CARDS=[
 /* ===== EARTHQUAKES ===== */
@@ -450,7 +455,85 @@ Q("stuff","Obsolescence","A printer built so a part fails after two years is…"
 L("stuff","Treadmill","The work–watch–spend treadmill",`<p>Work more → watch TV and ads → buy more stuff → work more to pay for it.</p><p>Leonard links it to less time for friends, family and community.</p>`,0,LSS),
 L("stuff","Eco-footprint","Why it's in Geography",`<p>The worksheet is labelled <b>Cycle 1: Eco-Footprint</b>. An <b>ecological footprint</b> is how much land and resources it takes to support one person's way of living.</p><p>Watch it with a critical eye: it's made by an advocacy group to persuade, and some numbers are from the 2000s.</p>`,"Ask of anything you own: where did it come from, who made it, where does it go?",LSS),
 Q("stuff","Eco-footprint","An ecological footprint measures…",["Land and resources needed to support how someone lives","Shoe size","Only a country's garbage","Distance travelled by car"],0,"The bigger the footprint, the more planet it takes.",LSS)
+,
+/* ===== CANADA'S RESOURCES (Nov 9) ===== */
+L("res","What they are","Resources",`<p>A <b>resource</b> is anything in the natural environment people find useful. It's <em class="k">extracted</em>, then used as is or processed into products.</p><p>Two kinds: <b>renewable</b> and <b>non-renewable</b>.</p>`,0,LR),
+L("res","Renewable","Renewable is a promise, not a guarantee",`<p><b>Renewable</b>: can regrow or refill <em class="k">if managed carefully</em>.</p><p><b>Non-renewable</b>: takes longer than a human lifetime to renew, or never renews.</p><p>Forests, fish and water are renewable, but take them too fast and you've used them in a non-renewable way.</p>`,"The slides: renewability is a feature of resource management.",LR),
+Q("res","Renewable","What makes a resource stay renewable?",["Using it efficiently and carefully","Recycling it","Finding it underground","Selling it to other countries"],0,"Renewable only if managed well.",LR),
+Q("res","Renewable","A resource that takes longer than a human lifetime to renew is…",["Non-renewable","Renewable","Consumptive","A flow resource"],0,"Longer than a lifetime = non-renewable.",LR),
+L("res","Traps","Two traps",`<ul><li><b>Soil is non-renewable</b>: a thin layer takes hundreds of years to form</li><li><b>Recycling doesn't make something renewable</b>: recycling plastic can take more energy than making new</li></ul>`,"Recycled plastic is still oil.",LR),
+Q("res","Traps","According to the slides, soil is…",["Non-renewable","Renewable","Renewable if you add fertilizer","Not a resource"],0,"Hundreds of years for a thin layer.",LR),
+Q("res","Traps","Does recycling make plastic renewable?",["No, it's still made from oil","Yes, once it's recycled","Only if it's recycled twice","Only in Canada"],0,"Recycling ≠ renewable.",LR),
+L("res","Where","Unit 2 tells you where resources are",`<ul><li><b>Canadian Shield</b>: nickel, gold, uranium, copper, zinc</li><li><b>Interior Plains</b>: potash, coal, oil, gas, wheat</li><li><b>Cordillera</b>: forests (BC #1 for lumber), minerals, hydro</li><li><b>Atlantic coast</b>: fishing on the shallow banks</li></ul><p>Settlement follows resources: many small towns are <b>company towns</b>.</p>`,0,LR),
+Q("res","Where","Potash and oil come mostly from the…",["Interior Plains","Canadian Shield","Hudson Bay Lowland","Appalachian Uplands"],0,"Sedimentary rock from ancient seas.",LR),
+Q("res","Where","A town built around one industry, where everyone knows someone in it, is a…",["Company town","CMA","Ecumene","Rural fringe"],0,"When the resource collapses, so does the town.",LR),
+L("res","Who decides","Who's in charge?",`<ul><li><b>Federal</b>: coastal and inland fisheries; trade between provinces and countries</li><li><b>Provinces</b>: resources inside their borders, but in line with federal policy</li></ul><p>Example: an Alberta oil pipeline to the coast. Alberta wants it, BC refuses, Ottawa is stuck between them, and Indigenous communities on the route object.</p>`,0,LR),
+Q("res","Who decides","Who controls Canada's coastal fisheries?",["The federal government","The provinces","Cities","Fishing companies"],0,"Fisheries are federal.",LR),
+Q("res","Who decides","Why can't Alberta just build a pipeline to the coast?",["It has to cross BC, which refuses","Oil can't go in pipes","The coast is frozen","Alberta has no oil"],0,"Landlocked, so it needs another province's land.",LR),
+L("res","Cases","Two Atlantic stories",`<ul><li><b>Cod</b>: a <b>moratorium</b> (temporary pause) in 1992 ended 500 years of cod fishing in Newfoundland</li><li><b>Churchill Falls</b>: a 1969 deal sold Labrador's power to Hydro-Québec at a fixed price until 2041. In 1996 Newfoundland got about $20 million a year; Hydro-Québec earned about $800 million reselling it</li></ul>`,0,LR),
+Q("res","Cases","A moratorium is…",["A temporary pause","A permanent ban","A tax","A fishing licence"],0,"Cod fishing paused in 1992.",LR),
 
+/* ===== WATER (Nov 11) ===== */
+L("water","How much","97 · 3 · 0.3",`<ul><li><b>96.5%</b> of Earth's water is salt</li><li>About <b>3%</b> is fresh, mostly locked in ice caps, glaciers and groundwater</li><li>Only about <b>0.3%</b> of fresh water is in lakes, rivers and swamps</li></ul><p>So about <em class="k">99%</em> of all water is unusable.</p>`,0,LWA),
+Q("water","How much","About how much of Earth's water is salt?",["96.5%","70%","50%","3%"],0,"97 · 3 · 0.3.",LWA),
+Q("water","How much","Most fresh water is found in…",["Ice caps, glaciers and groundwater","Lakes","Rivers","Clouds"],0,"Lakes, rivers and swamps hold only about 0.3% of it.",LWA),
+L("water","Canada","Canada's water: 20 / 7",`<p>About <b>20%</b> of the world's fresh water, but only <b>7%</b> of its <em class="k">renewable</em> fresh water. The rest is \"fossil\" water from the Ice Age.</p><p>More than half drains north, away from most people. 563 lakes are bigger than 100 km². Hydro makes close to 60% of our electricity.</p>`,"The slide's \"7% of reserves\" means 7% of renewable fresh water.",LWA),
+Q("water","Canada","Canada has about 20% of the world's fresh water. What share of the renewable kind?",["7%","20%","50%","1%"],0,"20 / 7.",LWA),
+Q("water","Canada","About how much of Canada's electricity comes from hydro?",["Close to 60%","About 10%","About 25%","Almost 100%"],0,"58% in 2023.",LWA),
+L("water","Sources","Glaciers and groundwater",`<ul><li><b>Glaciers</b> hold <b>snowpack</b> cold in winter and melt slowly in summer, feeding rivers like the Ganges, Rhine and Rhône</li><li><b>Groundwater</b> fills every gap below the <b>water table</b>. It comes up in springs, swamps and lakes, or we pump it from <b>wells</b>. An <b>aquifer</b> is an underground reservoir</li></ul>`,"Leaching (Unit 2) can carry pollution into groundwater.",LWA),
+Q("water","Sources","The level underground below which all the gaps are full of water is the…",["Water table","Aquifer","Snowpack","Watershed"],0,"Below it, the ground is saturated.",LWA),
+Q("water","Sources","Why does melting glacier ice threaten water far away?",["Rivers fed by slow summer melt will run low","Ice makes water salty","Glaciers cause droughts in winter only","It doesn't"],0,"Communities nowhere near glaciers depend on them.",LWA),
+L("water","Walkerton","Walkerton, Ontario, 2000",`<p>Heavy rain washed cow manure into a town well. <b>E. coli</b> got into the water. Managers had been faking chlorine-check records.</p><p><b>2,300</b> got sick and <b>7</b> died: the worst E. coli outbreak in Canadian history.</p>`,0,LWA),
+Q("water","Walkerton","What contaminated Walkerton's water?",["E. coli from manure","Lead pipes","An oil spill","Road salt"],0,"Rain + manure + faked checks.",LWA),
+L("water","Withdrawal","Withdrawal vs. consumption",`<p><b>Withdrawal</b>: taken, used, then <em class="k">returned</em> to the source.</p><p><b>Consumption</b>: taken and <em class="k">not returned</em>, or too spoiled to reuse.</p>`,"Withdrawal = Will come back. Consumption = Can't come back.",LWA),
+Q("water","Withdrawal","A power plant cools itself with lake water, then pipes it back. That's…",["Withdrawal","Consumption","Desalination","Leaching"],0,"It goes back.",LWA),
+Q("water","Withdrawal","Water bottled and shipped overseas is…",["Consumption","Withdrawal","Recharge","Runoff"],0,"It never comes back.",LWA),
+L("water","Aridity","How dry is it?",`<p><b>Aridity index = P ÷ PET</b>: precipitation over potential evapotranspiration (how much water <em>could</em> evaporate).</p><ul><li>Under <b>0.05</b> = <b>hyperarid</b>, a desert</li><li><b>Drylands</b>: dry as part of the climate, not just in a drought</li><li><b>Desertification</b>: <em class="k">people</em> making drylands less productive, not deserts spreading</li></ul>`,0,LWA),
+Q("water","Aridity","P = 40 mm, PET = 1600 mm. The aridity index is…",["0.025, hyperarid","40, very wet","0.4, humid","1600, a desert"],0,"40 ÷ 1600 = 0.025, under 0.05.",LWA),
+Q("water","Aridity","Desertification means…",["People making drylands less productive","Deserts spreading on their own","Sand dunes forming at the beach","Rain falling in a desert"],0,"Caused by people.",LWA),
+L("water","Debate","Should Canada sell water in bulk?",`<p><b>Sell</b>: it's renewable, rivers \"waste\" it into the sea, jobs and taxes, help our ally.</p><p><b>Don't</b>: we could lose control, locals and Indigenous people pay the costs, climate change will make it scarce, the U.S. wastes its own.</p><p>The Netflix episode adds the price puzzle: cheap water gets wasted, but water is a human right.</p>`,"A critique tests an argument even when you agree with it.",LWA),
+
+/* ===== FORESTRY & FISHING (Nov 13) ===== */
+L("ff","Forestry","Forestry: farming with patience",`<p>Paper trees: about <b>40 years</b>. Hardwood for furniture: <b>200+ years</b>.</p><p>Modern machines cut faster than trees regrow, so we can <em class="k">mine</em> a renewable resource.</p><p>Canada has the <b>3rd largest</b> forest in the world, after Russia and Brazil. <b>BC</b> produces the most lumber.</p>`,0,LFF),
+Q("ff","Forestry","Canada's forests rank where in the world?",["3rd largest","Largest","10th","2nd"],0,"After Russia and Brazil.",LFF),
+Q("ff","Forestry","Which province produces the most lumber?",["British Columbia","Ontario","Quebec","New Brunswick"],0,"The biggest forests.",LFF),
+Q("ff","Forestry","A forest that has never been logged is…",["Old-growth","Second-growth","Clear-cut","Boreal"],0,"What grows back after logging is second-growth.",LFF),
+L("ff","Wood","Softwood vs. hardwood",`<p><b>Coniferous</b> trees → <b>softwood</b>. <b>Deciduous</b> trees → <b>hardwood</b>.</p><p>The slides explain it by seeds: conifer seeds have no protective coat; deciduous seeds do.</p><p><b>Deforestation</b>: clearing forest and turning the land to another use for good.</p>`,"Conifer = Cones = soft.",LFF),
+Q("ff","Wood","Hardwood comes from…",["Deciduous trees","Coniferous trees","Any tree over 200 years","Old-growth only"],0,"Conifers give softwood.",LFF),
+L("ff","Harvest","Three ways to harvest",`<ul><li><b>Clear cutting</b>: every tree in an area</li><li><b>Shelterwood</b>: rows cut, some trees left to shelter and reseed</li><li><b>Selective</b>: single trees picked out one at a time</li></ul><p>The easier and cheaper the method, the more damage.</p>`,0,LFF),
+Q("ff","Harvest","Which method leaves some trees to shelter and reseed the ground?",["Shelterwood logging","Clear cutting","Selective harvest","Deforestation"],0,"Trees cut in rows; others left.",LFF),
+L("ff","Sustained yield","Sustained yield management",`<p>Take no more than grows back, so the harvest lasts forever.</p><ul><li><b>FSC</b> (Forest Stewardship Council) certifies responsibly managed forests</li><li><b>MSC</b> (Marine Stewardship Council) certifies sustainable fisheries</li><li><b>Algonquin Park</b> (1893) balances logging, tourism and protection</li></ul>`,"FSC = Forests. MSC = Marine.",LFF),
+Q("ff","Sustained yield","Sustained yield management means…",["Harvesting no more than grows back","Harvesting as much as possible","Never harvesting","Only harvesting in winter"],0,"So it can go on forever.",LFF),
+Q("ff","Sustained yield","A label on seafood from a certified sustainable fishery comes from the…",["MSC","FSC","CMA","UN"],0,"Marine Stewardship Council.",LFF),
+L("ff","Fishing","Why fishing matters",`<p>Only about 80,000 jobs, but:</p><ul><li>Remote Atlantic and BC towns have few other jobs</li><li>Canada's <b>oldest industry</b>: fishing boats here before 1497</li><li>The cod collapse is our biggest lesson in bad management</li></ul><p>Climate change: warmer oceans move fish north (Pacific salmon) and are less productive.</p>`,0,LFF),
+L("ff","Fish types","Three categories of catch",`<ul><li><b>Groundfish</b>: feed and are caught near the ocean <em class="k">floor</em></li><li><b>Pelagic</b>: feed and are caught near the <em class="k">surface</em></li><li><b>Shellfish</b>: no backbone, hard shell</li></ul>`,"Ground = ground floor. Pelagic = paddling at the top.",LFF),
+Q("ff","Fish types","A fish that feeds and is caught near the ocean floor is…",["Groundfish","Pelagic","Shellfish","Farmed"],0,"Ground floor.",LFF),
+Q("ff","Fish types","A fish that feeds and is caught near the surface is…",["Pelagic","Groundfish","Shellfish","Freshwater"],0,"Paddling at the top.",LFF),
+L("ff","Shelf","The continental shelf",`<p>The undersea edge of a continent, usually <b>under 200 m</b> deep. Its shallowest parts are <b>banks</b>, the best fishing grounds (Grand Banks).</p><p>Since <b>1977</b>, Canada controls <b>200 nautical miles</b> (370 km) out. Before, only 12.</p>`,0,LFF),
+Q("ff","Shelf","Shallow parts of the continental shelf that are great for fishing are called…",["Banks","Slopes","Trenches","Deltas"],0,"Like the Grand Banks.",LFF),
+Q("ff","Shelf","Since 1977, Canada has controlled the sea out to…",["200 nautical miles","12 nautical miles","1000 km","The middle of the Atlantic"],0,"About 370 km.",LFF),
+L("ff","In vs off","Inshore vs. offshore",`<p><b>Inshore</b>: within 16–25 km, family boats, home each night. <b>85%</b> of workers, <b>10%</b> of the catch. A way of life.</p><p><b>Offshore</b>: big company ships, weeks at sea, year-round. <b>15%</b> of workers, <b>90%</b> of the catch. A business.</p>`,"Most people inshore, most fish offshore.",LFF),
+Q("ff","In vs off","Who brings in 90% of the catch?",["The offshore fishery","The inshore fishery","Fish farms","Foreign fleets only"],0,"Few people, most fish.",LFF),
+Q("ff","In vs off","Who employs 85% of fishing workers?",["The inshore fishery","The offshore fishery","Factory trawlers","The government"],0,"Small boats, many people.",LFF),
+L("ff","Cod","The cod collapse: 68 · 77 · 83 · 92",`<ul><li><b>1968</b>: foreign catch peaks</li><li><b>1977</b>: 200-mile limit</li><li><b>1983</b>: Canada's catch peaks; limits still too high</li><li><b>1992</b>: moratorium</li><li><b>2012</b>: only 11,000 tonnes; no recovery</li></ul><p><b>Tragedy of the commons</b>: when a resource is shared, everyone takes what helps them, and it runs out.</p>`,0,LFF),
+Q("ff","Cod","\"If I don't catch it, someone else will.\" That thinking is the…",["Tragedy of the commons","Sustained yield","Moratorium","Rain shadow"],0,"Shared resource, everyone takes, it runs out.",LFF),
+Q("ff","Cod","Why are fish harder to manage than forests?",["Fish move and their numbers change","Fish grow slower than trees","Fish are non-renewable","Nobody eats fish"],0,"You can measure a forest; fish won't sit still.",LFF),
+L("ff","Aquaculture","Aquaculture (Nov 12)",`<p><b>Aquaculture</b> = fish farming: raising fish instead of catching them wild.</p><p>The catch: many farms feed fish on wild-fish meal, or even <b>chicken pellets</b>. A farm like Veta La Palma in Spain lets fish eat what grows in a restored marsh instead.</p>`,"Food miles: food grown nearby usually travels less and burns less fuel.",LAQ),
+Q("ff","Aquaculture","Aquaculture means…",["Fish farming","Ocean currents","Water treatment","Deep-sea drilling"],0,"Farming, not catching.",LAQ),
+
+/* ===== REMATCH round 2 (progress sheet, Nov 16) ===== */
+L("weak","Climate types","Both rules have to pass",`<p><b>Maritime</b>: range <em class="k">under 25 °C</em> AND precipitation <em class="k">over 1000 mm</em>.</p><p><b>Continental</b>: range <em class="k">over 25 °C</em> AND precipitation <em class="k">under 1000 mm</em>.</p><p>One of each = <b>modified</b>. Check range first, then rain.</p>`,"Maritime = Mild and Moist.",LW),
+Q("weak","Climate types","Range 12 °C, precipitation 1450 mm. Climate type?",["Maritime","Continental","Modified","Arctic"],0,"Small range + lots of rain.",LW),
+Q("weak","Climate types","Range 34 °C, precipitation 450 mm. Climate type?",["Continental","Maritime","Modified","Tropical"],0,"Big range + little rain.",LW),
+Q("weak","Climate types","Range 31 °C, precipitation 1100 mm. Climate type?",["Modified","Maritime","Continental","Can't tell"],0,"Range says continental, rain says maritime.",LW),
+Q("weak","Climate types","Vancouver sits right on the Pacific. Expect…",["A small temperature range","A huge temperature range","Under 500 mm of rain","Winters colder than Winnipeg"],0,"Near water = mild = maritime.",LW),
+L("weak","Water vs ice","Who dropped it?",`<p><b>Ice</b> drops everything at once: boulders, sand and clay <em class="k">jumbled</em> together. That's <b>till</b>.</p><p><b>Water</b> sorts as it slows: big stones first, fine silt last. A meltwater lake leaves <em class="k">flat, fine, rich</em> soil.</p>`,"Jumbled = glacier. Sorted and fine = water.",LW),
+Q("weak","Water vs ice","Unsorted rocks, sand and clay mixed in a hill were left by…",["A glacier","A river","A lake","Wind"],0,"Ice doesn't sort.",LW),
+Q("weak","Water vs ice","Flat, fine, rich farm soil near the Great Lakes was most likely left by…",["An old meltwater lake","A glacier pushing rocks","A volcano","Wind erosion"],0,"Still water drops the finest bits.",LW),
+L("weak","Break move drop","Break, move, drop",`<ul><li><b>Weathering</b>: rock <em class="k">breaks</em> where it sits (frost wedging)</li><li><b>Erosion</b>: pieces get <em class="k">moved</em> away</li><li><b>Deposition</b>: pieces get <em class="k">dropped</em> when the water, ice or wind slows down</li></ul>`,0,LW),
+Q("weak","Break move drop","Wind slows behind a hill and drops its sand. That's…",["Deposition","Erosion","Weathering","Leaching"],0,"Slowing down = dropping.",LW),
+Q("weak","LOWERN","The dry side of a mountain, away from the wind, is the…",["Leeward side (rain shadow)","Windward side","Jet stream","Continental divide"],0,"Relief: rain falls on the windward side.",LW),
+Q("weak","Volcano types","A tall, steep volcano built from layers of ash and lava is a…",["Stratovolcano","Shield volcano","Caldera","Cinder cone"],0,"Strata = layers.",LW)
 ];
 CARDS.forEach((c,i)=>c.id=c.deck+"-"+i);
 
@@ -550,7 +633,7 @@ function start(deck){
   feed.scrollTop=0;document.getElementById("deckname").textContent=deckLabel(deck);
   hint.style.opacity=1;updateCount();closeSheet();
   if(!started){started=true;S.sessions++;S.first=S.first||new Date().toISOString();S.last=new Date().toISOString();save()}
-  try{localStorage.setItem(KEY+".deck4",deck)}catch(e){}
+  try{localStorage.setItem(KEY+".deck5",deck)}catch(e){}
   window.Sync&&Sync.log("start",deck);
 }
 feed.addEventListener("scroll",()=>{clearTimeout(feed._t);feed._t=setTimeout(updateCount,60)},{passive:true});
@@ -589,7 +672,7 @@ document.getElementById("statsbtn").onclick=()=>{
   st.hidden=false;
 };
 
-let first="test";try{const d=localStorage.getItem(KEY+".deck4");if(d&&(DECKS[d]))first=d}catch(e){}
+let first="weak";try{const d=localStorage.getItem(KEY+".deck5");if(d&&(DECKS[d]))first=d}catch(e){}
 start(first);
 </script>
 </body>
