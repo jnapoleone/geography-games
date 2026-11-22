@@ -19,7 +19,7 @@ function put(k,v){try{localStorage.setItem(k,v);return true}catch(e){return fals
 /* ---------- Parent mode ----------
    For a parent going through the questions. While it's on, this browser sends nothing to the Sheet and the
    games don't change the progress saved on this device. It ends after 30 minutes with no taps, so if it's
-   left on, Sebastian's next session still counts. Shared by Base Camp and Swipe (same site, same storage). */
+   left on, the student's next session still counts. Shared by Base Camp and Swipe (same site, same storage). */
 var K_PAR="geoParent.until",IDLE_MS=30*60*1000,wasOn=false,lastTouch=0;
 function parentOn(){var t=Number(get(K_PAR));return t>Date.now()}
 function parentSet(on){
