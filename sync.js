@@ -13,11 +13,51 @@ var NOTE="Your Geography right and wrong answers now go to a private sheet your 
 
 var API={on:false,note:NOTE,log:function(){},flush:function(){}};
 window.Sync=API;
+function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function put(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}}
+
+/* ---------- Parent mode ----------
+   For a parent going through the questions. While it's on, this browser sends nothing to the Sheet and the
+   games don't change the progress saved on this device. It ends after 30 minutes with no taps, so if it's
+   left on, Sebastian's next session still counts. Shared by Base Camp and Swipe (same site, same storage). */
+var K_PAR="geoParent.until",IDLE_MS=30*60*1000,wasOn=false,lastTouch=0;
+function parentOn(){var t=Number(get(K_PAR));return t>Date.now()}
+function parentSet(on){
+  if(on)put(K_PAR,String(Date.now()+IDLE_MS));else{try{localStorage.removeItem(K_PAR)}catch(e){}}
+  location.reload();
+}
+function touch(){
+  if(!wasOn)return;
+  if(!parentOn()){check();return}
+  var n=Date.now();if(n-lastTouch<15000)return;lastTouch=n;put(K_PAR,String(n+IDLE_MS));
+}
+function check(){ /* if it timed out, reload so the page starts clean and counts again */
+  if(wasOn&&!parentOn()){try{localStorage.removeItem(K_PAR)}catch(e){}location.reload()}
+}
+function banner(){
+  if(!wasOn||document.getElementById("parentbar"))return;
+  document.documentElement.classList.add("parent-mode");
+  var d=document.createElement("div");d.id="parentbar";d.setAttribute("role","status");
+  d.style.cssText="position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;justify-content:center;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top,0px) + 4px) 12px 4px;background:#5ad1ff;color:#0e0f12;font:600 13px/1.3 system-ui,-apple-system,sans-serif";
+  var s=document.createElement("span");s.textContent="Parent mode · answers aren't recorded";
+  var b=document.createElement("button");b.type="button";b.textContent="Turn off";
+  b.style.cssText="background:none;border:0;padding:2px 4px;color:#0e0f12;font:inherit;text-decoration:underline;cursor:pointer";
+  b.onclick=function(){parentSet(false)};
+  d.appendChild(s);d.appendChild(b);document.body.appendChild(d);
+}
+wasOn=parentOn();
+if(get(K_PAR)&&!wasOn){try{localStorage.removeItem(K_PAR)}catch(e){}}
+window.Parent={on:function(){return wasOn&&parentOn()},set:parentSet,minutes:IDLE_MS/60000};
+if(wasOn){
+  ["pointerdown","keydown","scroll","touchstart"].forEach(function(ev){window.addEventListener(ev,touch,{passive:true,capture:true})});
+  setInterval(check,30000);
+  document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")check()});
+  if(document.body)banner();else document.addEventListener("DOMContentLoaded",banner);
+}
+
 if(!ENDPOINT)return;
 
 var mem=[],memOnly=false,busy=false,nextTry=0,timer=null,seq=0;
-function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
-function put(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}}
 function parse(k){try{return JSON.parse(get(k))}catch(e){return null}}
 function readQ(){if(memOnly)return mem;var q=parse(K_Q);return Array.isArray(q)?q:[]}
 function writeQ(q){if(q.length>MAX_QUEUE)q=q.slice(q.length-MAX_QUEUE);if(!memOnly&&!put(K_Q,JSON.stringify(q))){memOnly=true}mem=q}
@@ -38,6 +78,7 @@ function make(id,at,app,kind,item,result,value){
 
 function log(kind,item,result,value){
   try{
+    if(window.Parent.on())return; /* parent mode: nothing is recorded */
     var now=new Date(),q=readQ();
     q.push(make(dev+"-"+now.getTime().toString(36)+"-"+(seq++),now.toISOString(),APP,kind,item,result,value));
     writeQ(q);
@@ -91,7 +132,7 @@ function flush(leaving){
 
 /* A one-time heads-up on whichever page he opens first. */
 function showNote(){
-  if(get(K_NOTE))return;
+  if(get(K_NOTE)||wasOn)return;
   var d=document.createElement("div");
   d.setAttribute("role","status");
   d.style.cssText="position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:9999;max-width:480px;margin:0 auto;background:#17191f;color:#f1f2f4;border:1px solid #3a3e48;border-radius:12px;padding:14px;font:500 15px/1.4 system-ui,-apple-system,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.45)";

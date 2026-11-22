@@ -87,6 +87,11 @@ h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,8vw,38px);lin
 .statrow:last-child{border-bottom:0}
 .statrow span:last-child{color:var(--dim);font-variant-numeric:tabular-nums;text-align:right}
 .linkish{background:none;border:0;color:var(--dim);text-decoration:underline;cursor:pointer;padding:10px 4px;font-size:14px}
+.pm{margin:4px 4px 14px;padding:14px;border:1px solid var(--test);border-radius:14px}
+.pm b{display:block;font-family:var(--display);font-size:16px}
+.pm span{display:block;font-size:13px;color:var(--dim);margin-top:2px}
+.parent-mode .top{padding-top:calc(env(safe-area-inset-top,0px) + 34px)}
+.parent-mode .slide{padding-top:calc(env(safe-area-inset-top,0px) + 94px)}
 @media (max-height:720px){
   html,body{font-size:15px;line-height:1.42}
   .slide{padding-top:calc(env(safe-area-inset-top,0px) + 62px);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 22px)}
@@ -117,7 +122,7 @@ h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,8vw,38px);lin
   <p class="small" id="syncnote" hidden style="margin:10px 4px 0"></p>
 </div></div>
 
-<script src="../sync.js?v=2"></script>
+<script src="../sync.js?v=3"></script>
 <script>
 /* ---------- Content ----------
    Follows Mr. Muckinhaupt's CGC1D slides (Oct 16: Earthquakes, Volcanoes & the Rock Cycle; Oct 20: Glaciers;
@@ -541,7 +546,8 @@ CARDS.forEach((c,i)=>c.id=c.deck+"-"+i);
 const KEY="geoSwipe.v1";
 let S={sessions:0,first:null,last:null,topics:{},miss:{},decks:{}};
 try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&typeof s==="object")S=Object.assign(S,s)}catch(e){}
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const PM=()=>!!(window.Parent&&Parent.on()); /* parent mode: nothing saved or sent */
+const save=()=>{if(PM())return;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 
 /* ---------- Feed ---------- */
 const feed=document.getElementById("feed"),countEl=document.getElementById("count"),barEl=document.getElementById("bar"),hint=document.getElementById("hint");
@@ -633,7 +639,7 @@ function start(deck){
   feed.scrollTop=0;document.getElementById("deckname").textContent=deckLabel(deck);
   hint.style.opacity=1;updateCount();closeSheet();
   if(!started){started=true;S.sessions++;S.first=S.first||new Date().toISOString();S.last=new Date().toISOString();save()}
-  try{localStorage.setItem(KEY+".deck5",deck)}catch(e){}
+  if(!PM()){try{localStorage.setItem(KEY+".deck5",deck)}catch(e){}}
   window.Sync&&Sync.log("start",deck);
 }
 feed.addEventListener("scroll",()=>{clearTimeout(feed._t);feed._t=setTimeout(updateCount,60)},{passive:true});
@@ -664,11 +670,13 @@ document.getElementById("statsbtn").onclick=()=>{
   if(!st.hidden){st.hidden=true;return}
   const fmt=d=>d?new Date(d).toLocaleString(undefined,{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}):"never";
   const topics=Object.entries(S.topics).map(([k,v])=>[k,v,v.r/(v.r+v.w)]).sort((a,b)=>a[2]-b[2]);
-  st.innerHTML=`<div class="statrow"><span>Sessions</span><span>${S.sessions}</span></div>
+  st.innerHTML=`${window.Parent?`<div class="pm"><div><b>Parent mode</b><span>Go through the questions without them counting toward the progress sheet or this device's scores. Turns off by itself after ${Parent.minutes} minutes of no taps.</span></div><button class="btn${PM()?"":" main"}" id="pmbtn">${PM()?"Turn off parent mode":"Turn on parent mode"}</button></div>`:""}
+    <div class="statrow"><span>Sessions</span><span>${S.sessions}</span></div>
     <div class="statrow"><span>Last active</span><span>${fmt(S.last)}</span></div>
     ${Object.entries(DECKS).map(([k,v])=>{const d=S.decks[k];return `<div class="statrow"><span>${esc(v.name)}</span><span>${d&&d.runs?`${d.runs} finished · best ${d.best}%`:"not finished yet"}</span></div>`}).join("")}
     ${topics.length?`<p class="small" style="margin:14px 4px 4px">By topic, weakest first (all answers, including second tries):</p>`+topics.map(([k,v,p])=>`<div class="statrow"><span>${esc(k)}</span><span>${Math.round(p*100)}% of ${v.r+v.w}</span></div>`).join(""):'<p class="small" style="margin:14px 4px">No answers yet.</p>'}
-    <p class="small" style="margin:12px 4px 0">${window.Sync&&Sync.on?"Saved on this device and sent to the progress sheet.":"Saved on this device only."}</p>`;
+    <p class="small" style="margin:12px 4px 0">${PM()?"Parent mode is on: nothing you answer is saved or sent.":window.Sync&&Sync.on?"Saved on this device and sent to the progress sheet.":"Saved on this device only."}</p>`;
+  const pb=document.getElementById("pmbtn");if(pb)pb.onclick=()=>Parent.set(!PM());
   st.hidden=false;
 };
 
